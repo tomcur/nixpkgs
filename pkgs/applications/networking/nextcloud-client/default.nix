@@ -21,13 +21,13 @@
 
 mkDerivation rec {
   pname = "nextcloud-client";
-  version = "3.2.3";
+  version = "3.3.4";
 
   src = fetchFromGitHub {
     owner = "nextcloud";
     repo = "desktop";
     rev = "v${version}";
-    sha256 = "sha256-NE0P6bG/msoP29c/1r/fTC5vDcqgkQuqfRK+IDftMqY=";
+    sha256 = "sha256-9RumsGpPHWa3EQXobBC3RcDUqwHCKiff+ngpTXKLyaE=";
   };
 
   patches = [
@@ -70,7 +70,7 @@ mkDerivation rec {
     description = "Nextcloud themed desktop client";
     homepage = "https://nextcloud.com";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ caugner ];
+    maintainers = with maintainers; [ caugner kranzes ];
     platforms = platforms.linux;
   };
 }

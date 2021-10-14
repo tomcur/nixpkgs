@@ -271,6 +271,14 @@
       </listitem>
       <listitem>
         <para>
+          <link xlink:href="https://wiki.servarr.com/prowlarr">prowlarr</link>,
+          an indexer manager/proxy built on the popular arr .net/reactjs
+          base stack
+          <link linkend="opt-services.prowlarr.enable">services.prowlarr</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
           <link xlink:href="https://sr.ht/~emersion/soju">soju</link>, a
           user-friendly IRC bouncer. Available as
           <link xlink:href="options.html#opt-services.soju.enable">services.soju</link>.
@@ -321,11 +329,26 @@
           <link linkend="opt-programs.pantheon-tweaks.enable">programs.pantheon-tweaks</link>.
         </para>
       </listitem>
+      <listitem>
+        <para>
+          <link xlink:href="https://github.com/DanielOgorchock/joycond">joycond</link>,
+          a service that uses <literal>hid-nintendo</literal> to provide
+          nintendo joycond pairing and better nintendo switch pro
+          controller support.
+        </para>
+      </listitem>
     </itemizedlist>
   </section>
   <section xml:id="sec-release-21.11-incompatibilities">
     <title>Backward Incompatibilities</title>
     <itemizedlist>
+      <listitem>
+        <para>
+          The <literal>services.wakeonlan</literal> option was removed,
+          and replaced with
+          <literal>networking.interfaces.&lt;name&gt;.wakeOnLan</literal>.
+        </para>
+      </listitem>
       <listitem>
         <para>
           The <literal>security.wrappers</literal> option now requires
@@ -1002,8 +1025,8 @@ Superuser created successfully.
       <listitem>
         <para>
           The <literal>varnish</literal> package was upgraded from 6.3.x
-          to 6.5.x. <literal>varnish60</literal> for the last LTS
-          release is also still available.
+          to 7.x. <literal>varnish60</literal> for the last LTS release
+          is also still available.
         </para>
       </listitem>
       <listitem>
@@ -1057,6 +1080,16 @@ Superuser created successfully.
           changes to the configuration file. For details, see the
           <link xlink:href="https://github.com/DataDog/datadog-agent/blob/main/CHANGELOG.rst">upstream
           changelog</link>.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          <literal>opencv2</literal> no longer includes the non-free
+          libraries by default, and consequently
+          <literal>pfstools</literal> no longer includes OpenCV support
+          by default. Both packages now support an
+          <literal>enableUnfree</literal> option to re-enable this
+          functionality.
         </para>
       </listitem>
     </itemizedlist>

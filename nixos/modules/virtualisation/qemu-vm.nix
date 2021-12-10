@@ -306,7 +306,7 @@ in
     virtualisation.msize =
       mkOption {
         type = types.ints.positive;
-        default = pkgs.vmTools.default9PMsizeBytes;
+        default = 16384;
         description =
           ''
             The msize (maximum packet size) option passed to 9p file systems, in
@@ -329,6 +329,7 @@ in
       mkOption {
         type = types.str;
         default = "./${config.system.name}.qcow2";
+        defaultText = literalExpression ''"./''${config.system.name}.qcow2"'';
         description =
           ''
             Path to the disk image containing the root filesystem.
@@ -678,6 +679,7 @@ in
       mkOption {
         type = types.str;
         default = "./${config.system.name}-efi-vars.fd";
+        defaultText = literalExpression ''"./''${config.system.name}-efi-vars.fd"'';
         description =
           ''
             Path to nvram image containing UEFI variables.  The will be created

@@ -3,6 +3,7 @@
 , fetchFromGitHub
 , pkg-config
 , openssl
+, zstd
 , stdenv
 , curl
 , Security
@@ -10,25 +11,29 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "cargo-deny";
-  version = "0.10.1";
+  version = "0.11.0";
 
   src = fetchFromGitHub {
     owner = "EmbarkStudios";
     repo = pname;
     rev = version;
-    sha256 = "sha256-ZpTwqwxh1/Yz5MBlv1KvD/sBTaFb5m7cQXLkUAGZegc=";
+    sha256 = "sha256-LYXwdOopQkgq7i4l8dqQFkNLB3r+CVRor4BVeoj0DPs=";
   };
 
-  cargoSha256 = "sha256-JwljoLTEolKCaob7IPYan5N9YIZvnlj1uRZ1mNACGbQ=";
+  # enable pkg-config feature of zstd
+  cargoPatches = [ ./zstd-pkg-config.patch ];
 
-  doCheck = false;
+  cargoSha256 = "sha256-SdbDWw4GOvCTKN7vBjhLU5rhdVIpyO+AWaFbo06HXfU=";
 
   nativeBuildInputs = [ pkg-config ];
 
-  buildInputs = [ openssl ]
+  buildInputs = [ openssl zstd ]
     ++ lib.optionals stdenv.isDarwin [ curl Security ];
 
   buildNoDefaultFeatures = true;
+
+  # tests require internet access
+  doCheck = false;
 
   meta = with lib; {
     description = "Cargo plugin to generate list of all licenses for a crate";

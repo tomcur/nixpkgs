@@ -33,7 +33,7 @@ with lib;
 let
   # Release calendar: https://www.mesa3d.org/release-calendar.html
   # Release frequency: https://www.mesa3d.org/releasing.html#schedule
-  version = "21.2.5";
+  version = "21.2.6";
   branch  = versions.major version;
 
 self = stdenv.mkDerivation {
@@ -47,7 +47,7 @@ self = stdenv.mkDerivation {
       "ftp://ftp.freedesktop.org/pub/mesa/${version}/mesa-${version}.tar.xz"
       "ftp://ftp.freedesktop.org/pub/mesa/older-versions/${branch}.x/${version}/mesa-${version}.tar.xz"
     ];
-    sha256 = "1fxcdf4qs4vmyjcns7jv62w4jy3gr383ar5b7mr77nb0nxgmhjcf";
+    sha256 = "0m69h3f9fr66h6xjxfc485zfdci6kl8j24ab0kx5k23f7kcj4zhy";
   };
 
   # TODO:
@@ -129,6 +129,9 @@ self = stdenv.mkDerivation {
     "-Dgallium-nine=${boolToString enableGalliumNine}" # Direct3D in Wine
     "-Dosmesa=${boolToString enableOSMesa}" # used by wine
     "-Dmicrosoft-clc=disabled" # Only relevant on Windows (OpenCL 1.2 API on top of D3D12)
+
+    # To enable non-mesa gbm backends to be found (e.g. Nvidia)
+    "-Dgbm-backends-path=${libglvnd.driverLink}/lib/gbm:${placeholder "out"}/lib/gbm"
   ] ++ optionals stdenv.isLinux [
     "-Dglvnd=true"
   ] ++ optionals enableOpenCL [

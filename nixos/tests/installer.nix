@@ -76,8 +76,8 @@ let
       def assemble_qemu_flags():
           flags = "-cpu max"
           ${if (system == "x86_64-linux" || system == "i686-linux")
-            then ''flags += " -m 1500"''
-            else ''flags += " -m 1000 -enable-kvm -machine virt,gic-version=host"''
+            then ''flags += " -m 1024"''
+            else ''flags += " -m 768 -enable-kvm -machine virt,gic-version=host"''
           }
           return flags
 
@@ -288,7 +288,7 @@ let
           # builds stuff in the VM, needs more juice
           virtualisation.diskSize = 8 * 1024;
           virtualisation.cores = 8;
-          virtualisation.memorySize = 3096;
+          virtualisation.memorySize = 1536;
 
           # Use a small /dev/vdb as the root disk for the
           # installer. This ensures the target disk (/dev/vda) is
@@ -354,8 +354,8 @@ let
       createPartitions = ''
         machine.succeed(
             "flock /dev/vda parted --script /dev/vda -- mklabel msdos"
-            + " mkpart primary ext2 1M 50MB"  # /boot
-            + " mkpart primary linux-swap 50M 1024M"
+            + " mkpart primary ext2 1M 100MB"  # /boot
+            + " mkpart primary linux-swap 100M 1024M"
             + " mkpart primary 1024M -1s",  # LUKS
             "udevadm settle",
             "mkswap /dev/vda2 -L swap",
@@ -456,9 +456,9 @@ in {
     createPartitions = ''
       machine.succeed(
           "flock /dev/vda parted --script /dev/vda -- mklabel gpt"
-          + " mkpart ESP fat32 1M 50MiB"  # /boot
+          + " mkpart ESP fat32 1M 100MiB"  # /boot
           + " set 1 boot on"
-          + " mkpart primary linux-swap 50MiB 1024MiB"
+          + " mkpart primary linux-swap 100MiB 1024MiB"
           + " mkpart primary ext2 1024MiB -1MiB",  # /
           "udevadm settle",
           "mkswap /dev/vda2 -L swap",
@@ -483,8 +483,8 @@ in {
     createPartitions = ''
       machine.succeed(
           "flock /dev/vda parted --script /dev/vda -- mklabel msdos"
-          + " mkpart primary ext2 1M 50MB"  # /boot
-          + " mkpart primary linux-swap 50MB 1024M"
+          + " mkpart primary ext2 1M 100MB"  # /boot
+          + " mkpart primary linux-swap 100MB 1024M"
           + " mkpart primary ext2 1024M -1s",  # /
           "udevadm settle",
           "mkswap /dev/vda2 -L swap",
@@ -503,8 +503,8 @@ in {
     createPartitions = ''
       machine.succeed(
           "flock /dev/vda parted --script /dev/vda -- mklabel msdos"
-          + " mkpart primary ext2 1M 50MB"  # /boot
-          + " mkpart primary linux-swap 50MB 1024M"
+          + " mkpart primary ext2 1M 100MB"  # /boot
+          + " mkpart primary linux-swap 100MB 1024M"
           + " mkpart primary ext2 1024M -1s",  # /
           "udevadm settle",
           "mkswap /dev/vda2 -L swap",
@@ -599,8 +599,8 @@ in {
     createPartitions = ''
       machine.succeed(
           "flock /dev/vda parted --script /dev/vda -- mklabel msdos"
-          + " mkpart primary ext2 1M 50MB"  # /boot
-          + " mkpart primary linux-swap 50M 1024M"
+          + " mkpart primary ext2 1M 100MB"  # /boot
+          + " mkpart primary linux-swap 100M 1024M"
           + " mkpart primary 1024M 1280M"  # LUKS with keyfile
           + " mkpart primary 1280M -1s",
           "udevadm settle",
@@ -674,8 +674,8 @@ in {
       machine.succeed(
           "flock /dev/vda parted --script /dev/vda --"
           + " mklabel msdos"
-          + " mkpart primary ext2 1M 50MB"  # /boot
-          + " mkpart primary 50MB 512MB  "  # swap
+          + " mkpart primary ext2 1M 100MB"  # /boot
+          + " mkpart primary 100MB 512MB  "  # swap
           + " mkpart primary 512MB 1024MB"  # Cache (typically SSD)
           + " mkpart primary 1024MB -1s ",  # Backing device (typically HDD)
           "modprobe bcache",

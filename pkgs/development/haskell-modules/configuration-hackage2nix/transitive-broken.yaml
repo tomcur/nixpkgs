@@ -992,6 +992,7 @@ dont-distribute-packages:
  - domain-core
  - domain-optics
  - dormouse-client
+ - dovetail-aeson
  - dow
  - download-media-content
  - dph-examples
@@ -1083,7 +1084,6 @@ dont-distribute-packages:
  - extract-dependencies
  - extrapolate
  - factual-api
- - fakedata-quickcheck
  - falling-turnip
  - fallingblocks
  - family-tree
@@ -1112,7 +1112,6 @@ dont-distribute-packages:
  - fields
  - filepath-crypto
  - filepath-io-access
- - filepather
  - filesystem-enumerator
  - find-clumpiness
  - findhttp
@@ -1153,7 +1152,6 @@ dont-distribute-packages:
  - fortran-vars
  - foscam-directory
  - foscam-sort
- - fp-ieee
  - fplll
  - fpnla-examples
  - frame-markdown
@@ -1228,9 +1226,11 @@ dont-distribute-packages:
  - ghcjs-hplay
  - ght
  - gi-cairo-again
+ - gi-clutter
+ - gi-coglpango
  - gi-gsk
  - gi-gstpbutils
- - gi-gtk_4_0_4
+ - gi-gtk_4_0_5
  - git-fmt
  - git-gpush
  - git-object
@@ -1511,7 +1511,6 @@ dont-distribute-packages:
  - heavy-logger-instances
  - hecc
  - hedgehog-checkers-lens
- - hedgehog-fakedata
  - hedgehog-gen-json
  - hedis-pile
  - heist-aeson
@@ -2291,7 +2290,7 @@ dont-distribute-packages:
  - pairing
  - panda
  - pandoc-japanese-filters
- - pandoc_2_16_1
+ - pandoc_2_16_2
  - papa
  - papa-base
  - papa-base-implement
@@ -2345,7 +2344,6 @@ dont-distribute-packages:
  - phonetic-languages-simplified-generalized-examples-array
  - phonetic-languages-simplified-lists-examples
  - phooey
- - photoname
  - pianola
  - pier
  - ping
@@ -2381,10 +2379,14 @@ dont-distribute-packages:
  - polydata
  - polysemy-RandomFu
  - polysemy-check
+ - polysemy-conc
  - polysemy-http
+ - polysemy-log
  - polysemy-log-co
+ - polysemy-log-di
  - polysemy-methodology-co-log
  - polysemy-optics
+ - polysemy-process
  - polysemy-readline
  - polysemy-resume
  - polysemy-webserver
@@ -2636,7 +2638,6 @@ dont-distribute-packages:
  - rose-trie
  - roshask
  - rosmsg-bin
- - rounded-hw
  - roundtrip-xml
  - route-generator
  - route-planning

@@ -4,8 +4,7 @@ with haskellLib;
 
 self: super: {
 
-  # This compiler version needs llvm 10.x.
-  llvmPackages = pkgs.lib.dontRecurseIntoAttrs pkgs.llvmPackages_10;
+  llvmPackages = pkgs.lib.dontRecurseIntoAttrs self.ghc.llvmPackages;
 
   # Disable GHC 9.2.x core libraries.
   array = null;
@@ -55,9 +54,6 @@ self: super: {
     excludes = ["*.cabal"];
   }) (doJailbreak super.aeson);
 
-  # Tests use Data.Semigroup.Option
-  aeson_2_0_1_0 = dontCheck (doJailbreak super.aeson_2_0_1_0);
-
   basement = overrideCabal (drv: {
     # This is inside a conditional block so `doJailbreak` doesn't work
     postPatch = "sed -i -e 's,<4.16,<4.17,' basement.cabal";
@@ -101,12 +97,15 @@ self: super: {
   data-fix = doJailbreak super.data-fix;
   dec = doJailbreak super.dec;
   ed25519 = doJailbreak super.ed25519;
+  genvalidity = self.genvalidity_1_0_0_1;
+  genvalidity-property = self.genvalidity-property_1_0_0_0;
+  genvalidity-hspec = self.genvalidity-hspec_1_0_0_0;
   ghc-byteorder = doJailbreak super.ghc-byteorder;
   ghc-lib = self.ghc-lib_9_2_1_20211101;
   ghc-lib-parser = self.ghc-lib-parser_9_2_1_20211101;
   ghc-lib-parser-ex = self.ghc-lib-parser-ex_9_2_0_1;
   hackage-security = doJailbreak super.hackage-security;
-  hashable = super.hashable_1_4_0_0;
+  hashable = super.hashable_1_4_0_1;
   hashable-time = doJailbreak super.hashable-time_0_3;
   hedgehog = doJailbreak super.hedgehog;
   HTTP = overrideCabal (drv: { postPatch = "sed -i -e 's,! Socket,!Socket,' Network/TCP.hs"; }) (doJailbreak super.HTTP);
@@ -116,11 +115,13 @@ self: super: {
   lifted-async = doJailbreak super.lifted-async;
   lukko = doJailbreak super.lukko;
   network = super.network_3_1_2_5;
+  ormolu = self.ormolu_0_4_0_0;
   OneTuple = super.OneTuple_0_3_1;
   parallel = doJailbreak super.parallel;
+  path = doJailbreak super.path_0_9_1;
   polyparse = overrideCabal (drv: { postPatch = "sed -i -e 's, <0.11, <0.12,' polyparse.cabal"; }) (doJailbreak super.polyparse);
   primitive = doJailbreak super.primitive;
-  quickcheck-instances = super.quickcheck-instances_0_3_26_1;
+  quickcheck-instances = super.quickcheck-instances_0_3_27;
   regex-posix = doJailbreak super.regex-posix;
   resolv = doJailbreak super.resolv;
   semialign = super.semialign_1_2_0_1;
@@ -151,17 +152,21 @@ self: super: {
     ] ++ drv.testFlags or [];
   }) (doJailbreak super.hpack);
 
-  # Patch for TH code from head.hackage
-  vector-th-unbox = appendPatch (pkgs.fetchpatch {
-    url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/vector-th-unbox-0.2.1.9.patch";
-    sha256 = "02bvvy3hx3cf4y4dr64zl5pjvq8giwk4286j5g1n6k8ikyn2403p";
-  }) (doJailbreak super.vector-th-unbox);
+  validity = pkgs.lib.pipe super.validity_0_12_0_0 [
+    # head.hackage patch
+    (appendPatch (pkgs.fetchpatch {
+      url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/master/patches/validity-0.11.0.1.patch";
+      sha256 = "0qs6g1naqvcvklk78cadnpsfqnff1yflryi2ms6im203w75f2fsc";
+    }))
+    # head.hackage ignores test suite
+    dontCheck
+    # 0.12.0.0 disabled CPP in fetched file, breaks haddock
+    (appendConfigureFlag "--ghc-option=-XCPP")
+    dontHaddock
+  ];
 
-  # base 4.15 support from head.hackage
-  lens = appendPatch (pkgs.fetchpatch {
-    url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/lens-5.0.1.patch";
-    sha256 = "1s8qqg7ymvv94dnfnr1ragx91chh9y7ydc4jx25zn361wbn00pv7";
-  }) (doJailbreak super.lens_5_0_1);
+  # lens >= 5.1 supports 9.2.1
+  lens = super.lens_5_1;
 
   # Syntax error in tests fixed in https://github.com/simonmar/alex/commit/84b29475e057ef744f32a94bc0d3954b84160760
   alex = dontCheck super.alex;
@@ -188,7 +193,10 @@ self: super: {
   memory = appendPatch (pkgs.fetchpatch {
     url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/memory-0.16.0.patch";
     sha256 = "1kjganx729a6xfgfnrb3z7q6mvnidl042zrsd9n5n5a3i76nl5nl";
-  }) super.memory_0_16_0;
+  }) (overrideCabal {
+    editedCabalFile = null;
+    revision = null;
+  } super.memory_0_16_0);
 
   # GHC 9.0.x doesn't like `import Spec (main)` in Main.hs
   # https://github.com/snoyberg/mono-traversable/issues/192
@@ -200,11 +208,6 @@ self: super: {
 
   # Upper bound on `hashable` is too restrictive
   semigroupoids = overrideCabal (drv: { postPatch = "sed -i -e 's,hashable >= 1.2.7.0  && < 1.4,hashable >= 1.2.7.0  \\&\\& < 1.5,' semigroupoids.cabal";}) super.semigroupoids;
-
-  streaming-commons = appendPatch (pkgs.fetchpatch {
-    url = "https://gitlab.haskell.org/ghc/head.hackage/-/raw/dfd024c9a336c752288ec35879017a43bd7e85a0/patches/streaming-commons-0.2.2.1.patch";
-    sha256 = "04wi1jskr3j8ayh88kkx4irvhhgz0i7aj6fblzijy0fygikvidpy";
-  }) super.streaming-commons;
 
   # Tests have a circular dependency on quickcheck-instances
   text-short = dontCheck super.text-short_0_1_4;

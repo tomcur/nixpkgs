@@ -77,6 +77,7 @@ let
 
     unitConfig = {
       ConditionPathExists = "!/var/lib/acme/.minica/key.pem";
+      StartLimitIntervalSec = 0;
     };
 
     serviceConfig = commonServiceConfig // {
@@ -235,6 +236,7 @@ let
 
       unitConfig = {
         ConditionPathExists = "!/var/lib/acme/${cert}/key.pem";
+        StartLimitIntervalSec = 0;
       };
 
       serviceConfig = commonServiceConfig // {
@@ -314,13 +316,17 @@ let
           if [ -e renewed ]; then
             rm renewed
             ${data.postRun}
+            ${optionalString (data.reloadServices != [])
+                "systemctl --no-block try-reload-or-restart ${escapeShellArgs data.reloadServices}"
+            }
           fi
         '');
       };
 
       # Working directory will be /tmp
       script = ''
-        set -euxo pipefail
+        ${optionalString data.enableDebugLogs "set -x"}
+        set -euo pipefail
 
         # This reimplements the expiration date check, but without querying
         # the acme server first. By doing this offline, we avoid errors
@@ -433,6 +439,8 @@ let
         default = "_mkMergedOptionModule";
       };
 
+      enableDebugLogs = mkEnableOption "debug logging for this certificate" // { default = cfg.enableDebugLogs; };
+
       webroot = mkOption {
         type = types.nullOr types.str;
         default = null;
@@ -472,6 +480,15 @@ let
         type = types.str;
         default = "acme";
         description = "Group running the ACME client.";
+      };
+
+      reloadServices = mkOption {
+        type = types.listOf types.str;
+        default = [];
+        description = ''
+          The list of systemd services to call <code>systemctl try-reload-or-restart</code>
+          on.
+        '';
       };
 
       postRun = mkOption {
@@ -601,6 +618,8 @@ in {
 
   options = {
     security.acme = {
+
+      enableDebugLogs = mkEnableOption "debug logging for all certificates by default" // { default = true; };
 
       validMinDays = mkOption {
         type = types.int;

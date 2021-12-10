@@ -12,6 +12,8 @@
 , pkg-config
 , makeWrapper
 , symlinkJoin
+, bison
+, nixosTests
   #
   # By default unbound will not be built with systemd support. Unbound is a very
   # commmon dependency. The transitive dependency closure of systemd also
@@ -30,6 +32,9 @@
 , withDNSTAP ? false
 , withTFO ? false
 , withRedis ? false
+# Avoid .lib depending on openssl.out
+# The build gets a little hacky, so in some cases we disable this approach.
+, withSlimLib ? stdenv.isLinux && !stdenv.hostPlatform.isMusl && !withDNSTAP
 , libnghttp2
 }:
 
@@ -91,6 +96,10 @@ stdenv.mkDerivation rec {
     sed -E '/CONFCMDLINE/ s;${storeDir}/[a-z0-9]{32}-;${storeDir}/eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee-;g' -i config.h
   '';
 
+  checkInputs = [ bison ];
+
+  doCheck = true;
+
   installFlags = [ "configfile=\${out}/etc/unbound/unbound.conf" ];
 
   postInstall = ''
@@ -99,14 +108,16 @@ stdenv.mkDerivation rec {
       --prefix PATH : ${lib.makeBinPath [ openssl ]}
   '';
 
-  preFixup = lib.optionalString (stdenv.isLinux && !stdenv.hostPlatform.isMusl) # XXX: revisit
+  preFixup = lib.optionalString withSlimLib
     # Build libunbound again, but only against nettle instead of openssl.
     # This avoids gnutls.out -> unbound.lib -> openssl.out.
-    # There was some problem with this on Darwin; let's not complicate non-Linux.
     ''
       configureFlags="$configureFlags --with-nettle=${nettle.dev} --with-libunbound-only"
       configurePhase
       buildPhase
+      if [ -n "$doCheck" ]; then
+          checkPhase
+      fi
       installPhase
     ''
   # get rid of runtime dependencies on $dev outputs
@@ -114,6 +125,8 @@ stdenv.mkDerivation rec {
   + lib.concatMapStrings
     (pkg: lib.optionalString (pkg ? dev) " --replace '-L${pkg.dev}/lib' '-L${pkg.out}/lib' --replace '-R${pkg.dev}/lib' '-R${pkg.out}/lib'")
     (builtins.filter (p: p != null) buildInputs);
+
+  passthru.tests = nixosTests.unbound;
 
   meta = with lib; {
     description = "Validating, recursive, and caching DNS resolver";

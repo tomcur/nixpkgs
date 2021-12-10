@@ -7,7 +7,8 @@
 
 buildPythonPackage rec {
   pname = "aionanoleaf";
-  version = "0.0.3";
+  version = "0.1.1";
+  format = "setuptools";
 
   disabled = pythonOlder "3.8";
 
@@ -15,7 +16,7 @@ buildPythonPackage rec {
     owner = "milanmeu";
     repo = pname;
     rev = "v${version}";
-    sha256 = "sha256-fUVpPxaeuvuw9ZX5fc2Jc/LdBDhCRdFlghvhSmBK/z0=";
+    sha256 = "10gi8fpv3xkdjaqig84723m3j0kxgxvqwqvjxmysq2sw4cjmsvz6";
   };
 
   propagatedBuildInputs = [
@@ -25,7 +26,9 @@ buildPythonPackage rec {
   # Project has no tests
   doCheck = false;
 
-  pythonImportsCheck = [ "aionanoleaf" ];
+  pythonImportsCheck = [
+    "aionanoleaf"
+  ];
 
   meta = with lib; {
     description = "Python wrapper for the Nanoleaf API";

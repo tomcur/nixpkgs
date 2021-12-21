@@ -196,10 +196,10 @@ rec {
     passthru = { inherit plugins; };
   };
 
-  terraform_1_0 = mkTerraform {
-    version = "1.0.11";
-    sha256 = "0k05s4zm16vksq21f1q00y2lzfgi5fhs1ygydm8jk0srs9x8ask7";
-    vendorSha256 = "1brgghl7fb26va4adix443rl1dkjaqrr4jkknxjkcaps0knqp172";
+  terraform_1 = mkTerraform {
+    version = "1.1.2";
+    sha256 = "sha256-8M/hs4AiApe9C19VnVhWYYOkKqXbv3aREUTNfExTDww=";
+    vendorSha256 = "sha256-inPNvNUcil9X0VQ/pVgZdnnmn9UCfEz7qXiuKDj8RYM=";
     patches = [ ./provider-path-0_15.patch ];
     passthru = { inherit plugins; };
   };
@@ -213,7 +213,7 @@ rec {
       mainTf = writeText "main.tf" ''
         resource "random_id" "test" {}
       '';
-      terraform = terraform_1_0.withPlugins (p: [ p.random ]);
+      terraform = terraform_1.withPlugins (p: [ p.random ]);
       test =
         runCommand "terraform-plugin-test" { buildInputs = [ terraform ]; } ''
           set -e

@@ -14,8 +14,13 @@
   </itemizedlist>
   <section xml:id="sec-release-22.05-highlights">
     <title>Highlights</title>
-    <para>
-    </para>
+    <itemizedlist spacing="compact">
+      <listitem>
+        <para>
+          PHP 8.1 is now available
+        </para>
+      </listitem>
+    </itemizedlist>
   </section>
   <section xml:id="sec-release-22.05-new-services">
     <title>New Services</title>
@@ -109,6 +114,14 @@
           <literal>writers.writePyPy2</literal> needs to be used.
         </para>
       </listitem>
+      <listitem>
+        <para>
+          If you previously used
+          <literal>/etc/docker/daemon.json</literal>, you need to
+          incorporate the changes into the new option
+          <literal>virtualisation.docker.daemon.settings</literal>.
+        </para>
+      </listitem>
     </itemizedlist>
   </section>
   <section xml:id="sec-release-22.05-notable-changes">
@@ -175,6 +188,14 @@
           <literal>SSH_ASKPASS</literal> from
           <literal>services.xserver.enable</literal>. This allows easy
           usage in non-X11 environments, e.g. Wayland.
+        </para>
+      </listitem>
+      <listitem>
+        <para>
+          The <literal>services.stubby</literal> module was converted to
+          a
+          <link xlink:href="https://github.com/NixOS/rfcs/blob/master/rfcs/0042-config-option.md">settings-style</link>
+          configuration.
         </para>
       </listitem>
     </itemizedlist>

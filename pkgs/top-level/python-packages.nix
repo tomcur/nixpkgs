@@ -100,6 +100,12 @@ let
 
   disabledIf = x: drv: if x then disabled drv else drv;
 
+  # CUDA-related packages that are compatible with the currently packaged version
+  # of TensorFlow, used to keep these versions in sync in related packages like `jaxlib`.
+  tensorflow_compat_cudatoolkit = pkgs.cudatoolkit_11_2;
+  tensorflow_compat_cudnn = pkgs.cudnn_cudatoolkit_11_2;
+  tensorflow_compat_nccl = pkgs.nccl_cudatoolkit_11;
+
 in {
 
   inherit pkgs stdenv;
@@ -1314,6 +1320,8 @@ in {
 
   brother = callPackage ../development/python-modules/brother { };
 
+  brother-ql = callPackage ../development/python-modules/brother-ql { };
+
   brotli = callPackage ../development/python-modules/brotli { };
 
   brotlicffi = callPackage ../development/python-modules/brotlicffi {
@@ -1387,6 +1395,8 @@ in {
   cachelib = callPackage ../development/python-modules/cachelib { };
 
   cachetools = callPackage ../development/python-modules/cachetools { };
+
+  cachey = callPackage ../development/python-modules/cachey { };
 
   cachy = callPackage ../development/python-modules/cachy { };
 
@@ -1542,6 +1552,8 @@ in {
   chess = callPackage ../development/python-modules/chess { };
 
   chevron = callPackage ../development/python-modules/chevron { };
+
+  chex = callPackage ../development/python-modules/chex { };
 
   chiabip158 = callPackage ../development/python-modules/chiabip158 { };
 
@@ -2036,6 +2048,8 @@ in {
 
   deepdiff = callPackage ../development/python-modules/deepdiff { };
 
+  deepdish = callPackage ../development/python-modules/deepdish { };
+
   deepmerge = callPackage ../development/python-modules/deepmerge { };
 
   deeptoolsintervals = callPackage ../development/python-modules/deeptoolsintervals { };
@@ -2340,6 +2354,8 @@ in {
   docloud = callPackage ../development/python-modules/docloud { };
 
   docstring-to-markdown = callPackage ../development/python-modules/docstring-to-markdown { };
+
+  docstring-parser = callPackage ../development/python-modules/docstring-parser { };
 
   docopt = callPackage ../development/python-modules/docopt { };
 
@@ -2979,6 +2995,8 @@ in {
   fordpass = callPackage ../development/python-modules/fordpass { };
 
   forecast-solar = callPackage ../development/python-modules/forecast-solar { };
+
+  formbox = callPackage ../development/python-modules/formbox { };
 
   fortiosapi = callPackage ../development/python-modules/fortiosapi { };
 
@@ -4053,7 +4071,17 @@ in {
 
   jax = callPackage ../development/python-modules/jax { };
 
-  jaxlib = callPackage ../development/python-modules/jaxlib { };
+  jaxlib-bin = callPackage ../development/python-modules/jaxlib/bin.nix { };
+
+  jaxlib-build = callPackage ../development/python-modules/jaxlib {
+    # Some platforms don't have `cudaSupport` defined, hence the need for 'or false'.
+    cudaSupport = pkgs.config.cudaSupport or false;
+    cudatoolkit = tensorflow_compat_cudatoolkit;
+    cudnn = tensorflow_compat_cudnn;
+    nccl = tensorflow_compat_nccl;
+  };
+
+  jaxlib = self.jaxlib-build;
 
   JayDeBeApi = callPackage ../development/python-modules/JayDeBeApi { };
 
@@ -4090,6 +4118,8 @@ in {
   jira = callPackage ../development/python-modules/jira { };
 
   jmespath = callPackage ../development/python-modules/jmespath { };
+
+  jmp = callPackage ../development/python-modules/jmp { };
 
   joblib = callPackage ../development/python-modules/joblib { };
 
@@ -4709,6 +4739,8 @@ in {
 
   magic = callPackage ../development/python-modules/magic { };
 
+  magicgui = callPackage ../development/python-modules/magicgui { };
+
   magic-wormhole = callPackage ../development/python-modules/magic-wormhole { };
 
   magic-wormhole-mailbox-server = callPackage ../development/python-modules/magic-wormhole-mailbox-server { };
@@ -5182,6 +5214,16 @@ in {
 
   nanotime = callPackage ../development/python-modules/nanotime { };
 
+  napari = callPackage ../development/python-modules/napari {
+    inherit (pkgs.libsForQt5) mkDerivationWith wrapQtAppsHook;
+  };
+
+  napari-console = callPackage ../development/python-modules/napari-console { };
+
+  napari-plugin-engine = callPackage ../development/python-modules/napari-plugin-engine { };
+
+  napari-svg = callPackage ../development/python-modules/napari-svg { };
+
   nassl = callPackage ../development/python-modules/nassl { };
 
   nats-python = callPackage ../development/python-modules/nats-python { };
@@ -5295,6 +5337,8 @@ in {
   nitime = callPackage ../development/python-modules/nitime { };
 
   nitpick = callPackage ../applications/version-management/nitpick { };
+
+  nitransforms = callPackage ../development/python-modules/nitransforms { };
 
   nix-kernel = callPackage ../development/python-modules/nix-kernel {
     inherit (pkgs) nix;
@@ -5436,6 +5480,8 @@ in {
 
   obfsproxy = callPackage ../development/python-modules/obfsproxy { };
 
+  objax = callPackage ../development/python-modules/objax { };
+
   objgraph = callPackage ../development/python-modules/objgraph {
     # requires both the graphviz package and python package
     graphvizPkgs = pkgs.graphviz;
@@ -5566,6 +5612,8 @@ in {
 
   orm = callPackage ../development/python-modules/orm { };
 
+  ormar = callPackage ../development/python-modules/ormar { };
+
   ortools = (toPythonModule (pkgs.or-tools.override { inherit (self) python; })).python;
 
   orvibo = callPackage ../development/python-modules/orvibo { };
@@ -5621,6 +5669,8 @@ in {
   packageurl-python = callPackage ../development/python-modules/packageurl-python { };
 
   packaging = callPackage ../development/python-modules/packaging { };
+
+  packbits = callPackage ../development/python-modules/packbits { };
 
   packet-python = callPackage ../development/python-modules/packet-python { };
 
@@ -6258,6 +6308,8 @@ in {
   psycopg2 = callPackage ../development/python-modules/psycopg2 { };
 
   psycopg2cffi = callPackage ../development/python-modules/psycopg2cffi { };
+
+  psygnal = callPackage ../development/python-modules/psygnal { };
 
   ptable = callPackage ../development/python-modules/ptable { };
 
@@ -6932,6 +6984,8 @@ in {
 
   pymeeus = callPackage ../development/python-modules/pymeeus { };
 
+  pymelcloud = callPackage ../development/python-modules/pymelcloud { };
+
   pymemcache = callPackage ../development/python-modules/pymemcache { };
 
   pymemoize = callPackage ../development/python-modules/pymemoize { };
@@ -7301,7 +7355,9 @@ in {
 
   pysdl2 = callPackage ../development/python-modules/pysdl2 { };
 
-  pysearpc = toPythonModule pkgs.libsearpc;
+  pysearpc = toPythonModule (pkgs.libsearpc.override {
+    python3 = self.python;
+  });
 
   pysecuritas = callPackage ../development/python-modules/pysecuritas { };
 
@@ -7338,6 +7394,8 @@ in {
   pysideTools = callPackage ../development/python-modules/pyside/tools.nix { };
 
   pysigset = callPackage ../development/python-modules/pysigset { };
+
+  pysimplegui = callPackage ../development/python-modules/pysimplegui { };
 
   pysingleton = callPackage ../development/python-modules/pysingleton { };
 
@@ -7448,6 +7506,8 @@ in {
   pytaglib = callPackage ../development/python-modules/pytaglib { };
 
   pytankerkoenig = callPackage ../development/python-modules/pytankerkoenig { };
+
+  pytap2 = callPackage ../development/python-modules/pytap2 { };
 
   pytautulli = callPackage ../development/python-modules/pytautulli { };
 
@@ -7604,6 +7664,8 @@ in {
   pytest-mpl = callPackage ../development/python-modules/pytest-mpl { };
 
   pytest-mypy = callPackage ../development/python-modules/pytest-mypy { };
+
+  pytest-mypy-plugins = callPackage ../development/python-modules/pytest-mypy-plugins { };
 
   pytest-openfiles = callPackage ../development/python-modules/pytest-openfiles { };
 
@@ -7827,7 +7889,7 @@ in {
   python-manilaclient = callPackage ../development/python-modules/python-manilaclient { };
 
   python-mapnik = let
-    boost = pkgs.boost.override {
+    boost = pkgs.boost175.override {
       enablePython = true;
       inherit python;
     };
@@ -8714,9 +8776,9 @@ in {
 
   seabreeze = callPackage ../development/python-modules/seabreeze { };
 
-  seahub = callPackage ../development/python-modules/seahub { };
-
-  seaserv = toPythonModule pkgs.seafile-server;
+  seaserv = toPythonModule (pkgs.seafile-server.override {
+    python3 = self.python;
+  });
 
   seatconnect = callPackage ../development/python-modules/seatconnect { };
 
@@ -8874,6 +8936,8 @@ in {
   simpy = callPackage ../development/python-modules/simpy { };
 
   signify = callPackage ../development/python-modules/signify { };
+
+  siosocks = callPackage ../development/python-modules/siosocks { };
 
   sip = callPackage ../development/python-modules/sip { };
 
@@ -9333,6 +9397,8 @@ in {
 
   supervisor = callPackage ../development/python-modules/supervisor { };
 
+  superqt = callPackage ../development/python-modules/superqt { };
+
   sure = callPackage ../development/python-modules/sure { };
 
   surepy = callPackage ../development/python-modules/surepy { };
@@ -9451,16 +9517,16 @@ in {
 
   tensorflow-bin = callPackage ../development/python-modules/tensorflow/bin.nix {
     cudaSupport = pkgs.config.cudaSupport or false;
-    cudatoolkit = pkgs.cudatoolkit_11_2;
-    cudnn = pkgs.cudnn_cudatoolkit_11_2;
+    cudatoolkit = tensorflow_compat_cudatoolkit;
+    cudnn = tensorflow_compat_cudnn;
   };
 
   tensorflow-build = callPackage ../development/python-modules/tensorflow {
     inherit (pkgs.darwin) cctools;
     cudaSupport = pkgs.config.cudaSupport or false;
-    cudatoolkit = pkgs.cudatoolkit_11_2;
-    cudnn = pkgs.cudnn_cudatoolkit_11_2;
-    nccl = pkgs.nccl_cudatoolkit_11;
+    cudatoolkit = tensorflow_compat_cudatoolkit;
+    cudnn = tensorflow_compat_cudnn;
+    nccl = tensorflow_compat_nccl;
     inherit (pkgs.darwin.apple_sdk.frameworks) Foundation Security;
     flatbuffers-core = pkgs.flatbuffers;
     flatbuffers-python = self.flatbuffers;
@@ -9720,6 +9786,8 @@ in {
 
   transmissionrpc = callPackage ../development/python-modules/transmissionrpc { };
 
+  treeo = callPackage ../development/python-modules/treeo { };
+
   treq = callPackage ../development/python-modules/treq { };
 
   trezor_agent = callPackage ../development/python-modules/trezor_agent { };
@@ -9729,6 +9797,8 @@ in {
   trimesh = callPackage ../development/python-modules/trimesh { };
 
   trio = callPackage ../development/python-modules/trio { };
+
+  trio-asyncio = callPackage ../development/python-modules/trio-asyncio { };
 
   trueskill = callPackage ../development/python-modules/trueskill { };
 
@@ -10344,8 +10414,6 @@ in {
   xdot = callPackage ../development/python-modules/xdot {
     inherit (pkgs) graphviz;
   };
-
-  xenomapper = callPackage ../applications/science/biology/xenomapper { };
 
   xgboost = callPackage ../development/python-modules/xgboost {
     inherit (pkgs) xgboost;

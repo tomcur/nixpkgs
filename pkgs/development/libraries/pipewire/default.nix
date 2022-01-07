@@ -1,5 +1,6 @@
 { stdenv
 , lib
+, buildPackages
 , fetchFromGitLab
 , removeReferencesTo
 , python3
@@ -24,6 +25,8 @@
 , webrtc-audio-processing
 , ncurses
 , readline81 # meson can't find <7 as those versions don't have a .pc file
+, lilv
+, openssl
 , makeFontsConf
 , callPackage
 , nixosTests
@@ -63,7 +66,7 @@ let
 
   self = stdenv.mkDerivation rec {
     pname = "pipewire";
-    version = "0.3.40";
+    version = "0.3.42";
 
     outputs = [
       "out"
@@ -81,7 +84,7 @@ let
       owner = "pipewire";
       repo = "pipewire";
       rev = version;
-      sha256 = "sha256-eY6uQa4+sC6yUWhF4IpAgRoppwhHO4s5fIMXOkS0z7A=";
+      sha256 = "sha256-Iyd5snOt+iCT7W0+FlfvhMUZo/gF+zr9JX4HIGVdHto=";
     };
 
     patches = [
@@ -116,7 +119,9 @@ let
       libjack2
       libusb1
       libsndfile
+      lilv
       ncurses
+      openssl
       readline81
       udev
       vulkan-headers
@@ -171,12 +176,17 @@ let
 
     postInstall = ''
       mkdir $out/nix-support
-      pushd $lib/share/pipewire
-      for f in *.conf; do
-        echo "Generating JSON from $f"
-        $out/bin/spa-json-dump "$f" > "$out/nix-support/$f.json"
-      done
-      popd
+      ${if (stdenv.hostPlatform == stdenv.buildPlatform) then ''
+        pushd $lib/share/pipewire
+        for f in *.conf; do
+          echo "Generating JSON from $f"
+
+          $out/bin/spa-json-dump "$f" > "$out/nix-support/$f.json"
+        done
+        popd
+      '' else ''
+        cp ${buildPackages.pipewire}/nix-support/*.json "$out/nix-support"
+      ''}
 
       moveToOutput "share/systemd/user/pipewire-pulse.*" "$pulse"
       moveToOutput "lib/systemd/user/pipewire-pulse.*" "$pulse"

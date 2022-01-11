@@ -18,6 +18,8 @@ stdenv.mkDerivation rec {
     sha256 = "wfLO7kf2iXESItcgWvKj/npKnYwy5OCyStZviN9qR9M=";
   };
 
+  patches = [ ./test-fix-support-for-gpgsm-in-gnupg-2.3.patch ];
+
   nativeBuildInputs = [
     pkg-config
     doxygen                   # (optional) api docs

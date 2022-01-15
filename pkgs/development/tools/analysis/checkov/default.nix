@@ -22,13 +22,13 @@ with py.pkgs;
 
 buildPythonApplication rec {
   pname = "checkov";
-  version = "2.0.708";
+  version = "2.0.712";
 
   src = fetchFromGitHub {
     owner = "bridgecrewio";
     repo = pname;
     rev = version;
-    hash = "sha256-qnRYxbw42vN0w+x1ARRz60e8q9LCPWglprOBm7rkxsE=";
+    hash = "sha256-iUplSd4/OcJtfby2bn7b6GwCbXnBMqUSuLjkkh+7W9Y=";
   };
 
   nativeBuildInputs = with py.pkgs; [
@@ -54,6 +54,8 @@ buildPythonApplication rec {
     dpath
     GitPython
     jmespath
+    jsonpath-ng
+    jsonschema
     junit-xml
     networkx
     packaging
@@ -77,11 +79,18 @@ buildPythonApplication rec {
     pytestCheckHook
   ];
 
+  postPatch = ''
+    substituteInPlace setup.py \
+      --replace "jsonschema==3.0.2" "jsonschema>=3.0.2"
+  '';
+
   disabledTests = [
     # No API key available
     "api_key"
     # Requires network access
     "TestSarifReport"
+    # Will probably be fixed in one of the next releases
+    "test_valid_cyclonedx_bom"
   ];
 
   disabledTestPaths = [

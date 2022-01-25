@@ -19,6 +19,7 @@ alx741/vim-hindent
 alx741/vim-stylishask
 amiorin/ctrlp-z
 andersevenrud/cmp-tmux
+andersevenrud/nordic.nvim
 andrep/vimacs
 andreshazard/vim-logreview
 AndrewRadev/sideways.vim
@@ -62,6 +63,7 @@ buoto/gotests-vim
 camspiers/lens.vim
 camspiers/snap
 carlitux/deoplete-ternjs
+catppuccin/nvim as catppuccin-nvim
 ccarpita/rtorrent-syntax-file
 cespare/vim-toml
 chaoren/vim-wordmotion
@@ -252,6 +254,7 @@ hrsh7th/vim-vsnip
 hrsh7th/vim-vsnip-integ
 hsanson/vim-android
 hsitz/VimOrganizer
+https://git.sr.ht/~whynothugo/lsp_lines.nvim
 hura/vim-asymptote
 iamcco/coc-spell-checker
 iamcco/markdown-preview.nvim
@@ -410,6 +413,7 @@ lifepillar/vim-mucomplete
 lighttiger2505/deoplete-vim-lsp
 lilydjwg/colorizer
 lilydjwg/fcitx.vim@fcitx5
+liuchengxu/graphviz.vim
 liuchengxu/vim-clap
 liuchengxu/vim-which-key
 liuchengxu/vista.vim
@@ -614,7 +618,6 @@ PeterRincker/vim-argumentative
 petRUShka/vim-opencl
 phaazon/hop.nvim
 phanviet/vim-monokai-pro
-plasticboy/vim-markdown
 Pocco81/TrueZen.nvim
 ponko2/deoplete-fish
 posva/vim-vue
@@ -626,6 +629,7 @@ prabirshrestha/vim-lsp
 preservim/nerdcommenter
 preservim/nerdtree
 preservim/tagbar
+preservim/vim-markdown
 preservim/vim-pencil
 preservim/vim-wordy
 preservim/vimux
@@ -634,6 +638,7 @@ psliwka/vim-smoothie
 ptzz/lf.vim
 puremourning/vimspector
 purescript-contrib/purescript-vim
+pwntester/octo.nvim
 python-mode/python-mode
 qnighy/lalrpop.vim
 qpkorr/vim-bufkill
@@ -703,6 +708,7 @@ sakhnik/nvim-gdb
 saltstack/salt-vim
 samoshkin/vim-mergetool
 sbdchd/neoformat
+sblumentritt/bitbake.vim
 scalameta/nvim-metals
 sdiehl/vim-ormolu
 sebastianmarkow/deoplete-rust
@@ -754,6 +760,7 @@ steelsojka/pears.nvim
 stefandtw/quickfix-reflector.vim
 stephpy/vim-yaml
 stevearc/aerial.nvim
+stevearc/dressing.nvim
 stsewd/fzf-checkout.vim
 sudormrfbin/cheatsheet.nvim
 sunaku/vim-dasht

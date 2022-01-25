@@ -4001,6 +4001,8 @@ in {
 
   iptools = callPackage ../development/python-modules/iptools { };
 
+  ipwhl = callPackage ../development/python-modules/ipwhl { };
+
   ipy = callPackage ../development/python-modules/IPy { };
 
   ipydatawidgets = callPackage ../development/python-modules/ipydatawidgets { };
@@ -5194,6 +5196,8 @@ in {
   mutesync = callPackage ../development/python-modules/mutesync { };
 
   mutf8 = callPackage ../development/python-modules/mutf8 { };
+
+  mutmut = callPackage ../development/python-modules/mutmut { };
 
   mujson = callPackage ../development/python-modules/mujson { };
 

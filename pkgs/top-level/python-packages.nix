@@ -5405,6 +5405,8 @@ in {
 
   nix-prefetch-github = callPackage ../development/python-modules/nix-prefetch-github { };
 
+  nkdfu = callPackage ../development/python-modules/nkdfu { };
+
   nltk = callPackage ../development/python-modules/nltk { };
 
   nmapthon2 = callPackage ../development/python-modules/nmapthon2 { };
@@ -7919,7 +7921,7 @@ in {
   python-http-client = callPackage ../development/python-modules/python-http-client { };
 
   pythonix = callPackage ../development/python-modules/pythonix {
-    nix = pkgs.nix_2_3;
+    nix = pkgs.nixVersions.nix_2_3;
     meson = pkgs.meson.override { python3 = self.python; };
   };
 

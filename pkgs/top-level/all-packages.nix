@@ -200,6 +200,8 @@ with pkgs;
 
   fission = callPackage ../development/tools/fission { };
 
+  appthreat-depscan = callPackage ../development/tools/appthreat-depscan { };
+
   authy = callPackage ../applications/misc/authy { };
 
   avro-tools = callPackage ../development/tools/avro-tools { };
@@ -1083,6 +1085,8 @@ with pkgs;
 
   archi = callPackage ../tools/misc/archi { };
 
+  breitbandmessung = callPackage ../applications/networking/breitbandmessung { };
+
   contour = libsForQt5.callPackage ../applications/terminal-emulators/contour { };
 
   cool-retro-term = libsForQt5.callPackage ../applications/terminal-emulators/cool-retro-term { };
@@ -1762,7 +1766,7 @@ with pkgs;
   genymotion = callPackage ../development/mobile/genymotion { };
 
   galene = callPackage ../servers/web-apps/galene {
-    buildGoModule = buildGo115Module;
+    buildGoModule = buildGo117Module;
   };
 
   gamecube-tools = callPackage ../development/tools/gamecube-tools { };
@@ -2718,7 +2722,9 @@ with pkgs;
 
   dapr-cli = callPackage ../development/tools/dapr/cli {};
 
-  dasel = callPackage ../applications/misc/dasel { };
+  dasel = callPackage ../applications/misc/dasel {
+    buildGoModule = buildGo117Module;
+  };
 
   dasher = callPackage ../applications/accessibility/dasher { };
 
@@ -2975,6 +2981,8 @@ with pkgs;
   ejson = callPackage ../development/tools/ejson {};
 
   eternal-terminal = callPackage ../tools/networking/eternal-terminal {};
+
+  extrude = callPackage ../tools/security/extrude { };
 
   f3 = callPackage ../tools/filesystems/f3 { };
 
@@ -4247,7 +4255,7 @@ with pkgs;
     anthy = callPackage ../tools/inputmethods/ibus-engines/ibus-anthy { };
 
     bamboo = callPackage ../tools/inputmethods/ibus-engines/ibus-bamboo {
-      go = go_1_15;
+      go = go_1_17;
     };
 
     hangul = callPackage ../tools/inputmethods/ibus-engines/ibus-hangul { };
@@ -5125,6 +5133,8 @@ with pkgs;
     electron = electron_14;
   };
 
+  ethercalc = callPackage ../servers/web-apps/ethercalc { };
+
   ethtool = callPackage ../tools/misc/ethtool { };
 
   ettercap = callPackage ../applications/networking/sniffers/ettercap { };
@@ -5899,6 +5909,8 @@ with pkgs;
   };
 
   gnirehtet = callPackage ../tools/networking/gnirehtet { };
+
+  gnome-2048 = callPackage ../desktops/gnome/games/gnome-2048 { };
 
   gnome-builder = callPackage ../applications/editors/gnome-builder { };
 
@@ -7202,7 +7214,9 @@ with pkgs;
 
   mxt-app = callPackage ../misc/mxt-app { };
 
-  naabu = callPackage ../tools/security/naabu { };
+  naabu = callPackage ../tools/security/naabu {
+    buildGoModule = buildGo117Module;
+  };
 
   nagstamon = callPackage ../tools/misc/nagstamon {
     pythonPackages = python3Packages;
@@ -7220,7 +7234,9 @@ with pkgs;
 
   ncrack = callPackage ../tools/security/ncrack { };
 
-  nerdctl = callPackage ../applications/networking/cluster/nerdctl { };
+  nerdctl = callPackage ../applications/networking/cluster/nerdctl {
+    buildGoModule = buildGo117Module;
+  };
 
   netdata = callPackage ../tools/system/netdata {
     inherit (darwin.apple_sdk.frameworks) CoreFoundation IOKit;
@@ -8081,11 +8097,6 @@ with pkgs;
   # with different versions we pin Go for all versions.
   # Upstream partially documents used Go versions here
   # https://github.com/hashicorp/nomad/blob/master/contributing/golang.md
-  nomad_1_0 = callPackage ../applications/networking/cluster/nomad/1.0.nix {
-    buildGoPackage = buildGo115Package;
-    inherit (linuxPackages) nvidia_x11;
-    nvidiaGpuSupport = config.cudaSupport or false;
-  };
   nomad_1_1 = callPackage ../applications/networking/cluster/nomad/1.1.nix {
     buildGoModule = buildGo116Module;
     inherit (linuxPackages) nvidia_x11;
@@ -14444,6 +14455,8 @@ with pkgs;
 
   cfr = callPackage ../development/tools/java/cfr { };
 
+  cfripper = callPackage ../tools/security/cfripper { };
+
   checkra1n = callPackage ../development/mobile/checkra1n { };
 
   checkstyle = callPackage ../development/tools/analysis/checkstyle { };
@@ -14608,7 +14621,9 @@ with pkgs;
 
   cli11 = callPackage ../development/tools/misc/cli11 { };
 
-  datree = callPackage ../development/tools/datree { };
+  datree = callPackage ../development/tools/datree {
+    buildGoModule = buildGo117Module;
+  };
 
   dcadec = callPackage ../development/tools/dcadec { };
 
@@ -14983,7 +14998,9 @@ with pkgs;
 
   jpexs = callPackage ../development/tools/jpexs { };
 
-  k0sctl = callPackage ../applications/networking/cluster/k0sctl { };
+  k0sctl = callPackage ../applications/networking/cluster/k0sctl {
+    buildGoModule = buildGo117Module;
+  };
 
   k2tf = callPackage ../development/tools/misc/k2tf { };
 
@@ -16559,8 +16576,7 @@ with pkgs;
   ganv = callPackage ../development/libraries/ganv { };
 
   garble = callPackage ../build-support/go/garble.nix {
-    # https://github.com/burrowers/garble/issues/124
-    buildGoModule = buildGo115Module;
+    buildGoModule = buildGo117Module;
   };
 
   gcab = callPackage ../development/libraries/gcab { };
@@ -19855,6 +19871,8 @@ with pkgs;
 
   skaffold = callPackage ../development/tools/skaffold { };
 
+  skjold = callPackage ../development/tools/skjold { };
+
   skalibs = skawarePackages.skalibs;
   skalibs_2_10 = skawarePackages.skalibs_2_10;
 
@@ -20220,7 +20238,7 @@ with pkgs;
   triehash = callPackage ../tools/misc/triehash { };
 
   trillian = callPackage ../tools/misc/trillian {
-    buildGoModule = buildGo115Module;
+    buildGoModule = buildGo117Module;
   };
 
   twolame = callPackage ../development/libraries/twolame { };
@@ -21014,7 +21032,7 @@ with pkgs;
   engelsystem = callPackage ../servers/web-apps/engelsystem { php = php74; };
 
   envoy = callPackage ../servers/http/envoy {
-    go = go_1_15;
+    go = go_1_17;
     jdk = openjdk11;
     gn = gn1924;
   };
@@ -21095,6 +21113,12 @@ with pkgs;
   grafana-loki = callPackage ../servers/monitoring/loki {
     buildGoModule = buildGo116Module;
   };
+
+  promtail = grafana-loki.overrideAttrs (o: {
+    pname = "promtail";
+    subPackages = ["clients/cmd/promtail"];
+    CGO_ENABLED = 1;
+  });
 
   grafana_reporter = callPackage ../servers/monitoring/grafana-reporter { };
 
@@ -22605,6 +22629,8 @@ with pkgs;
   lm_sensors = callPackage ../os-specific/linux/lm-sensors { };
 
   lockdep = callPackage ../os-specific/linux/lockdep { };
+
+  lsirec = callPackage ../os-specific/linux/lsirec { };
 
   lsiutil = callPackage ../os-specific/linux/lsiutil { };
 
@@ -24762,6 +24788,8 @@ with pkgs;
 
   boops = callPackage ../applications/audio/boops { };
 
+  ChowCentaur  = callPackage ../applications/audio/ChowCentaur { };
+
   ChowKick  = callPackage ../applications/audio/ChowKick { };
 
   CHOWTapeModel = callPackage ../applications/audio/CHOWTapeModel { };
@@ -24883,9 +24911,7 @@ with pkgs;
 
   coursera-dl = callPackage ../applications/misc/coursera-dl {};
 
-  coyim = callPackage ../applications/networking/instant-messengers/coyim {
-    buildGoPackage = buildGo115Package;
-  };
+  coyim = callPackage ../applications/networking/instant-messengers/coyim { };
 
   cozy-drive = callPackage ../applications/networking/cozy-drive {};
 
@@ -24934,7 +24960,7 @@ with pkgs;
   darcs-to-git = callPackage ../applications/version-management/git-and-tools/darcs-to-git { };
 
   darktable = callPackage ../applications/graphics/darktable {
-    lua = lua5_3;
+    lua = lua5_4;
     pugixml = pugixml.override { shared = true; };
   };
 
@@ -25093,7 +25119,9 @@ with pkgs;
     inherit (gnome2) libgnomeui;
   };
 
-  dyff = callPackage ../development/tools/dyff {};
+  dyff = callPackage ../development/tools/dyff {
+    buildGoModule = buildGo117Module;
+  };
 
   dwl = callPackage ../applications/window-managers/dwl {
     wlroots = wlroots_0_14;
@@ -26526,9 +26554,6 @@ with pkgs;
 
   imgp = python3Packages.callPackage ../applications/graphics/imgp { };
 
-  # Impressive, formerly known as "KeyJNote".
-  impressive = callPackage ../applications/office/impressive { };
-
   index-fm = libsForQt5.callPackage ../applications/misc/index-fm { };
 
   inkcut = libsForQt5.callPackage ../applications/misc/inkcut { };
@@ -26769,7 +26794,7 @@ with pkgs;
   kubebuilder = callPackage ../applications/networking/cluster/kubebuilder { };
 
   kuttl = callPackage ../applications/networking/cluster/kuttl {
-    buildGoModule = buildGo115Module;
+    buildGoModule = buildGo117Module;
   };
 
   kubectl-doctor = callPackage ../applications/networking/cluster/kubectl-doctor { };
@@ -26784,7 +26809,9 @@ with pkgs;
 
   kubelogin-oidc = callPackage ../applications/networking/cluster/kubelogin-oidc { };
 
-  k9s = callPackage ../applications/networking/cluster/k9s { };
+  k9s = callPackage ../applications/networking/cluster/k9s {
+    buildGoModule = buildGo117Module;
+  };
 
   pgo-client = callPackage ../applications/networking/cluster/pgo-client { };
 
@@ -26857,7 +26884,7 @@ with pkgs;
   lame = callPackage ../development/libraries/lame { };
 
   labwc = callPackage ../applications/window-managers/labwc {
-    wlroots = wlroots_0_14;
+    wlroots = wlroots_0_15;
   };
 
   larswm = callPackage ../applications/window-managers/larswm { };
@@ -29754,6 +29781,8 @@ with pkgs;
     gtk = gtk2;
   };
 
+  xxh = with python3Packages; toPythonApplication xxh;
+
   kodiPackages = recurseIntoAttrs (kodi.packages);
 
   kodi = callPackage ../applications/video/kodi {
@@ -31114,9 +31143,14 @@ with pkgs;
 
   pong3d = callPackage ../games/pong3d { };
 
-  pokerth = libsForQt5.callPackage ../games/pokerth { };
+  pokerth = libsForQt5.callPackage ../games/pokerth {
+    boost = boost16x;
+  };
 
-  pokerth-server = libsForQt5.callPackage ../games/pokerth { target = "server"; };
+  pokerth-server = libsForQt5.callPackage ../games/pokerth {
+    boost = boost16x;
+    target = "server";
+  };
 
   powermanga = callPackage ../games/powermanga { };
 
@@ -33123,11 +33157,11 @@ with pkgs;
 
   neo = callPackage ../applications/misc/neo { };
 
-  nixVersions = callPackage ../tools/package-management/nix {
+  nixVersions = recurseIntoAttrs (callPackage ../tools/package-management/nix {
     storeDir = config.nix.storeDir or "/nix/store";
     stateDir = config.nix.stateDir or "/nix/var";
     inherit (darwin.apple_sdk.frameworks) Security;
-  };
+  });
 
   nix = nixVersions.stable;
 

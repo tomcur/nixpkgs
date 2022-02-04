@@ -1517,6 +1517,8 @@ in {
 
   cffi = callPackage ../development/python-modules/cffi { };
 
+  cffsubr = callPackage ../development/python-modules/cffsubr { };
+
   cfgv = callPackage ../development/python-modules/cfgv { };
 
   cfn-flip = callPackage ../development/python-modules/cfn-flip { };
@@ -1770,6 +1772,8 @@ in {
   CommonMark = callPackage ../development/python-modules/commonmark { };
 
   compiledb = callPackage ../development/python-modules/compiledb { };
+
+  compreffor = callPackage ../development/python-modules/compreffor { };
 
   concurrent-log-handler = callPackage ../development/python-modules/concurrent-log-handler { };
 
@@ -6321,6 +6325,8 @@ in {
 
   prettytable = callPackage ../development/python-modules/prettytable { };
 
+  primecountpy = callPackage ../development/python-modules/primecountpy { };
+
   primer3 = callPackage ../development/python-modules/primer3 { };
 
   priority = callPackage ../development/python-modules/priority { };
@@ -8378,6 +8384,8 @@ in {
 
   qscintilla = self.qscintilla-qt5;
 
+  qt5reactor = callPackage ../development/python-modules/qt5reactor { };
+
   qtawesome = callPackage ../development/python-modules/qtawesome { };
 
   qtconsole = callPackage ../development/python-modules/qtconsole { };
@@ -9406,6 +9414,8 @@ in {
 
   statistics = callPackage ../development/python-modules/statistics { };
 
+  statmake = callPackage ../development/python-modules/statmake { };
+
   statsd = callPackage ../development/python-modules/statsd { };
 
   statsmodels = callPackage ../development/python-modules/statsmodels { };
@@ -10056,6 +10066,10 @@ in {
   ueberzug = callPackage ../development/python-modules/ueberzug {
     inherit (pkgs.xorg) libX11 libXext;
   };
+
+  ufo2ft = callPackage ../development/python-modules/ufo2ft { };
+
+  ufoLib2 = callPackage ../development/python-modules/ufoLib2 { };
 
   ufonormalizer = callPackage ../development/python-modules/ufonormalizer { };
 

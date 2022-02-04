@@ -30117,6 +30117,34 @@ self: {
        license = lib.licenses.bsd3;
      }) {};
 
+  "amqp_0_22_1" = callPackage
+    ({ mkDerivation, base, binary, bytestring, clock, connection
+     , containers, data-binary-ieee754, hspec, hspec-expectations
+     , monad-control, network, network-uri, split, stm, text, vector
+     , xml
+     }:
+     mkDerivation {
+       pname = "amqp";
+       version = "0.22.1";
+       sha256 = "0z1w35ar0bswbjzgana52nh4ilxbidnfkvli29w2zr7cak9dgzg1";
+       isLibrary = true;
+       isExecutable = true;
+       libraryHaskellDepends = [
+         base binary bytestring clock connection containers
+         data-binary-ieee754 monad-control network network-uri split stm
+         text vector
+       ];
+       executableHaskellDepends = [ base containers xml ];
+       testHaskellDepends = [
+         base binary bytestring clock connection containers
+         data-binary-ieee754 hspec hspec-expectations network network-uri
+         split stm text vector
+       ];
+       description = "Client library for AMQP servers (currently only RabbitMQ)";
+       license = lib.licenses.bsd3;
+       hydraPlatforms = lib.platforms.none;
+     }) {};
+
   "amqp-conduit" = callPackage
     ({ mkDerivation, amqp, base, bytestring, conduit, exceptions, hspec
      , HUnit, lifted-base, monad-control, mtl, resourcet, text
@@ -33694,16 +33722,16 @@ self: {
      }:
      mkDerivation {
        pname = "arrow-utils";
-       version = "0.1.0.0";
-       sha256 = "1l8njh623a00hvfd3cczvb4ngh7c39z6f0kfhr8hr6xhbkrgwqnc";
-       revision = "1";
-       editedCabalFile = "1jdl1jmr8hbjiybrjnfr8rraqdf95l4qia3nna3nh9pvh8c69jln";
+       version = "0.1.1";
+       sha256 = "112g74g844lnqfphkxqmp8ysnvi11iii9gcn70ml1ag6m5bdr7lc";
        libraryHaskellDepends = [ base vector-sized ];
        testHaskellDepends = [
          base QuickCheck test-framework test-framework-quickcheck2
        ];
        description = "functions for working with arrows";
        license = lib.licenses.bsd3;
+       hydraPlatforms = lib.platforms.none;
+       broken = true;
      }) {};
 
   "arrowapply-utils" = callPackage
@@ -36190,6 +36218,26 @@ self: {
        license = lib.licenses.mit;
      }) {};
 
+  "authenticate_1_3_5_1" = callPackage
+    ({ mkDerivation, aeson, attoparsec, base, blaze-builder, bytestring
+     , case-insensitive, conduit, containers, html-conduit, http-conduit
+     , http-types, network-uri, resourcet, text, transformers
+     , unordered-containers, xml-conduit
+     }:
+     mkDerivation {
+       pname = "authenticate";
+       version = "1.3.5.1";
+       sha256 = "1rhbvdgwdr68gp13p5piddfdqf3l9lmx4w7k249lc98y23780c3x";
+       libraryHaskellDepends = [
+         aeson attoparsec base blaze-builder bytestring case-insensitive
+         conduit containers html-conduit http-conduit http-types network-uri
+         resourcet text transformers unordered-containers xml-conduit
+       ];
+       description = "Authentication methods for Haskell web applications";
+       license = lib.licenses.mit;
+       hydraPlatforms = lib.platforms.none;
+     }) {};
+
   "authenticate-kerberos" = callPackage
     ({ mkDerivation, base, process, text }:
      mkDerivation {
@@ -36903,7 +36951,7 @@ self: {
        license = lib.licenses.bsd3;
      }) {};
 
-  "avro_0_6_0_0" = callPackage
+  "avro_0_6_0_1" = callPackage
     ({ mkDerivation, aeson, array, base, base16-bytestring, bifunctors
      , binary, bytestring, containers, data-binary-ieee754, deepseq
      , directory, doctest, doctest-discover, extra, fail, gauge
@@ -36915,8 +36963,8 @@ self: {
      }:
      mkDerivation {
        pname = "avro";
-       version = "0.6.0.0";
-       sha256 = "056nd6cgl9lqv0ij8a2s0rca1f0qcxr2mfr0i8pkh84h9y84nzv9";
+       version = "0.6.0.1";
+       sha256 = "1kl7dp0vm2klvijszjhwj2x9m4bmw044s085fyq86cszqrsrrn6w";
        libraryHaskellDepends = [
          aeson array base base16-bytestring bifunctors binary bytestring
          containers data-binary-ieee754 deepseq fail HasBigDecimal hashable
@@ -40181,6 +40229,8 @@ self: {
        pname = "beam-core";
        version = "0.9.2.0";
        sha256 = "1b1xk4pi9j49fmh9lywgqcg61gbd6i7905gv5prnf0799iqz68g9";
+       revision = "1";
+       editedCabalFile = "1wfvfgram4sy9lw6l5xizhdmfaxq7gyv4ygph6r46c47abzv3ha0";
        libraryHaskellDepends = [
          aeson base bytestring containers dlist free ghc-prim hashable
          microlens mtl network-uri scientific tagged text time vector
@@ -57744,6 +57794,51 @@ self: {
        hydraPlatforms = lib.platforms.none;
      }) {};
 
+  "cleveland" = callPackage
+    ({ mkDerivation, aeson, aeson-pretty, aeson-qq, base-noprelude
+     , bimap, bytestring, constraints, containers, criterion, cryptonite
+     , data-default, directory, either, exceptions, file-embed, filepath
+     , first-class-families, fmt, gauge, hedgehog, hex-text, hspec
+     , hspec-expectations, HUnit, lens, lorentz, megaparsec, MonadRandom
+     , morley, morley-client, morley-prelude, mtl, named, o-clock
+     , optparse-applicative, safe-exceptions, servant-client
+     , servant-client-core, silently, singletons, spoon, statistics, syb
+     , tagged, tasty, tasty-ant-xml, tasty-discover, tasty-hedgehog
+     , tasty-hspec, tasty-hunit-compat, template-haskell, text, time
+     , type-spec, unordered-containers, vinyl, with-utf8
+     }:
+     mkDerivation {
+       pname = "cleveland";
+       version = "0.1.0";
+       sha256 = "0px16j08fakmxzsf6rgx9gs91g61ygxzkf7sngj06a76yzfj4hlw";
+       libraryHaskellDepends = [
+         aeson base-noprelude constraints containers criterion cryptonite
+         data-default directory either exceptions file-embed fmt hedgehog
+         hex-text hspec hspec-expectations HUnit lens lorentz MonadRandom
+         morley morley-client morley-prelude mtl named o-clock
+         optparse-applicative safe-exceptions servant-client-core singletons
+         statistics tagged tasty tasty-ant-xml tasty-hedgehog
+         tasty-hunit-compat template-haskell text time with-utf8
+       ];
+       testHaskellDepends = [
+         aeson aeson-pretty aeson-qq base-noprelude bimap bytestring
+         constraints containers data-default directory either filepath
+         first-class-families fmt hedgehog hex-text hspec hspec-expectations
+         HUnit lens lorentz megaparsec morley morley-client morley-prelude
+         mtl named o-clock servant-client silently singletons spoon syb
+         tasty tasty-hedgehog tasty-hspec tasty-hunit-compat text time
+         type-spec unordered-containers vinyl with-utf8
+       ];
+       testToolDepends = [ tasty-discover ];
+       benchmarkHaskellDepends = [
+         base-noprelude data-default gauge megaparsec morley morley-prelude
+         with-utf8
+       ];
+       description = "Testing framework for Morley";
+       license = lib.licenses.mit;
+       hydraPlatforms = lib.platforms.none;
+     }) {};
+
   "clevercss" = callPackage
     ({ mkDerivation, base, containers, mtl, parsec }:
      mkDerivation {
@@ -65938,15 +66033,15 @@ self: {
        license = lib.licenses.mit;
      }) {};
 
-  "core-data_0_3_0_2" = callPackage
+  "core-data_0_3_1_1" = callPackage
     ({ mkDerivation, aeson, base, bytestring, containers, core-text
      , hashable, prettyprinter, scientific, text, unordered-containers
      , vector
      }:
      mkDerivation {
        pname = "core-data";
-       version = "0.3.0.2";
-       sha256 = "0rfx7086ilv2rld2nnq96jkygvxxsnfs81mh4b4nmb4drdw02jl0";
+       version = "0.3.1.1";
+       sha256 = "0i11m2k1xb97f0plvp9g7l4zhp9d1njn9z7xfhcmghbvlkk82vx2";
        libraryHaskellDepends = [
          aeson base bytestring containers core-text hashable prettyprinter
          scientific text unordered-containers vector
@@ -65994,7 +66089,7 @@ self: {
        license = lib.licenses.mit;
      }) {};
 
-  "core-program_0_4_2_0" = callPackage
+  "core-program_0_4_4_0" = callPackage
     ({ mkDerivation, async, base, bytestring, chronologique, core-data
      , core-text, directory, exceptions, filepath, fsnotify, hashable
      , hourglass, mtl, prettyprinter, safe-exceptions, stm
@@ -66003,8 +66098,8 @@ self: {
      }:
      mkDerivation {
        pname = "core-program";
-       version = "0.4.2.0";
-       sha256 = "1xbfshfy6h7afpnlaafyq4mj3x0q4i83sxk6720k0dd0hhszb6b0";
+       version = "0.4.4.0";
+       sha256 = "1mp694llk3b04yqv8gr7i2rwcld99xmx1m55f5fhk1vgks816kih";
        libraryHaskellDepends = [
          async base bytestring chronologique core-data core-text directory
          exceptions filepath fsnotify hashable hourglass mtl prettyprinter
@@ -66019,17 +66114,17 @@ self: {
   "core-telemetry" = callPackage
     ({ mkDerivation, async, base, bytestring, chronologique, core-data
      , core-program, core-text, exceptions, http-streams, io-streams
-     , locators, mtl, random, safe-exceptions, scientific, stm
-     , template-haskell, text, unix, uuid
+     , mtl, network-info, random, safe-exceptions, scientific, stm
+     , template-haskell, text, unix
      }:
      mkDerivation {
        pname = "core-telemetry";
-       version = "0.1.8.1";
-       sha256 = "024npp0cm5f3v1h70iw03hv2lj0r2ylsp7w2pm1iv6zr8j63k1iy";
+       version = "0.1.9.1";
+       sha256 = "11b106gs96l20zb0lyr0qw49bnm8wxfc4wcncjaip6mdvgcc8cza";
        libraryHaskellDepends = [
          async base bytestring chronologique core-data core-program
-         core-text exceptions http-streams io-streams locators mtl random
-         safe-exceptions scientific stm template-haskell text unix uuid
+         core-text exceptions http-streams io-streams mtl network-info
+         random safe-exceptions scientific stm template-haskell text unix
        ];
        description = "Advanced telemetry";
        license = lib.licenses.mit;
@@ -75534,17 +75629,17 @@ self: {
      }) {};
 
   "deriving-trans" = callPackage
-    ({ mkDerivation, base, lifted-base, monad-control, mtl
-     , transformers, transformers-base
+    ({ mkDerivation, base, monad-control, mtl, transformers
+     , transformers-base
      }:
      mkDerivation {
        pname = "deriving-trans";
-       version = "0.1.0.0";
-       sha256 = "1yphl0wjp67b7hc3ys6snlvzk67by070p5vfmwcv7ic688vh1dw4";
+       version = "0.2.1.0";
+       sha256 = "114npy6rb24gsblncsgzdr1mfhnh8r2pblazvjz5l444h5im0ln2";
        libraryHaskellDepends = [
-         base lifted-base monad-control mtl transformers transformers-base
+         base monad-control mtl transformers transformers-base
        ];
-       description = "Derive transformer type classes with DerivingVia";
+       description = "Derive instances for monad transformer stacks";
        license = lib.licenses.bsd3;
      }) {};
 
@@ -76990,8 +77085,8 @@ self: {
      }:
      mkDerivation {
        pname = "diagrams-braille";
-       version = "0.1.0.2";
-       sha256 = "1jrhc8k0n9jabhg6rz22js9k3nj3v6r6klxskiksf6ajbqbzqg69";
+       version = "0.1.1";
+       sha256 = "1h9j1hrhpzl5rqhjnwp92sv0shc9i7yhnzpbs1dxfpyn8baws7mc";
        isLibrary = true;
        isExecutable = true;
        libraryHaskellDepends = [
@@ -77048,10 +77143,8 @@ self: {
      }:
      mkDerivation {
        pname = "diagrams-cairo";
-       version = "1.4.1.1";
-       sha256 = "0vyd2yr55n7x71194i18lnbcshdjpnqw4qyq7vj5zx377rsz711k";
-       revision = "3";
-       editedCabalFile = "16jm9g9rfc7d1dy2kwq3n9wfgcj8l6c0d54lym1r6b0arc7yjqlb";
+       version = "1.4.2";
+       sha256 = "094vavgsfn7hxn2h7phvmx82wdhw51vqqv29p8hsvmijf1gxa7c1";
        libraryHaskellDepends = [
          array base bytestring cairo colour containers data-default-class
          diagrams-core diagrams-lib filepath hashable JuicyPixels lens mtl
@@ -78626,20 +78719,22 @@ self: {
      }) {};
 
   "directory-contents" = callPackage
-    ({ mkDerivation, base, containers, directory, filepath, text
-     , transformers, witherable
+    ({ mkDerivation, base, containers, coquina, directory, filepath
+     , here, process, text, transformers, witherable
      }:
      mkDerivation {
        pname = "directory-contents";
-       version = "0.2.0.0";
-       sha256 = "15irmkg3ll6s3dqwl4hn7mmr5kygcl11slba3mzkdhlyg567is6x";
+       version = "0.2.0.1";
+       sha256 = "12c157lxqn910x7x3jwzv70fhb01bszxp0r00107igddrd6dqffv";
        isLibrary = true;
        isExecutable = true;
        libraryHaskellDepends = [
          base containers directory filepath text transformers witherable
        ];
        executableHaskellDepends = [ base filepath text ];
-       testHaskellDepends = [ base filepath ];
+       testHaskellDepends = [
+         base coquina directory filepath here process text
+       ];
        description = "Recursively build, navigate, and operate on a tree of directory contents";
        license = lib.licenses.bsd3;
        hydraPlatforms = lib.platforms.none;
@@ -84848,10 +84943,8 @@ self: {
      }:
      mkDerivation {
        pname = "eflint";
-       version = "3.0.0.1";
-       sha256 = "1cij1g1mrw41dn4c63bzkahya3li9v7pkzisj0v129p6ckypv7cc";
-       revision = "1";
-       editedCabalFile = "10bi07ilvvmglbgsc1xf2fq4vsndrqh9d6c823d897s4didcv8rk";
+       version = "3.0.0.2";
+       sha256 = "14rhc9kmsb9krf5h8a8041pirp8mnlfc6kxidmdz2d4r4pd8yd8k";
        isLibrary = true;
        isExecutable = true;
        libraryHaskellDepends = [
@@ -91965,36 +92058,36 @@ self: {
        license = lib.licenses.bsd3;
      }) {};
 
-  "fakedata_1_0_1" = callPackage
-    ({ mkDerivation, attoparsec, base, bytestring, containers, deepseq
-     , directory, exceptions, fakedata-parser, filepath, gauge, hashable
-     , hspec, hspec-discover, QuickCheck, random, regex-tdfa
+  "fakedata_1_0_2" = callPackage
+    ({ mkDerivation, aeson, attoparsec, base, bytestring, containers
+     , deepseq, directory, exceptions, fakedata-parser, filepath, gauge
+     , hashable, hspec, hspec-discover, QuickCheck, random, regex-tdfa
      , string-random, template-haskell, text, time, transformers
      , unordered-containers, vector, yaml
      }:
      mkDerivation {
        pname = "fakedata";
-       version = "1.0.1";
-       sha256 = "08z3qhj93smpd2ksix3i7wcxqkz5533pkx9xf4xjq60qm99scmw6";
+       version = "1.0.2";
+       sha256 = "1xbp0wif3dfk4880f8lr8zj07jdqhbxalqm7bfpw6r0cv354w3l8";
        enableSeparateDataOutput = true;
        libraryHaskellDepends = [
-         attoparsec base bytestring containers directory exceptions
+         aeson attoparsec base bytestring containers directory exceptions
          fakedata-parser filepath hashable random string-random
          template-haskell text time transformers unordered-containers vector
          yaml
        ];
        testHaskellDepends = [
-         attoparsec base bytestring containers directory exceptions
+         aeson attoparsec base bytestring containers directory exceptions
          fakedata-parser filepath hashable hspec QuickCheck random
          regex-tdfa string-random template-haskell text time transformers
          unordered-containers vector yaml
        ];
        testToolDepends = [ hspec-discover ];
        benchmarkHaskellDepends = [
-         attoparsec base bytestring containers deepseq directory exceptions
-         fakedata-parser filepath gauge hashable random string-random
-         template-haskell text time transformers unordered-containers vector
-         yaml
+         aeson attoparsec base bytestring containers deepseq directory
+         exceptions fakedata-parser filepath gauge hashable random
+         string-random template-haskell text time transformers
+         unordered-containers vector yaml
        ];
        description = "Library for producing fake data";
        license = lib.licenses.bsd3;
@@ -106815,6 +106908,8 @@ self: {
        pname = "ghc-typelits-extra";
        version = "0.4.3";
        sha256 = "06g40q0n2d10c2zksx5rrjkvm5ywi3rh41hbiwy4zs28x9idsv18";
+       revision = "1";
+       editedCabalFile = "0m6z24zmi169zifz1jg4zri0izr5z37qx33c9mphy74vd6ds3zzz";
        libraryHaskellDepends = [
          base containers ghc ghc-prim ghc-tcplugins-extra
          ghc-typelits-knownnat ghc-typelits-natnormalise integer-gmp
@@ -116073,10 +116168,8 @@ self: {
      }:
      mkDerivation {
        pname = "graph-trace-dot";
-       version = "0.1.1.1";
-       sha256 = "11hwxccy7yaz3mwixp1gjlpdfi9525ydqlbmpgyasg9ndg7dvl8i";
-       revision = "1";
-       editedCabalFile = "0caa9xcxwrqzqwsl76kmwv3fq9klsnm7wamrwjs8lrliyxcriwl6";
+       version = "0.1.1.2";
+       sha256 = "0wq6addzcigp21f5caljszzwcr8rhws49s93yr156c35nlcw98jl";
        isLibrary = true;
        isExecutable = true;
        libraryHaskellDepends = [
@@ -123133,8 +123226,8 @@ self: {
      }:
      mkDerivation {
        pname = "has-transformers";
-       version = "0.1.0.3";
-       sha256 = "0mrz11hxm7nyxyirfz8f63w1mxf3snprrxvh2vvhmmi8p3wlay6n";
+       version = "0.1.0.4";
+       sha256 = "1wm8dwgcg1m2104lzgk3vdvng5mvh4xcn736nyarb9q6p99i0bq3";
        libraryHaskellDepends = [ base transformers ];
        testHaskellDepends = [ base hspec operational ];
        testToolDepends = [ hspec-discover ];
@@ -130667,8 +130760,8 @@ self: {
        pname = "hedgehog";
        version = "1.0.5";
        sha256 = "1qsqs8lmxa3wmw228cwi98vvvh9hqbc9d43i1sy2c9igw9xlhfi6";
-       revision = "1";
-       editedCabalFile = "0vqjjjvnbb601f6lwm90x80wb6rxhnvi4p8g04g15bfs3kxqw44z";
+       revision = "2";
+       editedCabalFile = "1p6vixwflgz2y1fc94kqxiv8s5jvq63xhp56cqwpw2s7d7g5chx1";
        libraryHaskellDepends = [
          ansi-terminal async base bytestring concurrent-output containers
          deepseq directory erf exceptions lifted-async mmorph monad-control
@@ -130680,6 +130773,35 @@ self: {
        ];
        description = "Release with confidence";
        license = lib.licenses.bsd3;
+       maintainers = with lib.maintainers; [ maralorn ];
+     }) {};
+
+  "hedgehog_1_1" = callPackage
+    ({ mkDerivation, ansi-terminal, async, barbies, base, bytestring
+     , concurrent-output, containers, deepseq, directory, erf
+     , exceptions, lifted-async, mmorph, monad-control, mtl, pretty-show
+     , primitive, random, resourcet, stm, template-haskell, text, time
+     , transformers, transformers-base, wl-pprint-annotated
+     }:
+     mkDerivation {
+       pname = "hedgehog";
+       version = "1.1";
+       sha256 = "1g05jw568lv02ikqhp2wyx52218b6rm7rxyh93cwrmbmgd2sxhsc";
+       revision = "1";
+       editedCabalFile = "19r528rsfzyfaz3xcwbi2zmf6sgzls2x61z24j3wfiicch30qk69";
+       libraryHaskellDepends = [
+         ansi-terminal async barbies base bytestring concurrent-output
+         containers deepseq directory erf exceptions lifted-async mmorph
+         monad-control mtl pretty-show primitive random resourcet stm
+         template-haskell text time transformers transformers-base
+         wl-pprint-annotated
+       ];
+       testHaskellDepends = [
+         base containers mmorph mtl pretty-show text transformers
+       ];
+       description = "Release with confidence";
+       license = lib.licenses.bsd3;
+       hydraPlatforms = lib.platforms.none;
        maintainers = with lib.maintainers; [ maralorn ];
      }) {};
 
@@ -130859,8 +130981,8 @@ self: {
        pname = "hedgehog-quickcheck";
        version = "0.1.1";
        sha256 = "1z2ja63wqz83qhwzh0zs98k502v8fjdpnsnhqk3srypx2nw5vdlp";
-       revision = "1";
-       editedCabalFile = "0ddmwz3ngamij2k4paf7508dnzqn4qjpgwypbpr8d6s2y95jbvfh";
+       revision = "2";
+       editedCabalFile = "1n7icqychb94j7s8msmih3h573vf17pn1sq79nkqric3wwf74rdp";
        libraryHaskellDepends = [ base hedgehog QuickCheck transformers ];
        description = "Use QuickCheck generators in Hedgehog and vice versa";
        license = lib.licenses.bsd3;
@@ -148522,6 +148644,41 @@ self: {
        license = lib.licenses.bsd3;
      }) {};
 
+  "http2_3_0_3" = callPackage
+    ({ mkDerivation, aeson, aeson-pretty, array, async, base
+     , base16-bytestring, bytestring, case-insensitive, containers
+     , cryptonite, directory, filepath, gauge, Glob, heaps, hspec
+     , hspec-discover, http-types, mwc-random, network
+     , network-byte-order, network-run, psqueues, stm, text
+     , time-manager, typed-process, unix-time, unordered-containers
+     , vector
+     }:
+     mkDerivation {
+       pname = "http2";
+       version = "3.0.3";
+       sha256 = "1kv99i3pnnx31xndlkaczrpd2j5mvzbqlfz1kaw6cwlwkdnl5bhv";
+       isLibrary = true;
+       isExecutable = true;
+       libraryHaskellDepends = [
+         array async base bytestring case-insensitive containers http-types
+         network network-byte-order psqueues stm time-manager unix-time
+       ];
+       testHaskellDepends = [
+         aeson aeson-pretty async base base16-bytestring bytestring
+         cryptonite directory filepath Glob hspec http-types network
+         network-byte-order network-run text typed-process
+         unordered-containers vector
+       ];
+       testToolDepends = [ hspec-discover ];
+       benchmarkHaskellDepends = [
+         array base bytestring case-insensitive containers gauge heaps
+         mwc-random network-byte-order psqueues stm
+       ];
+       description = "HTTP/2 library";
+       license = lib.licenses.bsd3;
+       hydraPlatforms = lib.platforms.none;
+     }) {};
+
   "http2-client" = callPackage
     ({ mkDerivation, async, base, bytestring, containers, deepseq
      , http2, lifted-async, lifted-base, mtl, network, stm, time, tls
@@ -154718,8 +154875,7 @@ self: {
        description = "Convenient imperative eDSL over Lorentz";
        license = lib.licenses.mit;
        hydraPlatforms = lib.platforms.none;
-       broken = true;
-     }) {cleveland = null;};
+     }) {};
 
   "inf-interval" = callPackage
     ({ mkDerivation, array, base, deepseq, QuickCheck, text, vector }:
@@ -157253,6 +157409,8 @@ self: {
        pname = "ipynb";
        version = "0.2";
        sha256 = "1iwia4sxg40m4d290gys72wabqmkqx24ywsaranwzk2wx5s3sx4s";
+       revision = "1";
+       editedCabalFile = "0fl9x5amq0g5dg57dcgc0g4ir0r1fdbx06aldsqdwzdc9zs97v6k";
        libraryHaskellDepends = [
          aeson base base64-bytestring bytestring containers text
          unordered-containers
@@ -158790,26 +158948,30 @@ self: {
      }) {};
 
   "jacinda" = callPackage
-    ({ mkDerivation, alex, array, base, bytestring, containers, happy
-     , microlens, microlens-mtl, mtl, optparse-applicative
-     , prettyprinter, recursion, regex-rure, tasty, tasty-hunit, text
+    ({ mkDerivation, alex, array, base, bytestring, containers
+     , criterion, deepseq, directory, filepath, happy, microlens
+     , microlens-mtl, mtl, optparse-applicative, prettyprinter
+     , recursion, regex-rure, split, tasty, tasty-hunit, text
      , transformers, vector
      }:
      mkDerivation {
        pname = "jacinda";
-       version = "0.2.1.0";
-       sha256 = "0p7ng81dfilj277lq6sy6xb89jd8a0kr20wcndsqjg7pgp4rxpy2";
+       version = "0.3.0.0";
+       sha256 = "16m9gqswwqm66w1wynrivis51vhr6xh40gv12z6nf5w2dry8kljx";
        isLibrary = false;
        isExecutable = true;
+       enableSeparateDataOutput = true;
        libraryHaskellDepends = [
-         array base bytestring containers microlens microlens-mtl mtl
-         prettyprinter recursion regex-rure text transformers vector
+         array base bytestring containers directory filepath microlens
+         microlens-mtl mtl prettyprinter recursion regex-rure split text
+         transformers vector
        ];
        libraryToolDepends = [ alex happy ];
        executableHaskellDepends = [
          base bytestring optparse-applicative
        ];
        testHaskellDepends = [ base bytestring tasty tasty-hunit ];
+       benchmarkHaskellDepends = [ base criterion deepseq ];
        doHaddock = false;
        description = "Functional, expression-oriented data processing language";
        license = lib.licenses.agpl3Only;
@@ -164365,8 +164527,8 @@ self: {
      }:
      mkDerivation {
        pname = "koji-tool";
-       version = "0.6.1";
-       sha256 = "1l2w0dcy4fcv865z27661j7jmfy3blf8q321mv18dn44f3wr0xax";
+       version = "0.7";
+       sha256 = "1gyg76fajs7qc7mr86i0hiz5m4a0y2lqmqk67cb0glgbg53z47b7";
        isLibrary = false;
        isExecutable = true;
        executableHaskellDepends = [
@@ -164641,19 +164803,14 @@ self: {
      }) {egl = null; inherit (pkgs) glew;};
 
   "ktx-codec" = callPackage
-    ({ mkDerivation, base, binary, bytestring, containers, directory
-     , filepath, shower, text, vector
+    ({ mkDerivation, base, binary, bytestring, containers, text, vector
      }:
      mkDerivation {
        pname = "ktx-codec";
-       version = "0.0.1.3";
-       sha256 = "0mm6lf8fm8zmi33s4zg8c3ar42aghdqmb3g7hv6qpcm1vc5krld4";
+       version = "0.0.1.4";
+       sha256 = "1n9vh7la5c359nczlla7jpf6qwbs6dx7n3fd9bnb4s2i6fpb5k0a";
        libraryHaskellDepends = [
          base binary bytestring containers text vector
-       ];
-       testHaskellDepends = [
-         base binary bytestring containers directory filepath shower text
-         vector
        ];
        description = "Khronos texture format";
        license = lib.licenses.bsd3;
@@ -175898,8 +176055,8 @@ self: {
      }:
      mkDerivation {
        pname = "lorentz";
-       version = "0.13.1";
-       sha256 = "1cg2y15nz193s1mwm0c6x1z8nmdwv9n8qljl1a2irh3z3nb33sd2";
+       version = "0.13.2";
+       sha256 = "1kb611xj1rl8jbx3bibcqdklv8kls3xkis77vix2vdf6y6fhjhfr";
        libraryHaskellDepends = [
          aeson-pretty base-noprelude bimap bytestring constraints containers
          cryptonite data-default first-class-families fmt lens morley
@@ -178873,8 +179030,8 @@ self: {
      }:
      mkDerivation {
        pname = "mandrill";
-       version = "0.5.5.0";
-       sha256 = "1zq7kfs513zh7v5y4hafh5d6ly4jhmxsl3rfjavh2faw4i19fy3n";
+       version = "0.5.6.0";
+       sha256 = "1p58c83dqbpsl0a41s6xnnwbygk04gmsg51gfqprjkvzbgl2h7zq";
        libraryHaskellDepends = [
          aeson base base64-bytestring blaze-html bytestring containers
          email-validate http-client http-client-tls http-types microlens-th
@@ -182062,6 +182219,21 @@ self: {
        ];
        description = "memory and related abstraction stuff";
        license = lib.licenses.bsd3;
+     }) {};
+
+  "memory-hexstring" = callPackage
+    ({ mkDerivation, aeson, base, bytestring, memory, scale
+     , template-haskell, text
+     }:
+     mkDerivation {
+       pname = "memory-hexstring";
+       version = "1.0.0.0";
+       sha256 = "1sm7jj75mv8p7f33h619zm10xbzyjg1jds87cg36mrj8hfb32q48";
+       libraryHaskellDepends = [
+         aeson base bytestring memory scale template-haskell text
+       ];
+       description = "Hex-string type for Haskell Web3 library";
+       license = lib.licenses.asl20;
      }) {};
 
   "memorypool" = callPackage
@@ -188311,8 +188483,8 @@ self: {
      }:
      mkDerivation {
        pname = "morley";
-       version = "1.16.1";
-       sha256 = "0kb4v5fwlxy80swqvjbrdc2qafiqrzw5zhihfjz4hc3vp5pcfizs";
+       version = "1.16.2";
+       sha256 = "1b236yp37pahx3njn0cwdbnkr7yj62ckhfsicgm2crb4l6sjkyas";
        isLibrary = true;
        isExecutable = true;
        libraryHaskellDepends = [
@@ -188332,6 +188504,50 @@ self: {
          optparse-applicative text vinyl with-utf8
        ];
        description = "Developer tools for the Michelson Language";
+       license = lib.licenses.mit;
+       hydraPlatforms = lib.platforms.none;
+     }) {};
+
+  "morley-client" = callPackage
+    ({ mkDerivation, aeson, aeson-casing, base-noprelude, binary
+     , bytestring, co-log, co-log-core, colourista, constraints
+     , containers, data-default, exceptions, fmt, hex-text
+     , hspec-expectations, http-client, http-client-tls, http-types
+     , HUnit, lens, lorentz, megaparsec, memory, morley, morley-prelude
+     , mtl, named, optparse-applicative, process, random
+     , safe-exceptions, scientific, servant, servant-client
+     , servant-client-core, singletons, syb, tasty, tasty-ant-xml
+     , tasty-discover, tasty-hunit-compat, template-haskell, text
+     , th-reify-many, time, universum, unliftio, vector
+     }:
+     mkDerivation {
+       pname = "morley-client";
+       version = "0.1.0";
+       sha256 = "1xhmksv745dvf8axbihbdn9r9402na381czckab844whkdmnag0y";
+       isLibrary = true;
+       isExecutable = true;
+       libraryHaskellDepends = [
+         aeson aeson-casing base-noprelude binary bytestring co-log
+         co-log-core colourista constraints containers data-default fmt
+         hex-text http-client http-client-tls http-types lens lorentz
+         megaparsec memory morley morley-prelude mtl named
+         optparse-applicative process random safe-exceptions scientific
+         servant servant-client servant-client-core singletons syb
+         template-haskell text th-reify-many time universum unliftio vector
+       ];
+       executableHaskellDepends = [
+         aeson base-noprelude data-default fmt morley morley-prelude
+         optparse-applicative safe-exceptions
+       ];
+       testHaskellDepends = [
+         aeson base-noprelude bytestring co-log co-log-core containers
+         exceptions fmt hex-text hspec-expectations http-types HUnit lens
+         lorentz memory morley morley-prelude safe-exceptions
+         servant-client-core singletons syb tasty tasty-ant-xml
+         tasty-hunit-compat template-haskell time
+       ];
+       testToolDepends = [ tasty-discover ];
+       description = "Client to interact with the Tezos blockchain";
        license = lib.licenses.mit;
        hydraPlatforms = lib.platforms.none;
      }) {};
@@ -188377,8 +188593,7 @@ self: {
        description = "Upgradeability infrastructure based on Morley";
        license = lib.licenses.mit;
        hydraPlatforms = lib.platforms.none;
-       broken = true;
-     }) {cleveland = null; morley-client = null;};
+     }) {};
 
   "morloc" = callPackage
     ({ mkDerivation, aeson, base, bytestring, containers, directory
@@ -191150,6 +191365,25 @@ self: {
        testHaskellDepends = [ base hspec transformers ];
        description = "like mtl's ReaderT / WriterT / StateT, but more than one contained value/type";
        license = lib.licenses.bsd3;
+     }) {};
+
+  "multistate_0_8_0_4" = callPackage
+    ({ mkDerivation, base, hspec, monad-control, mtl, tagged
+     , transformers, transformers-base
+     }:
+     mkDerivation {
+       pname = "multistate";
+       version = "0.8.0.4";
+       sha256 = "0y42c21ha0chqhrn40a4bikdbirsw7aqg4i866frpagz1ivr915q";
+       isLibrary = true;
+       isExecutable = true;
+       libraryHaskellDepends = [
+         base monad-control mtl tagged transformers transformers-base
+       ];
+       testHaskellDepends = [ base hspec transformers ];
+       description = "like mtl's ReaderT / WriterT / StateT, but more than one contained value/type";
+       license = lib.licenses.bsd3;
+       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "multivariant" = callPackage
@@ -210014,6 +210248,17 @@ self: {
        license = lib.licenses.bsd3;
      }) {};
 
+  "persistent-lens" = callPackage
+    ({ mkDerivation, base, lens, persistent }:
+     mkDerivation {
+       pname = "persistent-lens";
+       version = "1.0.0";
+       sha256 = "1pmk79m3p71sbcnzz27ji7305v4s8pbqghphl6nmkviswdy430xl";
+       libraryHaskellDepends = [ base lens persistent ];
+       description = "lens helpers for persistent";
+       license = lib.licenses.mit;
+     }) {};
+
   "persistent-map" = callPackage
     ({ mkDerivation, base, binary, containers, directory, EdisonAPI
      , EdisonCore, filepath, LRU, mtl, stm-io-hooks
@@ -210162,6 +210407,33 @@ self: {
        license = lib.licenses.mit;
      }) {};
 
+  "persistent-mysql_2_13_0_3" = callPackage
+    ({ mkDerivation, aeson, base, blaze-builder, bytestring, conduit
+     , containers, fast-logger, hspec, http-api-data, HUnit
+     , monad-logger, mysql, mysql-simple, path-pieces, persistent
+     , persistent-qq, persistent-test, QuickCheck, quickcheck-instances
+     , resource-pool, resourcet, text, time, transformers, unliftio-core
+     }:
+     mkDerivation {
+       pname = "persistent-mysql";
+       version = "2.13.0.3";
+       sha256 = "0z4dpysridkssq3gmnh65mxa2acs1r7mhcbnsfgqk5gzqyzhfxr3";
+       libraryHaskellDepends = [
+         aeson base blaze-builder bytestring conduit containers monad-logger
+         mysql mysql-simple persistent resource-pool resourcet text
+         transformers unliftio-core
+       ];
+       testHaskellDepends = [
+         aeson base bytestring containers fast-logger hspec http-api-data
+         HUnit monad-logger mysql path-pieces persistent persistent-qq
+         persistent-test QuickCheck quickcheck-instances resourcet text time
+         transformers unliftio-core
+       ];
+       description = "Backend for the persistent library using MySQL database server";
+       license = lib.licenses.mit;
+       hydraPlatforms = lib.platforms.none;
+     }) {};
+
   "persistent-mysql-haskell" = callPackage
     ({ mkDerivation, aeson, base, bytestring, conduit, containers
      , fast-logger, hspec, HUnit, io-streams, monad-logger
@@ -210282,6 +210554,40 @@ self: {
        ];
        description = "Backend for the persistent library using postgresql";
        license = lib.licenses.mit;
+     }) {};
+
+  "persistent-postgresql_2_13_3_0" = callPackage
+    ({ mkDerivation, aeson, attoparsec, base, blaze-builder, bytestring
+     , conduit, containers, fast-logger, hspec, hspec-expectations
+     , hspec-expectations-lifted, http-api-data, HUnit, monad-logger
+     , mtl, path-pieces, persistent, persistent-qq, persistent-test
+     , postgresql-libpq, postgresql-simple, QuickCheck
+     , quickcheck-instances, resource-pool, resourcet
+     , string-conversions, text, time, transformers, unliftio
+     , unliftio-core, unordered-containers, vector
+     }:
+     mkDerivation {
+       pname = "persistent-postgresql";
+       version = "2.13.3.0";
+       sha256 = "08br76dk1ilci5428z351n4ykvgazhbf9r8ny6kx95x5p7nifx0i";
+       isLibrary = true;
+       isExecutable = true;
+       libraryHaskellDepends = [
+         aeson attoparsec base blaze-builder bytestring conduit containers
+         monad-logger mtl persistent postgresql-libpq postgresql-simple
+         resource-pool resourcet string-conversions text time transformers
+         unliftio-core
+       ];
+       testHaskellDepends = [
+         aeson base bytestring containers fast-logger hspec
+         hspec-expectations hspec-expectations-lifted http-api-data HUnit
+         monad-logger path-pieces persistent persistent-qq persistent-test
+         QuickCheck quickcheck-instances resourcet text time transformers
+         unliftio unliftio-core unordered-containers vector
+       ];
+       description = "Backend for the persistent library using postgresql";
+       license = lib.licenses.mit;
+       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "persistent-postgresql-streaming" = callPackage
@@ -223039,6 +223345,77 @@ self: {
        license = lib.licenses.bsd3;
      }) {};
 
+  "ptera" = callPackage
+    ({ mkDerivation, base, Cabal, cabal-doctest, containers, doctest
+     , enummapset-th, hspec, hspec-discover, membership, ptera-core
+     , QuickCheck, unordered-containers
+     }:
+     mkDerivation {
+       pname = "ptera";
+       version = "0.1.0.0";
+       sha256 = "1bcbv740rvhibmkvyp097nm1f07ira8i9anq4m3vd6gp96mbin48";
+       setupHaskellDepends = [ base Cabal cabal-doctest ];
+       libraryHaskellDepends = [
+         base containers enummapset-th membership ptera-core
+         unordered-containers
+       ];
+       testHaskellDepends = [
+         base containers doctest enummapset-th hspec membership ptera-core
+         QuickCheck unordered-containers
+       ];
+       testToolDepends = [ hspec-discover ];
+       description = "A parser generator";
+       license = "(Apache-2.0 OR MPL-2.0)";
+     }) {};
+
+  "ptera-core" = callPackage
+    ({ mkDerivation, array, base, Cabal, cabal-doctest, containers
+     , doctest, enummapset-th, hashable, hspec, hspec-discover
+     , membership, QuickCheck, transformers, unordered-containers
+     }:
+     mkDerivation {
+       pname = "ptera-core";
+       version = "0.1.0.0";
+       sha256 = "1bpgnd68c070i1azig6r0ck843hvxjcg17yhmy3nizm1bx4nppk1";
+       setupHaskellDepends = [ base Cabal cabal-doctest ];
+       libraryHaskellDepends = [
+         array base containers enummapset-th hashable membership
+         transformers unordered-containers
+       ];
+       testHaskellDepends = [
+         array base containers doctest enummapset-th hashable hspec
+         membership QuickCheck transformers unordered-containers
+       ];
+       testToolDepends = [ hspec-discover ];
+       description = "A parser generator";
+       license = "(Apache-2.0 OR MPL-2.0)";
+     }) {};
+
+  "ptera-th" = callPackage
+    ({ mkDerivation, array, base, Cabal, cabal-doctest, containers
+     , doctest, enummapset-th, ghc-prim, hspec, hspec-discover
+     , membership, ptera, ptera-core, QuickCheck, template-haskell
+     , unordered-containers
+     }:
+     mkDerivation {
+       pname = "ptera-th";
+       version = "0.1.0.0";
+       sha256 = "1sbgyq5gf9fyam0gazjr1gc49fv8s9rsd8rkb9pbpfi258yzj7pr";
+       setupHaskellDepends = [ base Cabal cabal-doctest ];
+       libraryHaskellDepends = [
+         array base containers enummapset-th ghc-prim membership ptera
+         ptera-core template-haskell unordered-containers
+       ];
+       testHaskellDepends = [
+         array base containers doctest enummapset-th ghc-prim hspec
+         membership ptera ptera-core QuickCheck template-haskell
+         unordered-containers
+       ];
+       testToolDepends = [ hspec-discover ];
+       description = "A parser generator";
+       license = "(Apache-2.0 OR MPL-2.0)";
+     }) {};
+
   "pthread" = callPackage
     ({ mkDerivation, base, generic-deriving, hspec, hspec-discover }:
      mkDerivation {
@@ -231780,8 +232157,8 @@ self: {
      }:
      mkDerivation {
        pname = "regex-rure";
-       version = "0.1.1.0";
-       sha256 = "1ap1cpm82dv9q9w8y6cf0rp9f5zvspnql9zr35fknaxaskr86zgj";
+       version = "0.1.2.0";
+       sha256 = "1my3rmj2766bd00qg25wijgvw7ffk8fq965y2b97s5v00fjds33r";
        libraryHaskellDepends = [ base bytestring ];
        librarySystemDepends = [ rure ];
        libraryToolDepends = [ c2hs ];
@@ -233828,8 +234205,8 @@ self: {
      }:
      mkDerivation {
        pname = "reqcatcher";
-       version = "0.2.2.1";
-       sha256 = "0xc8ffz46m3hn7v9vjslh5z7yzqcbyijqfk8wl629539nishgsl9";
+       version = "0.2.2.2";
+       sha256 = "12p2mb215n7f0smczr5cfxkd89blchyyp5dsl6yzfij1ykf0yr9x";
        libraryHaskellDepends = [ base http-types network text wai warp ];
        testHaskellDepends = [
          base http-client http-types HUnit lens tasty tasty-hunit wai wreq
@@ -234893,15 +235270,15 @@ self: {
        license = lib.licenses.bsd3;
      }) {};
 
-  "retry_0_9_0_0" = callPackage
+  "retry_0_9_1_0" = callPackage
     ({ mkDerivation, base, exceptions, ghc-prim, hedgehog, HUnit, mtl
      , random, stm, tasty, tasty-hedgehog, tasty-hunit, time
      , transformers
      }:
      mkDerivation {
        pname = "retry";
-       version = "0.9.0.0";
-       sha256 = "0n304r6vyx238558z62kz7nii8y58h2z4iyx54gbkxmz9dsck4ff";
+       version = "0.9.1.0";
+       sha256 = "1scrkd6bd061h8s4d7sjs21m2ydz2mxiw95gs72rliikh2k3cj7v";
        libraryHaskellDepends = [
          base exceptions ghc-prim random transformers
        ];
@@ -240333,6 +240710,29 @@ self: {
        description = "Library for writing fast/scalable TCP-based services";
        license = lib.licenses.bsd3;
        hydraPlatforms = lib.platforms.none;
+     }) {};
+
+  "scale" = callPackage
+    ({ mkDerivation, base, bitvec, bytestring, cereal, data-default
+     , generics-sop, hspec, hspec-contrib, hspec-discover
+     , hspec-expectations, memory, template-haskell, text, vector
+     }:
+     mkDerivation {
+       pname = "scale";
+       version = "1.0.0.0";
+       sha256 = "1c1khgy83402lqfqdvq5amf9pgn5a6m4m5zmqkkw6iw0wbjw7p3a";
+       libraryHaskellDepends = [
+         base bitvec bytestring cereal data-default generics-sop memory
+         template-haskell text vector
+       ];
+       testHaskellDepends = [
+         base bitvec bytestring cereal data-default generics-sop hspec
+         hspec-contrib hspec-discover hspec-expectations memory
+         template-haskell text vector
+       ];
+       testToolDepends = [ hspec-discover ];
+       description = "SCALE v2.0 codec for Haskell Web3 library.";
+       license = lib.licenses.asl20;
      }) {};
 
   "scaleimage" = callPackage
@@ -256813,8 +257213,8 @@ self: {
        pname = "special-values";
        version = "0.1.0.0";
        sha256 = "1kkdw2c4d2hha99v9f89ahmifjxp7fxmxyfwq9a8xk6s0h9xs51w";
-       revision = "1";
-       editedCabalFile = "10pbx4px4kmg6nwb78bayi26dlzbzvji5zv9fa6f45rk19p2sdlc";
+       revision = "2";
+       editedCabalFile = "1vv5gydjd65jniifl3mnch8bzvpvdahi913gsa3kv5zijwhad699";
        libraryHaskellDepends = [
          base bytestring ieee754 scientific text
        ];
@@ -262407,8 +262807,8 @@ self: {
      }:
      mkDerivation {
        pname = "streamly-examples";
-       version = "0.1.0";
-       sha256 = "0ny22z33wwkg9bbziwcj77k6gb8lwj1v0y5z6mw8sw20k4ca93q3";
+       version = "0.1.1";
+       sha256 = "174283sarx0ccjzzxill9l06hi7g9jz76sxwlb4fyc03db5q027i";
        isLibrary = false;
        isExecutable = true;
        executableHaskellDepends = [
@@ -262457,14 +262857,14 @@ self: {
        license = lib.licenses.bsd3;
      }) {inherit (pkgs) lmdb;};
 
-  "streamly-lmdb_0_3_0" = callPackage
+  "streamly-lmdb_0_4_0" = callPackage
     ({ mkDerivation, async, base, bytestring, directory, lmdb
      , QuickCheck, streamly, tasty, tasty-quickcheck, temporary
      }:
      mkDerivation {
        pname = "streamly-lmdb";
-       version = "0.3.0";
-       sha256 = "1da87rbmh9sgffjy5367pzy1d80f7zlxhszi9sq87jfws4i20pk7";
+       version = "0.4.0";
+       sha256 = "10749fl4dgm89z1d6sas1ngwxkkfl385465yxnrhxcc63wz53p5d";
        libraryHaskellDepends = [ async base bytestring streamly ];
        librarySystemDepends = [ lmdb ];
        testHaskellDepends = [
@@ -269338,8 +269738,8 @@ self: {
        pname = "tasty-hedgehog";
        version = "1.1.0.0";
        sha256 = "0cy49z8n124xh2ra2482vfy5if1n6d9lbdjma2zg1mxfj0k0zyfb";
-       revision = "1";
-       editedCabalFile = "0zn29qgsb5v4y7s4lrrhav9wqaz6pm97rcj1gl88qvvvi000jjbx";
+       revision = "2";
+       editedCabalFile = "08in0mli87szyx9lz2lcz3m1q0d3sxzzk5srzkkx4d10fgr6g6xv";
        libraryHaskellDepends = [ base hedgehog tagged tasty ];
        testHaskellDepends = [
          base hedgehog tasty tasty-expected-failure
@@ -286119,6 +286519,32 @@ self: {
        license = lib.licenses.mit;
      }) {};
 
+  "unliftio_0_2_20_1" = callPackage
+    ({ mkDerivation, async, base, bytestring, containers, deepseq
+     , directory, filepath, gauge, hspec, process, QuickCheck, stm, time
+     , transformers, unix, unliftio-core
+     }:
+     mkDerivation {
+       pname = "unliftio";
+       version = "0.2.20.1";
+       sha256 = "13fv7wfq7g1pilpk1vprbf2mbdj7qfm2y9v8glwr6dqyswv8z9dn";
+       libraryHaskellDepends = [
+         async base bytestring deepseq directory filepath process stm time
+         transformers unix unliftio-core
+       ];
+       testHaskellDepends = [
+         async base bytestring containers deepseq directory filepath hspec
+         process QuickCheck stm time transformers unix unliftio-core
+       ];
+       benchmarkHaskellDepends = [
+         async base bytestring deepseq directory filepath gauge process stm
+         time transformers unix unliftio-core
+       ];
+       description = "The MonadUnliftIO typeclass for unlifting monads to IO (batteries included)";
+       license = lib.licenses.mit;
+       hydraPlatforms = lib.platforms.none;
+     }) {};
+
   "unliftio-core" = callPackage
     ({ mkDerivation, base, transformers }:
      mkDerivation {
@@ -294499,43 +294925,183 @@ self: {
      }) {};
 
   "web3" = callPackage
-    ({ mkDerivation, aeson, async, attoparsec, base, base58string
-     , basement, bitvec, bytestring, cereal, cryptonite, data-default
-     , errors, exceptions, generics-sop, hspec, hspec-contrib
-     , hspec-discover, hspec-expectations, http-client, http-client-tls
-     , http-media, http-types, machines, memory, microlens
-     , microlens-aeson, microlens-mtl, microlens-th, mtl, network
-     , OneTuple, parsec, random, relapse, servant, servant-client, split
-     , stm, tagged, tar, template-haskell, text, time, transformers
-     , unordered-containers, uuid-types, vector, vinyl, websockets
+    ({ mkDerivation, base, web3-ethereum, web3-polkadot, web3-provider
      }:
      mkDerivation {
        pname = "web3";
-       version = "0.9.1.0";
-       sha256 = "12nx9hgwx61yj44iym7na9jxf05jry3aa82j2s8l5rpw3qdv7dis";
+       version = "1.0.0.0";
+       sha256 = "0bnamwvdxl3i1p8bflnhaxxpn0bqcnf174gwplqjkxdc9pzfhiig";
        libraryHaskellDepends = [
-         aeson async attoparsec base base58string basement bitvec bytestring
-         cereal cryptonite data-default errors exceptions generics-sop hspec
-         http-client http-client-tls http-media http-types machines memory
-         microlens microlens-aeson microlens-mtl microlens-th mtl network
-         OneTuple parsec relapse servant servant-client tagged tar
-         template-haskell text transformers unordered-containers uuid-types
-         vector vinyl websockets
+         base web3-ethereum web3-polkadot web3-provider
+       ];
+       description = "Haskell Web3 library";
+       license = lib.licenses.asl20;
+       hydraPlatforms = lib.platforms.none;
+     }) {};
+
+  "web3-bignum" = callPackage
+    ({ mkDerivation, base, cereal, hspec, hspec-contrib, hspec-discover
+     , hspec-expectations, memory, memory-hexstring, scale, wide-word
+     }:
+     mkDerivation {
+       pname = "web3-bignum";
+       version = "1.0.0.0";
+       sha256 = "140qv8y6b63by81z0k5by8vqr7x0gc106a67r35qbhdfmbhv71n0";
+       libraryHaskellDepends = [
+         base cereal memory memory-hexstring scale wide-word
        ];
        testHaskellDepends = [
-         aeson async attoparsec base base58string basement bitvec bytestring
-         cereal cryptonite data-default errors exceptions generics-sop hspec
-         hspec-contrib hspec-discover hspec-expectations http-client
-         http-client-tls http-media http-types machines memory microlens
-         microlens-aeson microlens-mtl microlens-th mtl network OneTuple
-         parsec random relapse servant servant-client split stm tagged tar
-         template-haskell text time transformers unordered-containers
-         uuid-types vector vinyl websockets
+         base cereal hspec hspec-contrib hspec-discover hspec-expectations
+         memory memory-hexstring scale wide-word
        ];
        testToolDepends = [ hspec-discover ];
-       description = "Web3 API for Haskell";
-       license = lib.licenses.bsd3;
+       description = "Fixed size big integers for Haskell Web3 library";
+       license = lib.licenses.asl20;
+     }) {};
+
+  "web3-crypto" = callPackage
+    ({ mkDerivation, aeson, base, bytestring, containers, cryptonite
+     , hspec, hspec-contrib, hspec-discover, hspec-expectations, memory
+     , memory-hexstring, text, uuid-types, vector
+     }:
+     mkDerivation {
+       pname = "web3-crypto";
+       version = "1.0.0.0";
+       sha256 = "16ygvnkxcalh7a0h7l1bj5gyir79gihcwzzqk31qibvd1r17mwd6";
+       libraryHaskellDepends = [
+         aeson base bytestring containers cryptonite memory memory-hexstring
+         text uuid-types vector
+       ];
+       testHaskellDepends = [
+         aeson base bytestring containers cryptonite hspec hspec-contrib
+         hspec-discover hspec-expectations memory memory-hexstring text
+         uuid-types vector
+       ];
+       testToolDepends = [ hspec-discover ];
+       description = "Cryptograhical primitives for Haskell Web3 library";
+       license = lib.licenses.asl20;
+     }) {};
+
+  "web3-ethereum" = callPackage
+    ({ mkDerivation, aeson, base, bytestring, data-default, exceptions
+     , generics-sop, hspec, hspec-contrib, hspec-discover
+     , hspec-expectations, jsonrpc-tinyclient, machines, memory
+     , memory-hexstring, microlens, microlens-aeson, mtl, OneTuple
+     , relapse, tagged, template-haskell, text, transformers, vinyl
+     , web3-crypto, web3-solidity
+     }:
+     mkDerivation {
+       pname = "web3-ethereum";
+       version = "1.0.0.0";
+       sha256 = "1vsvxhl6w6hjiv6b61sn8f2bnj6p55b4qyvblrfpk60k7pqq774c";
+       libraryHaskellDepends = [
+         aeson base bytestring data-default exceptions generics-sop
+         jsonrpc-tinyclient machines memory memory-hexstring microlens
+         microlens-aeson mtl OneTuple relapse tagged template-haskell text
+         transformers vinyl web3-crypto web3-solidity
+       ];
+       testHaskellDepends = [
+         aeson base bytestring data-default exceptions generics-sop hspec
+         hspec-contrib hspec-discover hspec-expectations jsonrpc-tinyclient
+         machines memory memory-hexstring microlens microlens-aeson mtl
+         OneTuple relapse tagged template-haskell text transformers vinyl
+         web3-crypto web3-solidity
+       ];
+       testToolDepends = [ hspec-discover ];
+       description = "Ethereum support for Haskell Web3 library";
+       license = lib.licenses.asl20;
        hydraPlatforms = lib.platforms.none;
+     }) {};
+
+  "web3-ipfs" = callPackage
+    ({ mkDerivation, aeson, base, bytestring, http-client, http-media
+     , http-types, mtl, servant, servant-client, tar, text
+     , unordered-containers
+     }:
+     mkDerivation {
+       pname = "web3-ipfs";
+       version = "1.0.0.0";
+       sha256 = "0m6rqk5vd53gl7mykwzzqblhgdqrjzjyqb5mqkagb1z0llwqxafg";
+       libraryHaskellDepends = [
+         aeson base bytestring http-client http-media http-types mtl servant
+         servant-client tar text unordered-containers
+       ];
+       description = "IPFS support for Haskell Web3 library";
+       license = lib.licenses.asl20;
+     }) {};
+
+  "web3-polkadot" = callPackage
+    ({ mkDerivation, aeson, animalcase, base, base58-bytestring
+     , bytestring, containers, cryptonite, generics-sop, hspec
+     , hspec-contrib, hspec-discover, hspec-expectations
+     , hspec-expectations-json, jsonrpc-tinyclient, memory
+     , memory-hexstring, microlens, microlens-mtl, microlens-th, mtl
+     , parsec, scale, text, web3-bignum, web3-crypto
+     }:
+     mkDerivation {
+       pname = "web3-polkadot";
+       version = "1.0.0.0";
+       sha256 = "0sx9lj7px6m5ag4bk4imllh4bmy7kfgkfy1zb9hqjkdmjwn2i2w5";
+       libraryHaskellDepends = [
+         aeson animalcase base base58-bytestring bytestring containers
+         cryptonite generics-sop jsonrpc-tinyclient memory memory-hexstring
+         microlens microlens-mtl microlens-th mtl parsec scale text
+         web3-bignum web3-crypto
+       ];
+       testHaskellDepends = [
+         aeson animalcase base base58-bytestring bytestring containers
+         cryptonite generics-sop hspec hspec-contrib hspec-discover
+         hspec-expectations hspec-expectations-json jsonrpc-tinyclient
+         memory memory-hexstring microlens microlens-mtl microlens-th mtl
+         parsec scale text web3-bignum web3-crypto
+       ];
+       testToolDepends = [ hspec-discover ];
+       description = "Polkadot support for Haskell Web3 library";
+       license = lib.licenses.asl20;
+       hydraPlatforms = lib.platforms.none;
+       broken = true;
+     }) {};
+
+  "web3-provider" = callPackage
+    ({ mkDerivation, async, base, data-default, exceptions, http-client
+     , jsonrpc-tinyclient, mtl, network, text, transformers, websockets
+     }:
+     mkDerivation {
+       pname = "web3-provider";
+       version = "1.0.0.0";
+       sha256 = "03c892xj7yxwbb4r1vpqzwgsf4fyk9389rqivpr6bwklnx9230ic";
+       libraryHaskellDepends = [
+         async base data-default exceptions http-client jsonrpc-tinyclient
+         mtl network text transformers websockets
+       ];
+       description = "Node connection provider for Haskell Web3 library";
+       license = lib.licenses.asl20;
+     }) {};
+
+  "web3-solidity" = callPackage
+    ({ mkDerivation, aeson, base, basement, bytestring, cereal
+     , data-default, generics-sop, hspec, hspec-contrib, hspec-discover
+     , hspec-expectations, memory, memory-hexstring, microlens, OneTuple
+     , parsec, tagged, template-haskell, text, web3-crypto
+     }:
+     mkDerivation {
+       pname = "web3-solidity";
+       version = "1.0.0.0";
+       sha256 = "1n5jf9vdxps8sxcaa3k2a4m3qn5w3kphvvn7f4jy0dh0zkr7i5nm";
+       libraryHaskellDepends = [
+         aeson base basement bytestring cereal data-default generics-sop
+         memory memory-hexstring microlens OneTuple parsec tagged
+         template-haskell text web3-crypto
+       ];
+       testHaskellDepends = [
+         aeson base basement bytestring cereal data-default generics-sop
+         hspec hspec-contrib hspec-discover hspec-expectations memory
+         memory-hexstring microlens OneTuple parsec tagged template-haskell
+         text web3-crypto
+       ];
+       testToolDepends = [ hspec-discover ];
+       description = "Solidity language for Haskell Web3 library";
+       license = lib.licenses.asl20;
      }) {};
 
   "webapi" = callPackage

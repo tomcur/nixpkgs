@@ -682,6 +682,7 @@
   ./services/network-filesystems/litestream/default.nix
   ./services/network-filesystems/netatalk.nix
   ./services/network-filesystems/nfsd.nix
+  ./services/network-filesystems/moosefs.nix
   ./services/network-filesystems/openafs/client.nix
   ./services/network-filesystems/openafs/server.nix
   ./services/network-filesystems/orangefs/server.nix
@@ -913,6 +914,7 @@
   ./services/networking/vsftpd.nix
   ./services/networking/wasabibackend.nix
   ./services/networking/websockify.nix
+  ./services/networking/wg-netmanager.nix
   ./services/networking/wg-quick.nix
   ./services/networking/wireguard.nix
   ./services/networking/wpa_supplicant.nix
@@ -1156,7 +1158,7 @@
   ./system/boot/systemd-nspawn.nix
   ./system/boot/timesyncd.nix
   ./system/boot/tmp.nix
-  ./system/etc/etc.nix
+  ./system/etc/etc-activation.nix
   ./tasks/auto-upgrade.nix
   ./tasks/bcache.nix
   ./tasks/cpu-freq.nix

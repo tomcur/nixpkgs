@@ -286292,8 +286292,6 @@ self: {
        testHaskellDepends = [ base hspec QuickCheck ];
        description = "print and show in unicode";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
-       broken = true;
      }) {};
 
   "unicode-symbols" = callPackage

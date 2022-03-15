@@ -224,6 +224,7 @@ in
   initrd-network-ssh = handleTest ./initrd-network-ssh {};
   initrdNetwork = handleTest ./initrd-network.nix {};
   initrd-secrets = handleTest ./initrd-secrets.nix {};
+  input-remapper = handleTest ./input-remapper.nix {};
   inspircd = handleTest ./inspircd.nix {};
   installer = handleTest ./installer.nix {};
   invoiceplane = handleTest ./invoiceplane.nix {};
@@ -328,6 +329,7 @@ in
   nat.standalone = handleTest ./nat.nix { withFirewall = false; };
   nats = handleTest ./nats.nix {};
   navidrome = handleTest ./navidrome.nix {};
+  nbd = handleTest ./nbd.nix {};
   ncdns = handleTest ./ncdns.nix {};
   ndppd = handleTest ./ndppd.nix {};
   nebula = handleTest ./nebula.nix {};

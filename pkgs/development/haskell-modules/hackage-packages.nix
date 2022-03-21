@@ -211081,8 +211081,6 @@ self: {
        ];
        description = "Manual migrations for the persistent library";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
-       broken = true;
      }) {};
 
   "persistent-mongoDB" = callPackage

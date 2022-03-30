@@ -546,6 +546,8 @@ in {
 
   anybadge = callPackage ../development/python-modules/anybadge { };
 
+  anyconfig = callPackage ../development/python-modules/anyconfig { };
+
   anyio = callPackage ../development/python-modules/anyio { };
 
   anytree = callPackage ../development/python-modules/anytree {
@@ -2501,6 +2503,8 @@ in {
   dugong = callPackage ../development/python-modules/dugong { };
 
   dulwich = callPackage ../development/python-modules/dulwich { };
+
+  dunamai = callPackage ../development/python-modules/dunamai { };
 
   dungeon-eos = callPackage ../development/python-modules/dungeon-eos { };
 
@@ -4665,6 +4669,13 @@ in {
 
   libpyvivotek = callPackage ../development/python-modules/libpyvivotek { };
 
+  libpwquality = pipe pkgs.libpwquality [
+    toPythonModule
+    (p: p.overrideAttrs (super: { meta = super.meta // { outputsToInstall = [ "py" ]; }; }))
+    (p: p.override { enablePython = true; inherit python; })
+    (p: p.py)
+  ];
+
   libredwg = toPythonModule (pkgs.libredwg.override {
     enablePython = true;
     inherit (self) python libxml2;
@@ -5458,6 +5469,8 @@ in {
 
   nest-asyncio = callPackage ../development/python-modules/nest-asyncio { };
 
+  nested-lookup = callPackage ../development/python-modules/nested-lookup { };
+
   nestedtext = callPackage ../development/python-modules/nestedtext { };
 
   net2grid = callPackage ../development/python-modules/net2grid { };
@@ -5605,6 +5618,10 @@ in {
   notify2 = callPackage ../development/python-modules/notify2 { };
 
   notmuch = callPackage ../development/python-modules/notmuch {
+    inherit (pkgs) notmuch;
+  };
+
+  notmuch2 = callPackage ../development/python-modules/notmuch2 {
     inherit (pkgs) notmuch;
   };
 
@@ -5974,6 +5991,8 @@ in {
 
   path-and-address = callPackage ../development/python-modules/path-and-address { };
 
+  pathable = callPackage ../development/python-modules/pathable { };
+
   pathlib2 = callPackage ../development/python-modules/pathlib2 { };
 
   pathlib = callPackage ../development/python-modules/pathlib { };
@@ -6162,6 +6181,8 @@ in {
 
   pint = callPackage ../development/python-modules/pint { };
 
+  pint-pandas = callPackage ../development/python-modules/pint-pandas { };
+
   pip = callPackage ../development/python-modules/pip { };
 
   pipdate = callPackage ../development/python-modules/pipdate { };
@@ -6306,6 +6327,8 @@ in {
   pythonfinder = callPackage ../development/python-modules/pythonfinder { };
 
   pyutil = callPackage ../development/python-modules/pyutil { };
+
+  pyzbar = callPackage ../development/python-modules/pyzbar { };
 
   pkutils = callPackage ../development/python-modules/pkutils { };
 
@@ -6459,6 +6482,8 @@ in {
   preggy = callPackage ../development/python-modules/preggy { };
 
   premailer = callPackage ../development/python-modules/premailer { };
+
+  preprocess-cancellation = callPackage ../development/python-modules/preprocess-cancellation { };
 
   preshed = callPackage ../development/python-modules/preshed { };
 
@@ -8375,7 +8400,7 @@ in {
     };
 
   pyudev = callPackage ../development/python-modules/pyudev {
-    inherit (pkgs) systemd;
+    inherit (pkgs) udev;
   };
 
   pyunbound = callPackage ../tools/networking/unbound/python.nix { };
@@ -10984,6 +11009,8 @@ in {
   zipstream = callPackage ../development/python-modules/zipstream { };
 
   zipstream-new = callPackage ../development/python-modules/zipstream-new { };
+
+  zipstream-ng = callPackage ../development/python-modules/zipstream-ng { };
 
   zm-py = callPackage ../development/python-modules/zm-py { };
 

@@ -10200,8 +10200,6 @@ self: {
        ];
        description = "Helpers to connect to SSL/TLS mail servers with HaskellNet";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
-       broken = true;
      }) {};
 
   "HaskellTorrent" = callPackage

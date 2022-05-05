@@ -24,7 +24,6 @@
 # build time
 , autoconf
 , cargo
-, gnused
 , makeWrapper
 , nodejs
 , perl
@@ -61,7 +60,8 @@
 , libwebp
 , nasm
 , nspr
-, nss
+, nss_esr
+, nss_latest
 , pango
 , xorg
 , zip
@@ -111,7 +111,6 @@
 ## other
 
 , crashreporterSupport ? false
-, safeBrowsingSupport ? false
 
 # As stated by Sylvestre Ledru (@sylvestre) on Nov 22, 2017 at
 # https://github.com/NixOS/nixpkgs/issues/31843#issuecomment-346372756 we
@@ -207,7 +206,6 @@ buildStdenv.mkDerivation ({
   nativeBuildInputs = [
     autoconf
     cargo
-    gnused
     llvmPackages.llvm # llvm-objdump
     makeWrapper
     nodejs
@@ -356,7 +354,6 @@ buildStdenv.mkDerivation ({
     libwebp
     nasm
     nspr
-    nss
     pango
     perl
     xorg.libX11
@@ -373,6 +370,7 @@ buildStdenv.mkDerivation ({
     zip
     zlib
   ]
+  ++ [ (if (lib.versionAtLeast version "92") then nss_latest else nss_esr) ]
   ++ lib.optional  alsaSupport alsa-lib
   ++ lib.optional  pulseaudioSupport libpulseaudio # only headers are needed
   ++ lib.optional  gssSupport libkrb5

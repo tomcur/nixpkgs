@@ -66,7 +66,7 @@ let
   bootstrapTools = import (if localSystem.libc == "musl" then ./bootstrap-tools-musl else ./bootstrap-tools) {
     inherit system bootstrapFiles;
     extraAttrs = lib.optionalAttrs
-      (config.contentAddressedByDefault or false)
+      config.contentAddressedByDefault
       {
         __contentAddressed = true;
         outputHashAlgo = "sha256";
@@ -205,7 +205,7 @@ in
     # Rebuild binutils to use from stage2 onwards.
     overrides = self: super: {
       binutils-unwrapped = super.binutils-unwrapped.override {
-        gold = false;
+        enableGold = false;
       };
       inherit (prevStage)
         ccWrapperStdenv

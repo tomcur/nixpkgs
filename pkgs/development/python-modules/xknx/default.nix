@@ -2,7 +2,7 @@
 , buildPythonPackage
 , fetchFromGitHub
 , cryptography
-, netifaces
+, ifaddr
 , voluptuous
 , pyyaml
 , pytest-asyncio
@@ -12,7 +12,7 @@
 
 buildPythonPackage rec {
   pname = "xknx";
-  version = "0.20.3";
+  version = "0.21.1";
   format = "setuptools";
 
   disabled = pythonOlder "3.8";
@@ -20,13 +20,13 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "XKNX";
     repo = pname;
-    rev = version;
-    sha256 = "sha256-RGwo6IH1WDNBanpQ14gB3/75db3NPwNUsFy0wPP1Yok=";
+    rev = "refs/tags/${version}";
+    sha256 = "sha256-QNy/jUh/kIj6sabWnmC5L00ikBTrVmOEp6mFBya29WM=";
   };
 
   propagatedBuildInputs = [
     cryptography
-    netifaces
+    ifaddr
   ];
 
   checkInputs = [
@@ -36,6 +36,11 @@ buildPythonPackage rec {
 
   pythonImportsCheck = [
     "xknx"
+  ];
+
+  disabledTests = [
+    # Test requires network access
+    "test_scan_timeout"
   ];
 
   meta = with lib; {

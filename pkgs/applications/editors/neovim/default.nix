@@ -3,6 +3,7 @@
 , unibilium, gperf
 , libvterm-neovim
 , tree-sitter
+, CoreServices
 , glibcLocales ? null, procps ? null
 
 # now defaults to false because some tests can be flaky (clipboard etc), see
@@ -60,8 +61,7 @@ in
       neovimLuaEnv
       tree-sitter
       unibilium
-      tree-sitter
-    ] ++ optional stdenv.isDarwin libiconv
+    ] ++ optionals stdenv.isDarwin [ libiconv CoreServices ]
       ++ optionals doCheck [ glibcLocales procps ]
     ;
 

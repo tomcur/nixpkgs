@@ -46,13 +46,13 @@ let
 in
 stdenv.mkDerivation rec {
   pname = "github-runner";
-  version = "2.290.1";
+  version = "2.293.0";
 
   src = fetchFromGitHub {
     owner = "actions";
     repo = "runner";
     rev = "v${version}";
-    hash = "sha256-YUV66yiUdS2/ORZS7a7coqyzoXM/tnK0egEeXWLPNl0=";
+    hash = "sha256-5XAlKCtIvHzaJCPVO0WsrUGKnYUNR+roqzJ+jrcBfVM=";
   };
 
   nativeBuildInputs = [
@@ -85,7 +85,7 @@ stdenv.mkDerivation rec {
   postPatch = ''
     # Relax the version requirement
     substituteInPlace src/global.json \
-      --replace '6.0.100' '${dotnetSdk.version}'
+      --replace '6.0.300' '${dotnetSdk.version}'
 
     # Disable specific tests
     substituteInPlace src/dir.proj \

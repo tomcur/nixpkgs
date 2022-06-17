@@ -355,6 +355,16 @@ with lib.maintainers; {
     shortName = "Linux Kernel";
   };
 
+  lumiguide = {
+    # Verify additions by approval of an already existing member of the team.
+    members = [
+      roelvandijk
+      lucus16
+    ];
+    scope = "Group registration for LumiGuide employees who collectively maintain packages.";
+    shortName = "Lumiguide employees";
+  };
+
   lumina = {
     members = [
       romildo
@@ -443,6 +453,19 @@ with lib.maintainers; {
     scope = "Maintain nixpkgs module system internals.";
     shortName = "NixOS Modules / internals";
     enableFeatureFreezePing = true;
+  };
+
+  numtide = {
+    members = [
+      mic92
+      flokli
+      jfroche
+      tazjin
+      zimbatm
+    ];
+    enableFeatureFreezePing = true;
+    scope = "Group registration for Numtide team members who collectively maintain packages.";
+    shortName = "Numtide team";
   };
 
   openstack = {

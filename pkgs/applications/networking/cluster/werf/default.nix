@@ -5,20 +5,21 @@
 , installShellFiles
 , btrfs-progs
 , glibc
+, gitUpdater
 }:
 
 buildGoModule rec {
   pname = "werf";
-  version = "1.2.114";
+  version = "1.2.128";
 
   src = fetchFromGitHub {
     owner = "werf";
     repo = "werf";
     rev = "v${version}";
-    sha256 = "sha256-+QCKVXuROd7QB6P5tSSINWtdw5OvVnmE1+ttoBnCO1g=";
+    sha256 = "sha256-H1GzIxj6ZrlcNM4Y0oKYoVBsMFj4wYP9XYicAmIpaik=";
   };
 
-  vendorSha256 = "sha256-VuburDiYqePFvS7/aTM+krkK2UhTHhfbvGOLY3I3DN8=";
+  vendorSha256 = "sha256-78V+cw0A3Q3Gagl4KrserFXvV17MSqhpaFG38VKwhKg=";
 
   proxyVendor = true;
 
@@ -56,6 +57,12 @@ buildGoModule rec {
       --bash <($out/bin/werf completion --shell=bash) \
       --zsh <($out/bin/werf completion --shell=zsh)
   '';
+
+  passthru.updateScript = gitUpdater {
+    inherit pname version;
+    ignoredVersions = "1\.[3-9].*";
+    rev-prefix = "v";
+  };
 
   meta = with lib; {
     description = "GitOps delivery tool";

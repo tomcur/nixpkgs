@@ -19,7 +19,10 @@
 
   More fields may be added in the future.
 
-  Please keep the list alphabetically sorted.
+  When editing this file:
+   * keep the list alphabetically sorted
+   * test the validity of the format with:
+       nix-build lib/tests/teams.nix
   */
 
 { lib }:
@@ -91,6 +94,17 @@ with lib.maintainers; {
     enableFeatureFreezePing = true;
   };
 
+  c3d2 = {
+    members = [
+      astro
+      SuperSandro2000
+      revol-xut
+    ];
+    scope = "Maintain packages used in the C3D2 hackspace";
+    shortName = "c3d2";
+    enableFeatureFreezePing = true;
+  };
+
   cinnamon = {
     members = [
       mkg20001
@@ -139,6 +153,7 @@ with lib.maintainers; {
       tomberek
     ];
     scope = "Maintain the Cosmopolitan LibC and related programs.";
+    shortName = "Cosmopolitan";
   };
 
   deshaw = {
@@ -311,7 +326,6 @@ with lib.maintainers; {
   jitsi = {
     members = [
       cleeyv
-      petabyteboy
       ryantm
       yuka
     ];

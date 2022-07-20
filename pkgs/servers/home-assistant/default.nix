@@ -29,7 +29,20 @@
 let
   defaultOverrides = [
     # Override the version of some packages pinned in Home Assistant's setup.py and requirements_all.txt
-    (mkOverride "python-slugify" "4.0.1" "sha256-aaUXdm4AwSaOW7/A0BCgqFCN4LGNMK1aH/NX+K5yQnA=")
+
+    (self: super: {
+      bsblan = super.bsblan.overridePythonAttrs (oldAttrs: rec {
+        version = "0.5.0";
+        postPatch = null;
+        propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ super.cattrs ];
+        src = fetchFromGitHub {
+          owner = "liudger";
+          repo = "python-bsblan";
+          rev = "v.${version}";
+          hash = "sha256-yzlHcIb5QlG+jAgEtKlAcY7rESiUY7nD1YwqK63wgcg=";
+        };
+      });
+    })
 
     # pytest-aiohttp>0.3.0 breaks home-assistant tests
     (self: super: {
@@ -72,19 +85,6 @@ let
       });
     })
 
-    # Pinned due to API changes in pyruckus>0.12
-    (self: super: {
-      pyruckus = super.pyruckus.overridePythonAttrs (oldAttrs: rec {
-        version = "0.12";
-        src = fetchFromGitHub {
-          owner = "gabe565";
-          repo = "pyruckus";
-          rev = version;
-          sha256 = "0ykv6r6blbj3fg9fplk9i7xclkv5d93rwvx0fm5s8ms9f2s9ih8z";
-        };
-      });
-    })
-
     # Pinned due to API changes in 0.1.0
     (mkOverride "poolsense" "0.0.8" "sha256-17MHrYRmqkH+1QLtgq2d6zaRtqvb9ju9dvPt9gB2xCc=")
 
@@ -97,6 +97,17 @@ let
           repo = "pyatag";
           rev = version;
           sha256 = "00ly4injmgrj34p0lyx7cz2crgnfcijmzc0540gf7hpwha0marf6";
+        };
+      });
+    })
+
+    (self: super: {
+      python-slugify = super.python-slugify.overridePythonAttrs (oldAttrs: rec {
+        pname = "python-slugify";
+        version = "4.0.1";
+        src = super.fetchPypi {
+          inherit pname version;
+          hash = "sha256-aaUXdm4AwSaOW7/A0BCgqFCN4LGNMK1aH/NX+K5yQnA=";
         };
       });
     })
@@ -166,7 +177,7 @@ let
   extraPackagesFile = writeText "home-assistant-packages" (lib.concatMapStringsSep "\n" (pkg: pkg.pname) extraBuildInputs);
 
   # Don't forget to run parse-requirements.py after updating
-  hassVersion = "2022.6.6";
+  hassVersion = "2022.7.4";
 
 in python.pkgs.buildPythonApplication rec {
   pname = "homeassistant";
@@ -184,7 +195,7 @@ in python.pkgs.buildPythonApplication rec {
     owner = "home-assistant";
     repo = "core";
     rev = version;
-    hash = "sha256-scwj3VrSoFk/pSVzfwvGFM5fRci3+7iqr7TAwLantFQ=";
+    hash = "sha256-TQsIChMoIlTd8+gN4bxiWFId6V2wB1j3XfhXYpYMw9M=";
   };
 
   # leave this in, so users don't have to constantly update their downstream patch handling
@@ -193,6 +204,7 @@ in python.pkgs.buildPythonApplication rec {
       src = ./patches/ffmpeg-path.patch;
       ffmpeg = "${lib.getBin ffmpeg}/bin/ffmpeg";
     })
+    ./patches/wilight-import.patch
   ];
 
   postPatch = let
@@ -200,15 +212,18 @@ in python.pkgs.buildPythonApplication rec {
       "attrs"
       "awesomeversion"
       "bcrypt"
+      "cryptography"
       "httpx"
+      "orjson"
       "PyJWT"
+      "requests"
     ];
   in ''
     sed -r -i \
       ${lib.concatStringsSep "\n" (map (package:
-        ''-e 's@${package}[<>=]+.*@${package}@g' \''
+        ''-e 's/${package}[<>=]+.*/${package}",/g' \''
       ) relaxedConstraints)}
-      setup.cfg
+      pyproject.toml
     substituteInPlace tests/test_config.py --replace '"/usr"' '"/build/media"'
   '';
 
@@ -217,7 +232,7 @@ in python.pkgs.buildPythonApplication rec {
     aiohttp
     astral
     async-timeout
-    atomicwrites
+    atomicwrites-homeassistant
     attrs
     awesomeversion
     bcrypt
@@ -227,13 +242,13 @@ in python.pkgs.buildPythonApplication rec {
     httpx
     ifaddr
     jinja2
+    lru-dict
+    orjson
     pip
     pyjwt
     python-slugify
-    pytz
     pyyaml
     requests
-    ruamel-yaml
     voluptuous
     voluptuous-serialize
     yarl

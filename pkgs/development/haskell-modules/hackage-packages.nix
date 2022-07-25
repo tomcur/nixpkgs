@@ -12017,6 +12017,23 @@ self: {
        license = lib.licenses.bsd3;
      }) {};
 
+  "JuicyPixels_3_3_8" = callPackage
+    ({ mkDerivation, base, binary, bytestring, containers, deepseq, mtl
+     , primitive, transformers, vector, zlib
+     }:
+     mkDerivation {
+       pname = "JuicyPixels";
+       version = "3.3.8";
+       sha256 = "0gmndzcbqys34sf6y8db13r5gaqa1cp9zxyb4vav788m6p5gd86k";
+       libraryHaskellDepends = [
+         base binary bytestring containers deepseq mtl primitive
+         transformers vector zlib
+       ];
+       description = "Picture loading/serialization (in png, jpeg, bitmap, gif, tga, tiff and radiance)";
+       license = lib.licenses.bsd3;
+       hydraPlatforms = lib.platforms.none;
+     }) {};
+
   "JuicyPixels-blp" = callPackage
     ({ mkDerivation, attoparsec, base, binary, bytestring, directory
      , filepath, hashable, JuicyPixels, optparse-simple, text-show
@@ -21621,8 +21638,8 @@ self: {
     ({ mkDerivation, base }:
      mkDerivation {
        pname = "WeakSets";
-       version = "0.4.0.0";
-       sha256 = "0nldjwm25kc7l0vfbh89qgxhd87273982g7d38qad67av6wgjghw";
+       version = "1.0.0.0";
+       sha256 = "0k4bg9shg8vklqhcd8ms9bpciwf4q1mip5m2agz3qj4056mrnjp9";
        libraryHaskellDepends = [ base ];
        testHaskellDepends = [ base ];
        description = "Simple set types. Useful to create sets of arbitrary types and nested sets.";
@@ -33095,8 +33112,8 @@ self: {
     ({ mkDerivation, base }:
      mkDerivation {
        pname = "applicable";
-       version = "0.4.0.0";
-       sha256 = "0gyj204svcscigrar6n349hr76gna5x8zbh6f0f6n2la4q8r88ak";
+       version = "0.4.1.0";
+       sha256 = "0bkcwrxz313825vvm0yspj7vw2zmky8g2vq1yb9s8wgxzm4b7m8n";
        libraryHaskellDepends = [ base ];
        description = "A class for things that can be applied";
        license = lib.licenses.mit;
@@ -41923,8 +41940,8 @@ self: {
      }:
      mkDerivation {
        pname = "betris";
-       version = "0.2.1.0";
-       sha256 = "1vpj20hvr2nf3i8a2ijlxmfa1zqv3xwfp8krz4zjznhgjrb1nfpj";
+       version = "0.2.2.0";
+       sha256 = "0ch0gm2fpzga0mqc8n8hdhs5qjfrcm5jxcyqgskwgq1y5jf60ifl";
        isLibrary = true;
        isExecutable = true;
        libraryHaskellDepends = [
@@ -47063,14 +47080,28 @@ self: {
      }) {};
 
   "bookhound" = callPackage
-    ({ mkDerivation, base, containers, time }:
+    ({ mkDerivation, base, containers, text, time }:
      mkDerivation {
        pname = "bookhound";
-       version = "0.1.9.0";
-       sha256 = "0iv1iscz9p9z53x4v1xcplyc6j7cclgmhk5yn7ryc8jxz2ds1ic4";
-       libraryHaskellDepends = [ base containers time ];
-       description = "Simple Parser Combinators & Parsers";
+       version = "0.1.11.0";
+       sha256 = "0nqjxz92vjg767p7bzvm5gi912qr1xswsnv5z8wvdzvsw341wbxx";
+       libraryHaskellDepends = [ base containers text time ];
+       description = "Simple Parser Combinators";
        license = "LGPL";
+       hydraPlatforms = lib.platforms.none;
+       broken = true;
+     }) {};
+
+  "bookhound-format" = callPackage
+    ({ mkDerivation, base, bookhound, containers, text, time }:
+     mkDerivation {
+       pname = "bookhound-format";
+       version = "0.1.0.0";
+       sha256 = "1zjivsd13bc3l63d8y5zyi8fvyiv2sykjrdn2l1f946r5hmrarfn";
+       libraryHaskellDepends = [ base bookhound containers text time ];
+       description = "Parsers for usual data formats";
+       license = "LGPL";
+       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "bookkeeper" = callPackage
@@ -49746,6 +49777,24 @@ self: {
        license = lib.licenses.bsd3;
      }) {};
 
+  "by-other-names" = callPackage
+    ({ mkDerivation, aeson, base, doctest, indexed-traversable, tasty
+     , tasty-hunit, template-haskell, text
+     }:
+     mkDerivation {
+       pname = "by-other-names";
+       version = "1.2.0.0";
+       sha256 = "1272d888x7x38nw0ffqjin8c1x5da59a5rwcy2r4znc2d9plij6z";
+       libraryHaskellDepends = [
+         aeson base indexed-traversable template-haskell text
+       ];
+       testHaskellDepends = [ aeson base doctest tasty tasty-hunit ];
+       description = "Give aliases to record fields";
+       license = lib.licenses.bsd3;
+       hydraPlatforms = lib.platforms.none;
+       broken = true;
+     }) {};
+
   "byline" = callPackage
     ({ mkDerivation, ansi-terminal, attoparsec, base, colour
      , exceptions, free, haskeline, mtl, optparse-applicative, relude
@@ -52222,10 +52271,8 @@ self: {
      }:
      mkDerivation {
        pname = "cabal2nix";
-       version = "2.18.0";
-       sha256 = "11hzic1l7amd2hwqwgfmy2r855z9w0m2rvvx7r52x347q0nn142b";
-       revision = "1";
-       editedCabalFile = "0j682816qdxaqm56bqjigjg0c0nl4jf68fg01f73xhbr486lzvga";
+       version = "2.19.0";
+       sha256 = "1cmx8vas9fryr8sd5a485aa43rdx60l3fbrk1kppwx4s9jw9hq65";
        isLibrary = true;
        isExecutable = true;
        libraryHaskellDepends = [
@@ -58670,6 +58717,8 @@ self: {
          base clash-prelude deepseq ghc-typelits-knownnat QuickCheck
        ];
        license = lib.licenses.bsd3;
+       hydraPlatforms = lib.platforms.none;
+       broken = true;
      }) {};
 
   "clash-prelude" = callPackage
@@ -58736,6 +58785,8 @@ self: {
        libraryHaskellDepends = [ base clash-prelude QuickCheck ];
        description = "QuickCheck instances for various types in the CλaSH Prelude";
        license = "unknown";
+       hydraPlatforms = lib.platforms.none;
+       broken = true;
      }) {};
 
   "clash-shake" = callPackage
@@ -58770,6 +58821,8 @@ self: {
        ];
        description = "CAES Language for Synchronous Hardware - SystemVerilog backend";
        license = lib.licenses.bsd2;
+       hydraPlatforms = lib.platforms.none;
+       broken = true;
      }) {};
 
   "clash-verilog" = callPackage
@@ -58787,6 +58840,8 @@ self: {
        ];
        description = "CAES Language for Synchronous Hardware - Verilog backend";
        license = lib.licenses.bsd2;
+       hydraPlatforms = lib.platforms.none;
+       broken = true;
      }) {};
 
   "clash-vhdl" = callPackage
@@ -58804,6 +58859,8 @@ self: {
        ];
        description = "CAES Language for Synchronous Hardware - VHDL backend";
        license = lib.licenses.bsd2;
+       hydraPlatforms = lib.platforms.none;
+       broken = true;
      }) {};
 
   "clashilator" = callPackage
@@ -58827,7 +58884,9 @@ self: {
        ];
        description = "Automated Clash to Verilator bridge";
        license = lib.licenses.mit;
+       hydraPlatforms = lib.platforms.none;
        mainProgram = "clashilator";
+       broken = true;
      }) {};
 
   "classify" = callPackage
@@ -59554,6 +59613,8 @@ self: {
        pname = "cli-extras";
        version = "0.1.0.2";
        sha256 = "1qcvphbimcclvy7qkqrz9djg4650axwqjfyq6nlbvmpivh14m9vq";
+       revision = "1";
+       editedCabalFile = "1zf7win72j7gmr8srvmn8y23636z5ga817cg3lkfsm5mwhi9k0zw";
        libraryHaskellDepends = [
          aeson ansi-terminal base bytestring containers exceptions
          io-streams lens logging-effect monad-logger monad-loops mtl process
@@ -70189,6 +70250,8 @@ self: {
        pname = "crypto-rng-effectful";
        version = "1.0.0.0";
        sha256 = "185ax4v4bfg944igscjg0vb0p15af4vwqdfn239x6xayfgy4xzl0";
+       revision = "1";
+       editedCabalFile = "1sdjafzvfz6jz0d217l3cr8z1x0fz6fhqm5igly3riwiww4zh4dj";
        libraryHaskellDepends = [
          base bytestring crypto-rng effectful-core random
        ];
@@ -77692,15 +77755,16 @@ self: {
      }) {};
 
   "deriving-trans" = callPackage
-    ({ mkDerivation, base, monad-control, mtl, transformers
-     , transformers-base
+    ({ mkDerivation, base, monad-control, monad-control-identity, mtl
+     , transformers, transformers-base
      }:
      mkDerivation {
        pname = "deriving-trans";
-       version = "0.3.2.0";
-       sha256 = "0w13274j1qn6qdx9kmd01qbcwhnpvqn4rvrnpv60gwqfi4hwgcqs";
+       version = "0.4.0.0";
+       sha256 = "1d7p7np8jadiynih2a271q67hxbd352lvf4pzspd4nvr6npa1ipc";
        libraryHaskellDepends = [
-         base monad-control mtl transformers transformers-base
+         base monad-control monad-control-identity mtl transformers
+         transformers-base
        ];
        description = "Derive instances for monad transformer stacks";
        license = lib.licenses.bsd3;
@@ -82274,25 +82338,6 @@ self: {
 
   "distribution-nixpkgs" = callPackage
     ({ mkDerivation, aeson, base, bytestring, Cabal, containers
-     , deepseq, hspec, language-nix, lens, pretty, process, split
-     }:
-     mkDerivation {
-       pname = "distribution-nixpkgs";
-       version = "1.6.2";
-       sha256 = "0kq4pf5dalifxd8qxz75fazfjspn36q0cmp8d1jd7w9zlzc3c4dz";
-       enableSeparateDataOutput = true;
-       libraryHaskellDepends = [
-         aeson base bytestring Cabal containers deepseq language-nix lens
-         pretty process split
-       ];
-       testHaskellDepends = [ base deepseq hspec lens ];
-       description = "Types and functions to manipulate the Nixpkgs distribution";
-       license = lib.licenses.bsd3;
-       maintainers = [ lib.maintainers.peti ];
-     }) {};
-
-  "distribution-nixpkgs_1_7_0" = callPackage
-    ({ mkDerivation, aeson, base, bytestring, Cabal, containers
      , deepseq, directory, hspec, language-nix, lens, pretty, process
      }:
      mkDerivation {
@@ -82309,7 +82354,6 @@ self: {
        ];
        description = "Types and functions to manipulate the Nixpkgs distribution";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
        maintainers = [ lib.maintainers.peti ];
      }) {};
 
@@ -95044,9 +95088,7 @@ self: {
        ];
        description = "Fast incremental vi and emacs tags";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
        mainProgram = "fast-tags";
-       broken = true;
      }) {};
 
   "fast-tagsoup" = callPackage
@@ -100915,22 +100957,31 @@ self: {
     ({ mkDerivation, aeson, base, binary, bytestring, containers
      , directory, either, filepath, fortran-src, GenericPretty, hspec
      , hspec-discover, optparse-applicative, silently, text, uniplate
+     , yaml
      }:
      mkDerivation {
        pname = "fortran-src-extras";
-       version = "0.3.0";
-       sha256 = "0wlaqkc4gvndvir5ghg5jbmj528am0iw5cgl7rk6zvkprpjd2n48";
+       version = "0.3.1";
+       sha256 = "1n4w5qs93pahdnmfc30r5nmfn7zq6sxmb80f2bnl1zws3xcr30v7";
+       isLibrary = true;
+       isExecutable = true;
        libraryHaskellDepends = [
          aeson base binary bytestring containers directory either filepath
          fortran-src GenericPretty optparse-applicative text uniplate
        ];
+       executableHaskellDepends = [
+         aeson base bytestring containers fortran-src GenericPretty
+         optparse-applicative text uniplate yaml
+       ];
        testHaskellDepends = [
-         base either fortran-src hspec silently uniplate
+         aeson base bytestring containers fortran-src GenericPretty hspec
+         optparse-applicative silently text uniplate
        ];
        testToolDepends = [ hspec-discover ];
        description = "Common functions and utils for fortran-src";
        license = lib.licenses.asl20;
        hydraPlatforms = lib.platforms.none;
+       mainProgram = "fortran-src-extras";
        broken = true;
      }) {};
 
@@ -108663,6 +108714,20 @@ self: {
        ];
        description = "Provide library support for ghc-pkg information";
        license = lib.licenses.bsd3;
+       hydraPlatforms = lib.platforms.none;
+       broken = true;
+     }) {};
+
+  "ghc-plugin-non-empty" = callPackage
+    ({ mkDerivation, base, ghc, hspec, syb }:
+     mkDerivation {
+       pname = "ghc-plugin-non-empty";
+       version = "0.0.0.0";
+       sha256 = "1z959hdi193rfn4nsrp10dq4xp8dbbv0k8awa93yflwr0paphqwb";
+       libraryHaskellDepends = [ base ghc syb ];
+       testHaskellDepends = [ base hspec ];
+       description = "GHC Plugin for non-empty lists";
+       license = lib.licenses.mpl20;
        hydraPlatforms = lib.platforms.none;
        broken = true;
      }) {};
@@ -123078,8 +123143,8 @@ self: {
        pname = "hal";
        version = "0.4.10.1";
        sha256 = "1mxlyx0zxvklrybasx8p6di72aw431mbbyj06pb91570j9c46fp0";
-       revision = "1";
-       editedCabalFile = "1y26hf8paym4yj34zvi2d2faji8mvw4g4zl17ii9jfwldfqd0r19";
+       revision = "2";
+       editedCabalFile = "143z15p6skr333f1vazhy5hn7rirpkn8zdfh3fzhz311ws7m7lg8";
        libraryHaskellDepends = [
          aeson base base64-bytestring bytestring case-insensitive conduit
          conduit-extra containers envy exceptions hashable http-client
@@ -123105,8 +123170,8 @@ self: {
        pname = "hal";
        version = "1.0.0";
        sha256 = "0mfdxjlypb1sj2kcsqks6anh80xy1azcg9lvlpkgz7dgdpjfygaq";
-       revision = "1";
-       editedCabalFile = "0chjhs3vnzmlwhjlkg24vnpx4baavkj42ldbz25li1r24naw5bsd";
+       revision = "2";
+       editedCabalFile = "0hc2b8bdsbd1q1j7d8l64d51q3apsmsfs1blzw0fg3cjzd4v2slc";
        libraryHaskellDepends = [
          aeson base base64-bytestring bytestring case-insensitive conduit
          conduit-extra containers exceptions hashable http-client http-types
@@ -138950,10 +139015,8 @@ self: {
      }:
      mkDerivation {
        pname = "hlrdb-core";
-       version = "0.1.6.2";
-       sha256 = "19pnwjlcg504kpvxq8r1hwb533adi2d919vgb1lr25c9bdyxc32n";
-       revision = "2";
-       editedCabalFile = "1iqbd10hym2xh2ydslqpd4gvr6d4k06vmi4bj7d3xw8y4x9fmzaq";
+       version = "0.2.0.0";
+       sha256 = "0hkjll4v4kxc133b19kk9k4dkrbag6qdw24gwrhikrxlk666jsbl";
        libraryHaskellDepends = [
          base bytestring hashable hedis lens mtl profunctors random time
          unordered-containers
@@ -148562,8 +148625,8 @@ self: {
      }:
      mkDerivation {
        pname = "hspec-webdriver";
-       version = "1.2.0";
-       sha256 = "1j450cxdapc1432w2bl9fnnkyf9vwl7zcq08n7ff68bzvqcgil05";
+       version = "1.2.1";
+       sha256 = "1cch0jzl2dmd7c45z9j1kl6bv0qzydwcvdfkfkvv8s0x9p11k4g4";
        libraryHaskellDepends = [
          aeson base data-default hashable hspec hspec-core HUnit lifted-base
          stm text transformers unordered-containers webdriver
@@ -159369,11 +159432,16 @@ self: {
      }:
      mkDerivation {
        pname = "interval-algebra";
-       version = "2.0.2";
-       sha256 = "1fsz0grgk4iq457zqvhnsqbrphgg62d46h5rzxffmy5zlvpzhq8g";
+       version = "2.1.0";
+       sha256 = "094yr4vkki9ah9f627ds8bj1q8ql9mhgd49dkf9bydf9g7l5fhaj";
+       isLibrary = true;
+       isExecutable = true;
        libraryHaskellDepends = [
          base binary containers deepseq foldl nonempty-containers
          prettyprinter QuickCheck safe text time witch witherable
+       ];
+       executableHaskellDepends = [
+         base containers prettyprinter time witch
        ];
        testHaskellDepends = [
          base containers hspec QuickCheck safe time witherable
@@ -159382,6 +159450,7 @@ self: {
        description = "An implementation of Allen's interval algebra for temporal logic";
        license = lib.licenses.bsd3;
        hydraPlatforms = lib.platforms.none;
+       mainProgram = "tutorial";
        broken = true;
      }) {};
 
@@ -163878,9 +163947,7 @@ self: {
        ];
        description = "Load JSON from files in a directory structure";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
        mainProgram = "jsondir";
-       broken = true;
      }) {};
 
   "json-encoder" = callPackage
@@ -166313,8 +166380,8 @@ self: {
      }:
      mkDerivation {
        pname = "kdt";
-       version = "0.2.4";
-       sha256 = "16lz8zwv964izdbrdm8b2g8p1qdb4yv4f7qpfdi4c0fbq2d8y3xw";
+       version = "0.2.5";
+       sha256 = "0sb4vmljkvw4hx3fi7xxyc6wc8vmnpgaj38m3jlbyv22qjp1qf3a";
        libraryHaskellDepends = [ base deepseq deepseq-generics heap ];
        testHaskellDepends = [ base deepseq deepseq-generics QuickCheck ];
        benchmarkHaskellDepends = [
@@ -176466,6 +176533,8 @@ self: {
        ];
        description = "RISC-V Core";
        license = lib.licenses.bsd3;
+       hydraPlatforms = lib.platforms.none;
+       broken = true;
      }) {};
 
   "lipsum-gen" = callPackage
@@ -189901,8 +189970,6 @@ self: {
        ];
        description = "Stronger classes than monad-control";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
-       broken = true;
      }) {};
 
   "monad-coroutine" = callPackage
@@ -207340,8 +207407,8 @@ self: {
      }:
      mkDerivation {
        pname = "org-mode-lucid";
-       version = "1.6.2";
-       sha256 = "0qz8s63m2l0aff23fgdn97xxswbn3ah3m4rx9snfi5cscsrzsb8h";
+       version = "1.6.3";
+       sha256 = "0gn5cm9kjx1dpnp311q5hyw6fqyr4l4dvk7cnmwv6r39vyjxy4lc";
        libraryHaskellDepends = [
          base containers hashable lucid org-mode text
        ];
@@ -225437,8 +225504,10 @@ self: {
      }:
      mkDerivation {
        pname = "prob-fx";
-       version = "0.1.0.1";
-       sha256 = "0076c70gsk1ih4hjc7f9r5da2yhiplrggk9by6ffzf3jhbc7afpb";
+       version = "0.1.0.2";
+       sha256 = "1p85fzb0zp0jwvkar41wqag9kyz3aj6zdrs2cca0zaxzrj1ysck9";
+       revision = "1";
+       editedCabalFile = "0cvhxvnmap12ya42hqnqa40hj1d101yhz9bnamda6gsgmdi5gy14";
        isLibrary = true;
        isExecutable = true;
        libraryHaskellDepends = [
@@ -225450,7 +225519,7 @@ self: {
        description = "A library for modular probabilistic modelling";
        license = lib.licenses.bsd3;
        hydraPlatforms = lib.platforms.none;
-       mainProgram = "examples";
+       mainProgram = "prob-fx";
        broken = true;
      }) {};
 
@@ -229495,6 +229564,23 @@ self: {
        testHaskellDepends = [ base hspec ];
        description = "Implementation of interpolated multiline strings";
        license = lib.licenses.publicDomain;
+     }) {};
+
+  "qm-interpolated-string_0_3_1_0" = callPackage
+    ({ mkDerivation, base, bytestring, haskell-src-meta, hspec
+     , template-haskell, text
+     }:
+     mkDerivation {
+       pname = "qm-interpolated-string";
+       version = "0.3.1.0";
+       sha256 = "12jxkkbpmkdrjrkj242z6l4vhbgwj79b8s5l3gxs9fbg4s4pqp2k";
+       libraryHaskellDepends = [
+         base bytestring haskell-src-meta template-haskell text
+       ];
+       testHaskellDepends = [ base hspec ];
+       description = "Implementation of interpolated multiline strings";
+       license = lib.licenses.publicDomain;
+       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "qnap-decrypt" = callPackage
@@ -236925,20 +237011,21 @@ self: {
        license = lib.licenses.bsd3;
      }) {};
 
-  "regex-tdfa_1_3_1_3" = callPackage
+  "regex-tdfa_1_3_2" = callPackage
     ({ mkDerivation, array, base, bytestring, containers, directory
-     , filepath, mtl, parsec, regex-base, text, utf8-string
+     , doctest-parallel, filepath, mtl, parsec, regex-base, text
+     , utf8-string
      }:
      mkDerivation {
        pname = "regex-tdfa";
-       version = "1.3.1.3";
-       sha256 = "15yibl968p83badx661gagg43hdqr5ms9nvbvhq2hsx6ac8bpm6z";
+       version = "1.3.2";
+       sha256 = "1lfzhir5zbgga44zhr4qvc2xc9pa9lslv12c8lwqqw80bzfdfq16";
        libraryHaskellDepends = [
          array base bytestring containers mtl parsec regex-base text
        ];
        testHaskellDepends = [
-         array base bytestring containers directory filepath mtl regex-base
-         text utf8-string
+         array base bytestring containers directory doctest-parallel
+         filepath mtl regex-base text utf8-string
        ];
        description = "Pure Haskell Tagged DFA Backend for \"Text.Regex\" (regex-base)";
        license = lib.licenses.bsd3;
@@ -239520,6 +239607,8 @@ self: {
        pname = "resourcet-effectful";
        version = "1.0.0.0";
        sha256 = "0446j4ihj3fn6lkqi2b1642ak27l6cpwfv4b73gpanq3nad69fzg";
+       revision = "1";
+       editedCabalFile = "0dy1lljcvva754dk7nbs6jp5h1b532dmndxy43z3k7rpadvh0dxj";
        libraryHaskellDepends = [ base effectful-core resourcet ];
        description = "Adaptation of the resourcet library for the effectful ecosystem";
        license = lib.licenses.bsd3;
@@ -248452,15 +248541,15 @@ self: {
 
   "semantic-source" = callPackage
     ({ mkDerivation, aeson, base, bytestring, containers, deepseq
-     , hashable, hedgehog, lingo, pathtype, semilattices, tasty
-     , tasty-hedgehog, tasty-hunit, text
+     , hashable, hedgehog, lingo, semilattices, tasty, tasty-hedgehog
+     , tasty-hunit, text
      }:
      mkDerivation {
        pname = "semantic-source";
-       version = "0.1.0.2";
-       sha256 = "09p840kc620pxp0x5fqvjh2ixkk581yn6frb2yd522p6nkdvi5wr";
+       version = "0.2.0.0";
+       sha256 = "0m7y7ggfs1szmhn1q3814aq05la0wcwym8rj1hzz4ssibk486b5n";
        libraryHaskellDepends = [
-         aeson base bytestring containers deepseq hashable lingo pathtype
+         aeson base bytestring containers deepseq hashable lingo
          semilattices text
        ];
        testHaskellDepends = [
@@ -249801,8 +249890,8 @@ self: {
        pname = "servant-auth-swagger";
        version = "0.2.10.1";
        sha256 = "029nvb4wxwl98ah26bgcq1b7izrnvssxwn1682liimvsh4a8bady";
-       revision = "6";
-       editedCabalFile = "0cnzwpag9cxkd1fljr7vlsmlv0idm4damgvkjrc4yqgpqqnm93zs";
+       revision = "7";
+       editedCabalFile = "0qkcjp621a8vysswm5hn5zgmqgmmm9pcs7aiyax7wij25yjmv3p6";
        libraryHaskellDepends = [
          base lens servant servant-auth servant-swagger swagger2 text
        ];
@@ -251168,6 +251257,58 @@ self: {
        license = lib.licenses.bsd3;
        hydraPlatforms = lib.platforms.none;
        broken = true;
+     }) {};
+
+  "servant-oauth2" = callPackage
+    ({ mkDerivation, base, base64-bytestring, binary, bytestring
+     , clientsession, cookie, exceptions, hoauth2, http-types, mtl
+     , servant, servant-blaze, servant-server, shakespeare, text
+     , tomland, unordered-containers, uri-bytestring, wai
+     , wai-middleware-auth, warp
+     }:
+     mkDerivation {
+       pname = "servant-oauth2";
+       version = "0.1.0.1";
+       sha256 = "0dyijcgla5rswdmfk02jcrk5ii5vdl0pfc5aq943vpy7wv2rlxcs";
+       libraryHaskellDepends = [
+         base base64-bytestring binary bytestring clientsession cookie
+         exceptions hoauth2 http-types mtl servant servant-blaze
+         servant-server shakespeare text tomland unordered-containers
+         uri-bytestring wai wai-middleware-auth warp
+       ];
+       description = "A library for OAuth2 authentication in servant";
+       license = "unknown";
+       hydraPlatforms = lib.platforms.none;
+     }) {};
+
+  "servant-oauth2-examples" = callPackage
+    ({ mkDerivation, base, base64-bytestring, binary, bytestring
+     , clientsession, cookie, hoauth2, http-types, mtl, servant
+     , servant-blaze, servant-oauth2, servant-server, shakespeare, text
+     , tomland, unordered-containers, uri-bytestring, wai
+     , wai-middleware-auth, warp
+     }:
+     mkDerivation {
+       pname = "servant-oauth2-examples";
+       version = "0.1.0.1";
+       sha256 = "167zpiwnjgka4w3pznpf53fkivdilxfwbhgda2ihbb8jqndzjmz2";
+       isLibrary = true;
+       isExecutable = true;
+       libraryHaskellDepends = [
+         base base64-bytestring binary bytestring clientsession cookie
+         hoauth2 http-types mtl servant servant-blaze servant-oauth2
+         servant-server shakespeare text tomland unordered-containers
+         uri-bytestring wai wai-middleware-auth warp
+       ];
+       executableHaskellDepends = [
+         base base64-bytestring binary bytestring clientsession cookie
+         hoauth2 http-types mtl servant servant-blaze servant-oauth2
+         servant-server shakespeare text tomland unordered-containers
+         uri-bytestring wai wai-middleware-auth warp
+       ];
+       description = "Example applications using this library in three ways";
+       license = "unknown";
+       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "servant-openapi3" = callPackage
@@ -256748,6 +256889,18 @@ self: {
          transformers
        ];
        description = "Very basic simplex implementation";
+       license = lib.licenses.bsd3;
+     }) {};
+
+  "simplex-method" = callPackage
+    ({ mkDerivation, base }:
+     mkDerivation {
+       pname = "simplex-method";
+       version = "0.1.0.0";
+       sha256 = "0c1w1b6gxp4kg0jl8shjwz9yd27wlgwfmnxwz3vdwlcgghsdqqbm";
+       libraryHaskellDepends = [ base ];
+       testHaskellDepends = [ base ];
+       description = "Implementation of the two-phase simplex method in exact rational arithmetic";
        license = lib.licenses.bsd3;
      }) {};
 
@@ -306718,8 +306871,8 @@ self: {
      }:
      mkDerivation {
        pname = "xmobar";
-       version = "0.44";
-       sha256 = "0zjsym9ldj1rslci787br7vwgqnd7z5s55yclfxi2r8gibq3f2ha";
+       version = "0.44.1";
+       sha256 = "1msgbxmv83g4zn5srnr7b5m9qk962pc24w62k83m7316yv9p0xa2";
        configureFlags = [
          "-fwith_alsa" "-fwith_conduit" "-fwith_datezone" "-fwith_dbus"
          "-fwith_inotify" "-fwith_iwlib" "-fwith_mpd" "-fwith_mpris"

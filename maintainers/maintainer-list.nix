@@ -6339,6 +6339,12 @@
     github = "JoshuaFern";
     githubId = 4300747;
   };
+  joshvanl = {
+    email = " me@joshvanl.dev ";
+    github = "joshvanl";
+    githubId = 15893072;
+    name = "Josh van Leeuwen";
+  };
   jpas = {
     name = "Jarrod Pas";
     email = "jarrod@jarrodpas.com";
@@ -6690,6 +6696,15 @@
     github = "kcalvinalvin";
     githubId = 37185887;
     name = "Calvin Kim";
+  };
+  keksbg = {
+    email = "keksbg@riseup.net";
+    name = "Stella";
+    github = "keksbg";
+    githubId = 10682187;
+    keys = [{
+      fingerprint = "AB42 1F18 5A19 A160 AD77  9885 3D6D CA5B 6F2C 2A7A";
+    }];
   };
   keldu = {
     email = "mail@keldu.de";
@@ -7290,6 +7305,13 @@
     github = "leenaars";
     githubId = 4158274;
     name = "Michiel Leenaars";
+  };
+  logo = {
+    email = "logo4poop@protonmail.com";
+    matrix = "@logo4poop:matrix.org";
+    github = "logo4poop";
+    githubId = 24994565;
+    name = "Isaac Silverstein";
   };
   lom = {
     email = "legendofmiracles@protonmail.com";
@@ -8060,6 +8082,12 @@
     github = "matklad";
     githubId = 1711539;
     name = "matklad";
+  };
+  matrss = {
+    name = "Matthias Riße";
+    email = "matthias.risze@t-online.de";
+    github = "matrss";
+    githubId = 9308656;
   };
   matt-snider = {
     email = "matt.snider@protonmail.com";
@@ -12065,15 +12093,6 @@
     githubId = 9720532;
     name = "Sergei K";
   };
-  sondr3 = {
-    email = "nilsen.sondre@gmail.com";
-    github = "sondr3";
-    githubId = 2280539;
-    name = "Sondre Nilsen";
-    keys = [{
-      fingerprint = "0EC3 FA89 EFBA B421 F82E  40B0 2567 6BCB FFAD 76B1";
-    }];
-  };
   sophrosyne = {
     email = "joshuaortiz@tutanota.com";
     github = "sophrosyne97";
@@ -13095,6 +13114,12 @@
     github = "tomfitzhenry";
     githubId = 61303;
     name = "Tom Fitzhenry";
+  };
+  tomhoule = {
+    email = "secondary+nixpkgs@tomhoule.com";
+    github = "tomhoule";
+    githubId = 13155277;
+    name = "Tom Houle";
   };
   tomsmeets = {
     email = "tom.tsmeets@gmail.com";

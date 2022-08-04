@@ -171,6 +171,8 @@ in {
 
   adafruit-io = callPackage ../development/python-modules/adafruit-io { };
 
+  adafruit-nrfutil = callPackage ../development/python-modules/adafruit-nrfutil { };
+
   adafruit-platformdetect = callPackage ../development/python-modules/adafruit-platformdetect { };
 
   adafruit-pureio = callPackage ../development/python-modules/adafruit-pureio { };
@@ -1233,6 +1235,8 @@ in {
 
   beautifultable = callPackage ../development/python-modules/beautifultable { };
 
+  bech32 = callPackage ../development/python-modules/bech32 { };
+
   bedup = callPackage ../development/python-modules/bedup { };
 
   behave = callPackage ../development/python-modules/behave { };
@@ -2183,6 +2187,8 @@ in {
   dbf = callPackage ../development/python-modules/dbf { };
 
   dbfread = callPackage ../development/python-modules/dbfread { };
+
+  dbus-client-gen = callPackage ../development/python-modules/dbus-client-gen { };
 
   dbus-next = callPackage ../development/python-modules/dbus-next { };
 
@@ -4705,6 +4711,10 @@ in {
 
   justbackoff = callPackage ../development/python-modules/justbackoff { };
 
+  justbases = callPackage ../development/python-modules/justbases { };
+
+  justbytes = callPackage ../development/python-modules/justbytes { };
+
   jwcrypto = callPackage ../development/python-modules/jwcrypto { };
 
   jxmlease = callPackage ../development/python-modules/jxmlease { };
@@ -5086,6 +5096,8 @@ in {
   linecache2 = callPackage ../development/python-modules/linecache2 { };
 
   line_profiler = callPackage ../development/python-modules/line_profiler { };
+
+  lingua = callPackage ../development/python-modules/lingua { };
 
   linkify-it-py = callPackage ../development/python-modules/linkify-it-py { };
 
@@ -7139,6 +7151,8 @@ in {
 
   pyarlo = callPackage ../development/python-modules/pyarlo { };
 
+  pyarr = callPackage ../development/python-modules/pyarr { };
+
   pyarrow = callPackage ../development/python-modules/pyarrow {
     inherit (pkgs) arrow-cpp cmake;
   };
@@ -8627,8 +8641,6 @@ in {
   python-jsonrpc-server = callPackage ../development/python-modules/python-jsonrpc-server { };
 
   python_keyczar = callPackage ../development/python-modules/python_keyczar { };
-
-  python-language-server = callPackage ../development/python-modules/python-language-server { };
 
   python-ldap-test = callPackage ../development/python-modules/python-ldap-test { };
 
@@ -10763,6 +10775,8 @@ in {
 
   transmissionrpc = callPackage ../development/python-modules/transmissionrpc { };
 
+  trectools = callPackage ../development/python-modules/trectools { };
+
   treelog = callPackage ../development/python-modules/treelog { };
 
   treeo = callPackage ../development/python-modules/treeo { };
@@ -11356,6 +11370,8 @@ in {
   wfuzz = callPackage ../development/python-modules/wfuzz { };
 
   wget = callPackage ../development/python-modules/wget { };
+
+  whatthepatch = callPackage ../development/python-modules/whatthepatch { };
 
   wheel = callPackage ../development/python-modules/wheel { };
 

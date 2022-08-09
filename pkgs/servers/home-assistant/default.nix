@@ -42,18 +42,6 @@ let
     })
 
     (self: super: {
-      aiohomekit = super.aiohomekit.overridePythonAttrs (oldAttrs: rec {
-        version = "0.7.20";
-        src = fetchFromGitHub {
-          owner = "Jc2k";
-          repo = "aiohomekit";
-          rev = "refs/tags/${version}";
-          hash = "sha256-g7N+CIBJCMnW4FjN502SahhSpPS1p7AXZvduteHu+Z4=";
-        };
-      });
-    })
-
-    (self: super: {
       backoff = super.backoff.overridePythonAttrs (oldAttrs: rec {
         version = "1.11.1";
         src = fetchFromGitHub {
@@ -124,9 +112,6 @@ let
       hass-nabucasa = super.hass-nabucasa.overridePythonAttrs (oldAttrs: {
         doCheck = false; # requires aiohttp>=1.0.0
       });
-      pydeconz = super.pydeconz.overridePythonAttrs (oldAttrs: {
-        doCheck = false; # requires pytest-aiohttp>=1.0.0
-      });
       pynws = super.pynws.overridePythonAttrs (oldAttrs: {
         doCheck = false; # requires pytest-aiohttp>=1.0.0
       });
@@ -141,6 +126,18 @@ let
       });
       zwave-js-server-python = super.zwave-js-server-python.overridePythonAttrs (oldAttrs: {
         doCheck = false; # requires aiohttp>=1.0.0
+      });
+    })
+
+    (self: super: {
+      plugwise = super.plugwise.overridePythonAttrs (oldAttrs: rec {
+        version = "0.20.1";
+        src = fetchFromGitHub {
+          owner = "plugwise";
+          repo = "python-plugwise";
+          rev = "refs/tags/v${version}";
+          hash = "sha256-Sk7L0JPwn7IXVl5GeERxrG/vrHXeNwUjW1mgm4g40Ng=";
+        };
       });
     })
 
@@ -173,18 +170,6 @@ let
       });
     })
 
-    (self: super: {
-      python-homewizard-energy = super.python-homewizard-energy.overridePythonAttrs (oldAttrs: rec {
-        version = "1.0.3";
-        src = fetchFromGitHub {
-          owner = "DCSBL";
-          repo = "python-homewizard-energy";
-          rev = "refs/tags/v${version}";
-          hash = "sha256-ioISqRFZZCojTJ/KYS8QUtoEpBNOPqY9lC9NFbZyh5A=";
-        };
-      });
-    })
-
     # pyunifiprotect excludes pydantic==1.9.1
     (self: super: {
       pydantic = super.pydantic.overridePythonAttrs (oldAttrs: rec {
@@ -200,15 +185,17 @@ let
 
     (self: super: {
       pydeconz = super.pydeconz.overridePythonAttrs (oldAttrs: rec {
-        version = "98";
+        version = "102";
         src = fetchFromGitHub {
           owner = "Kane610";
           repo = "deconz";
           rev = "refs/tags/v${version}";
-          hash = "sha256-hCJRoyDWDxrBrxs2g6mVh7MOe6UMd+S8+ftfWyzWgH8=";
+          hash = "sha256-Dbhp/+xyyWhFcYp2VRnivn5d1JMR5hBctdArIzLKIjM=";
         };
+        doCheck = false; # requires pytest-aiohttp>=1.0.0
       });
     })
+
 
     (self: super: {
       python-slugify = super.python-slugify.overridePythonAttrs (oldAttrs: rec {
@@ -281,18 +268,6 @@ let
       });
     })
 
-    (self: super: {
-      wled = super.wled.overridePythonAttrs (oldAttrs: rec {
-        version = "0.13.2";
-        src = fetchFromGitHub {
-          owner = "frenck";
-          repo = "python-wled";
-          rev = "refs/tags/v${version}";
-          hash = "sha256-Rv0jaKkN6jQ7oiv1cBYx4HAr7IqPm57jZFykXayp0T0=";
-        };
-      });
-    })
-
     # home-assistant-frontend does not exist in python3.pkgs
     (self: super: {
       home-assistant-frontend = self.callPackage ./frontend.nix { };
@@ -332,7 +307,7 @@ let
   extraPackagesFile = writeText "home-assistant-packages" (lib.concatMapStringsSep "\n" (pkg: pkg.pname) extraBuildInputs);
 
   # Don't forget to run parse-requirements.py after updating
-  hassVersion = "2022.7.7";
+  hassVersion = "2022.8.2";
 
 in python.pkgs.buildPythonApplication rec {
   pname = "homeassistant";
@@ -350,7 +325,7 @@ in python.pkgs.buildPythonApplication rec {
     owner = "home-assistant";
     repo = "core";
     rev = version;
-    hash = "sha256-OU6tPTBC53ogkynH6NrYiQCerPo8Fu0ZLHhNsY0emGs=";
+    hash = "sha256-82UPZmaSJVO0kmlGuY08vS3y5ai0NtSQ7ntkiOcNc2A=";
   };
 
   # leave this in, so users don't have to constantly update their downstream patch handling
@@ -368,6 +343,7 @@ in python.pkgs.buildPythonApplication rec {
       "awesomeversion"
       "bcrypt"
       "cryptography"
+      "home-assistant-bluetooth"
       "httpx"
       "ifaddr"
       "orjson"
@@ -396,6 +372,7 @@ in python.pkgs.buildPythonApplication rec {
     ciso8601
     cryptography
     httpx
+    home-assistant-bluetooth
     ifaddr
     jinja2
     lru-dict

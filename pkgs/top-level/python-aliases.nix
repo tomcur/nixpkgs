@@ -90,6 +90,7 @@ mapAliases ({
   hdlparse = throw "hdlparse has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"; # added 2022-01-18
   hyperkitty = throw "Please use pkgs.mailmanPackages.hyperkitty"; # added 2022-04-29
   IMAPClient = imapclient; # added 2021-10-28
+  imdbpy = throw "imdbpy has been renamed to cinemagoer"; # added 2022-08-08
   ipaddress = throw "ipaddress has been removed because it is no longer required since python 2.7."; # added 2022-05-30
   influxgraph = throw "influxgraph has been removed because it is no longer maintained"; # added 2022-07-10
   jupyter_client = jupyter-client; # added 2021-10-15
@@ -175,6 +176,7 @@ mapAliases ({
   smart_open = smart-open; # added 2021-03-14
   smmap2 = throw "smmap2 has been deprecated, use smmap instead."; # added 2020-03-14
   SPARQLWrapper = sparqlwrapper;
+  sphinx_rtd_theme = sphinx-rtd-theme; # added 2022-08-03
   sphinxcontrib_plantuml = sphinxcontrib-plantuml; # added 2021-08-02
   sqlalchemy_migrate = sqlalchemy-migrate; # added 2021-10-28
   SQLAlchemy-ImageAttach = throw "sqlalchemy-imageattach has been removed as it is incompatible with sqlalchemy 1.4 and unmaintained"; # added 2022-04-23

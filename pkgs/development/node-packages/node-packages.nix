@@ -118873,10 +118873,10 @@ in
   pnpm = nodeEnv.buildNodePackage {
     name = "pnpm";
     packageName = "pnpm";
-    version = "7.8.0";
+    version = "7.9.1";
     src = fetchurl {
-      url = "https://registry.npmjs.org/pnpm/-/pnpm-7.8.0.tgz";
-      sha512 = "jzb9/gto4nwuVA2itTRk0PJhuaZcA1NBRB298UzXhqKZQMjtHCS+KLzh7RWk5n3g+KnMg5FHr6Mwg1L62dBz1A==";
+      url = "https://registry.npmjs.org/pnpm/-/pnpm-7.9.1.tgz";
+      sha512 = "5vyV+FwZj5y31UDDsiq9xcVzF+mvS+IPdgAgkZ9rVxYPNKCCVwVn5LsHh9jcfuApiKYVgpyisAMcuSDbe1/C0Q==";
     };
     buildInputs = globalBuildInputs;
     meta = {

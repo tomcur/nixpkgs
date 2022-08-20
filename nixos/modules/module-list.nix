@@ -620,6 +620,7 @@
   ./services/misc/plikd.nix
   ./services/misc/podgrab.nix
   ./services/misc/polaris.nix
+  ./services/misc/portunus.nix
   ./services/misc/prowlarr.nix
   ./services/misc/tautulli.nix
   ./services/misc/pinnwand.nix
@@ -639,6 +640,7 @@
   ./services/misc/sonarr.nix
   ./services/misc/sourcehut
   ./services/misc/spice-vdagentd.nix
+  ./services/misc/spice-webdavd.nix
   ./services/misc/ssm-agent.nix
   ./services/misc/sssd.nix
   ./services/misc/subsonic.nix
@@ -1076,6 +1078,7 @@
   ./services/web-apps/jirafeau.nix
   ./services/web-apps/jitsi-meet.nix
   ./services/web-apps/keycloak.nix
+  ./services/web-apps/komga.nix
   ./services/web-apps/lemmy.nix
   ./services/web-apps/invidious.nix
   ./services/web-apps/invoiceplane.nix
@@ -1136,6 +1139,7 @@
   ./services/web-servers/pomerium.nix
   ./services/web-servers/unit/default.nix
   ./services/web-servers/tomcat.nix
+  ./services/web-servers/keter
   ./services/web-servers/traefik.nix
   ./services/web-servers/trafficserver/default.nix
   ./services/web-servers/ttyd.nix

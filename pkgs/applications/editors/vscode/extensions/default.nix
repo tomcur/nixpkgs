@@ -979,6 +979,23 @@ let
         };
       };
 
+      firefox-devtools.vscode-firefox-debug = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "vscode-firefox-debug";
+          publisher = "firefox-devtools";
+          version = "2.9.8";
+          sha256 = "sha256-MCL562FPgEfhUM1KH5LMl7BblbjIkQ4UEwB67RlO5Mk=";
+        };
+        meta = with lib; {
+          changelog = "https://marketplace.visualstudio.com/items/firefox-devtools.vscode-firefox-debug/changelog";
+          description = "A Visual Studio Code extension for debugging web applications and browser extensions in Firefox";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=firefox-devtools.vscode-firefox-debug";
+          homepage = "https://github.com/firefox-devtools/vscode-firefox-debug";
+          license = licenses.mit;
+          maintainers = with maintainers; [ felschr ];
+        };
+      };
+
       foam.foam-vscode = buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "foam-vscode";
@@ -2321,11 +2338,16 @@ let
         mktplcRef = {
           name = "svelte-vscode";
           publisher = "svelte";
-          version = "105.3.0";
-          sha256 = "11plqsj3c4dv0xg2d76pxrcn382qr9wbh1lhln2x8mzv840icvwr";
+          version = "105.21.0";
+          sha256 = "12p6msv8wi773piqm1y5zik3ky652bdaw9s83ffwnlndsh87s9n5";
         };
         meta = {
+          changelog = "https://github.com/sveltejs/language-tools/releases";
+          description = "Svelte language support for VS Code";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode";
+          homepage = "https://github.com/sveltejs/language-tools#readme";
           license = lib.licenses.mit;
+          maintainers = with lib.maintainers; [ fabianhauser ];
         };
       };
 
@@ -2485,8 +2507,8 @@ let
         mktplcRef = {
           name = "errorlens";
           publisher = "usernamehw";
-          version = "3.5.1";
-          sha256 = "17xbbr5hjrs67yazicb9qillbkp3wnaccjpnl1jlp07s0n7q4f8f";
+          version = "3.6.0";
+          sha256 = "sha256-oNzB81mPZjEwrqbeFMvTlXERXrYBpF03EH9ZXz/daOs=";
         };
         meta = with lib; {
           changelog = "https://marketplace.visualstudio.com/items/usernamehw.errorlens/changelog";

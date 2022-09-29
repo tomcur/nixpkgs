@@ -1245,6 +1245,7 @@ broken-packages:
   - ebnf-bff
   - eccrypto-ed25519-bindings
   - ecma262
+  - ecta-plugin
   - ecu
   - eddie
   - ede
@@ -1516,6 +1517,7 @@ broken-packages:
   - forbidden-fruit
   - fordo
   - forecast-io
+  - foreign
   - foreign-var
   - forest
   - forest-fire
@@ -2210,6 +2212,7 @@ broken-packages:
   - himg
   - hindley-milner
   - hindley-milner-type-check
+  - hinotify-conduit
   - hinquire
   - hinstaller
   - hinter
@@ -2233,6 +2236,7 @@ broken-packages:
   - HJVM
   - hkd-delta
   - hkd-lens
+  - hkd-records
   - hkt
   - hlbfgsb
   - hleap
@@ -2250,6 +2254,8 @@ broken-packages:
   - hlongurl
   - hlrdb-core
   - hls-exactprint-utils
+  - hls-selection-range-plugin
+  - hls-stan-plugin
   - hlwm
   - hmarkup
   - hmatrix-banded
@@ -2275,6 +2281,7 @@ broken-packages:
   - hnn
   - hnop
   - hoauth
+  - hoauth2-tutorial
   - hobbes
   - hobbits
   - hocilib
@@ -2598,7 +2605,11 @@ broken-packages:
   - ige
   - ignore
   - igraph
+  - ihaskell-charts
+  - ihaskell-diagrams
+  - ihaskell-gnuplot
   - ihaskell-parsec
+  - ihaskell-plot
   - ihaskell-widgets
   - ihp-hsx
   - illuminate
@@ -3247,6 +3258,7 @@ broken-packages:
   - mios
   - MIP
   - mismi-s3-core
+  - miso-action-logger
   - miso-examples
   - mit-3qvpPyAi6mH
   - mix-arrows
@@ -3756,6 +3768,7 @@ broken-packages:
   - Pathfinder
   - pathfindingcore
   - PathTree
+  - patrol
   - patronscraper
   - paypal-adaptive-hoops
   - paypal-api
@@ -4321,6 +4334,7 @@ broken-packages:
   - reversi
   - ReviewBoard
   - rewrite-inspector
+  - rfc
   - rfc-prelude
   - r-glpk-phonetic-languages-ukrainian-durations
   - rhbzquery
@@ -4927,6 +4941,8 @@ broken-packages:
   - SVD2HS
   - svfactor
   - svg-builder-fork
+  - svg-icons
+  - SvgIcons
   - svgutils
   - svm-light-utils
   - svm-simple
@@ -5176,6 +5192,7 @@ broken-packages:
   - to-haskell
   - token-bucket
   - tokenify
+  - tokenizer
   - tokenizer-streaming
   - token-limiter
   - token-search
@@ -5300,6 +5317,7 @@ broken-packages:
   - type-of-html-static
   - typeparams
   - type-prelude
+  - type-rig
   - types-compat
   - type-settheory
   - type-spine
@@ -5308,6 +5326,7 @@ broken-packages:
   - typograffiti
   - typson-core
   - tyro
+  - tztime
   - uAgda
   - uberlast
   - ucam-webauth-types

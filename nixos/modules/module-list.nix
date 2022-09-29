@@ -505,6 +505,7 @@
   ./services/mail/dovecot.nix
   ./services/mail/dspam.nix
   ./services/mail/exim.nix
+  ./services/mail/listmonk.nix
   ./services/mail/maddy.nix
   ./services/mail/mail.nix
   ./services/mail/mailcatcher.nix
@@ -680,6 +681,7 @@
   ./services/monitoring/heapster.nix
   ./services/monitoring/incron.nix
   ./services/monitoring/kapacitor.nix
+  ./services/monitoring/kthxbye.nix
   ./services/monitoring/loki.nix
   ./services/monitoring/longview.nix
   ./services/monitoring/mackerel-agent.nix

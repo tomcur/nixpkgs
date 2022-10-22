@@ -291,6 +291,8 @@ in {
 
   aiocontextvars = callPackage ../development/python-modules/aiocontextvars { };
 
+  aiocsv = callPackage ../development/python-modules/aiocsv { };
+
   aiocurrencylayer = callPackage ../development/python-modules/aiocurrencylayer { };
 
   aiodiscover = callPackage ../development/python-modules/aiodiscover { };
@@ -2189,6 +2191,8 @@ in {
 
   curve25519-donna = callPackage ../development/python-modules/curve25519-donna { };
 
+  cvelib = callPackage ../development/python-modules/cvelib { };
+
   cvxopt = callPackage ../development/python-modules/cvxopt { };
 
   cvxpy = callPackage ../development/python-modules/cvxpy { };
@@ -2771,8 +2775,6 @@ in {
 
   dnspython = callPackage ../development/python-modules/dnspython { };
 
-  dnspythonchia = callPackage ../development/python-modules/dnspythonchia { };
-
   doc8 = callPackage ../development/python-modules/doc8 { };
 
   docformatter = callPackage ../development/python-modules/docformatter { };
@@ -3217,9 +3219,9 @@ in {
 
   facedancer = callPackage ../development/python-modules/facedancer { };
 
-  face_recognition = callPackage ../development/python-modules/face_recognition { };
+  face-recognition = callPackage ../development/python-modules/face-recognition { };
 
-  face_recognition_models = callPackage ../development/python-modules/face_recognition_models { };
+  face-recognition-models = callPackage ../development/python-modules/face-recognition/models.nix { };
 
   factory_boy = callPackage ../development/python-modules/factory_boy { };
 
@@ -4724,7 +4726,7 @@ in {
 
   isoweek = callPackage ../development/python-modules/isoweek { };
 
-  itanium_demangler = callPackage ../development/python-modules/itanium_demangler { };
+  itanium-demangler = callPackage ../development/python-modules/itanium-demangler { };
 
   itemadapter = callPackage ../development/python-modules/itemadapter { };
 
@@ -6150,6 +6152,8 @@ in {
 
   nbxmpp = callPackage ../development/python-modules/nbxmpp { };
 
+  nc-dnsapi = callPackage ../development/python-modules/nc-dnsapi { };
+
   ncclient = callPackage ../development/python-modules/ncclient { };
 
   nclib = callPackage ../development/python-modules/nclib { };
@@ -6403,6 +6407,8 @@ in {
   nutils = callPackage ../development/python-modules/nutils { };
 
   nvchecker = callPackage ../development/python-modules/nvchecker { };
+
+  nvidia-ml-py = callPackage ../development/python-modules/nvidia-ml-py { };
 
   nxt-python = callPackage ../development/python-modules/nxt-python { };
 
@@ -7130,6 +7136,8 @@ in {
 
   python-flirt = callPackage ../development/python-modules/python-flirt { };
 
+  python-fullykiosk = callPackage ../development/python-modules/python-fullykiosk { };
+
   python-glanceclient = callPackage ../development/python-modules/python-glanceclient { };
 
   python-google-nest = callPackage ../development/python-modules/python-google-nest { };
@@ -7474,7 +7482,7 @@ in {
 
   push-receiver = callPackage ../development/python-modules/push-receiver { };
 
-  pushbullet = callPackage ../development/python-modules/pushbullet { };
+  pushbullet-py = callPackage ../development/python-modules/pushbullet-py { };
 
   pushover-complete = callPackage ../development/python-modules/pushover-complete { };
 
@@ -8108,6 +8116,8 @@ in {
   pylint-plugin-utils = callPackage ../development/python-modules/pylint-plugin-utils { };
 
   pylitterbot = callPackage ../development/python-modules/pylitterbot { };
+
+  py-libzfs = callPackage ../development/python-modules/py-libzfs { };
 
   py-lru-cache = callPackage ../development/python-modules/py-lru-cache { };
 
@@ -9631,6 +9641,8 @@ in {
   readme_renderer = callPackage ../development/python-modules/readme_renderer { };
 
   readthedocs-sphinx-ext = callPackage ../development/python-modules/readthedocs-sphinx-ext { };
+
+  reactivex = callPackage ../development/python-modules/reactivex { };
 
   rebulk = callPackage ../development/python-modules/rebulk { };
 
@@ -11956,6 +11968,8 @@ in {
   winacl = callPackage ../development/python-modules/winacl { };
 
   winsspi = callPackage ../development/python-modules/winsspi { };
+
+  withings-api = callPackage ../development/python-modules/withings-api { };
 
   wktutils = callPackage ../development/python-modules/wktutils { };
 

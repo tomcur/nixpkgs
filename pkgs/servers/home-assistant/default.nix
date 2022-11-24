@@ -31,6 +31,16 @@ let
     # Override the version of some packages pinned in Home Assistant's setup.py and requirements_all.txt
 
     (self: super: {
+      # https://github.com/postlund/pyatv/issues/1879
+      aiohttp = super.aiohttp.overridePythonAttrs (oldAttrs: rec {
+        pname = "aiohttp";
+        version = "3.8.1";
+        src = self.fetchPypi {
+          inherit pname version;
+          hash = "sha256-/FRx4aVN4V73HBvG6+gNTcaB6mAOaL/Ry85AQn8LdXg=";
+        };
+      });
+
       backoff = super.backoff.overridePythonAttrs (oldAttrs: rec {
         version = "1.11.1";
         src = fetchFromGitHub {
@@ -38,28 +48,6 @@ let
           repo = "backoff";
           rev = "v${version}";
           hash = "sha256-87IMcLaoCn0Vns8Ub/AFmv0gXtS0aPZX0cSt7+lOPm4=";
-        };
-      });
-
-      bsblan = super.bsblan.overridePythonAttrs (oldAttrs: rec {
-        version = "0.5.0";
-        postPatch = null;
-        propagatedBuildInputs = oldAttrs.propagatedBuildInputs ++ [ super.cattrs ];
-        src = fetchFromGitHub {
-          owner = "liudger";
-          repo = "python-bsblan";
-          rev = "v.${version}";
-          hash = "sha256-yzlHcIb5QlG+jAgEtKlAcY7rESiUY7nD1YwqK63wgcg=";
-        };
-      });
-
-      blebox-uniapi = super.blebox-uniapi.overridePythonAttrs (oldAttrs: rec {
-        version = "2.0.2";
-        src = fetchFromGitHub {
-          owner = "blebox";
-          repo = "blebox_uniapi";
-          rev = "refs/tags/v${version}";
-          hash = "sha256-0Yiooy7YSUFjqqcyH2fPQ6AWuR0EJxfRRZTw/6JGcMA=";
         };
       });
 
@@ -84,13 +72,13 @@ let
         };
       });
 
-      iaqualink = super.iaqualink.overridePythonAttrs (oldAttrs: rec {
-        version = "0.4.1";
+      nibe = super.nibe.overridePythonAttrs (oldAttrs: rec {
+        version = "0.5.0";
         src = fetchFromGitHub {
-          owner = "flz";
-          repo = "iaqualink-py";
-          rev = "v${version}";
-          hash = "sha256-GDJwPBEU7cteAdYj7eo5tAo0G8AVcQR7KSxLNLhU/XU=";
+          owner = "yozik04";
+          repo = "nibe";
+          rev = "refs/tags/${version}";
+          hash = "sha256-DguGWNJfc5DfbcKMX2eMM2U1WyVPcdtv2BmpVloOFSU=";
         };
       });
 
@@ -102,7 +90,7 @@ let
           pname = "pytest-aiohttp";
           hash = "sha256-ySmFQzljeXc3WDhwO2L+9jUoWYvAqdRRY566lfSqpE8=";
         };
-        propagatedBuildInputs = with python3.pkgs; [ aiohttp pytest ];
+        propagatedBuildInputs = with self; [ aiohttp pytest ];
         doCheck = false;
         patches = [];
       });
@@ -161,8 +149,24 @@ let
         };
       });
 
+      pydaikin = super.pydaikin.overridePythonAttrs (oldAttrs: rec {
+        disabledTests = [
+          "test_power_sensors"
+        ];
+      });
+
       pydeconz = super.pydeconz.overridePythonAttrs (oldAttrs: rec {
         doCheck = false; # requires pytest-aiohttp>=1.0.0
+      });
+
+      pysensibo = super.pysensibo.overridePythonAttrs (oldAttrs: rec {
+        version = "1.0.20";
+        src = fetchFromGitHub {
+          owner = "andrey-git";
+          repo = "pysensibo";
+          rev = "refs/tags/${version}";
+          hash = "sha256-L2NP4XS+dPlBr2h8tsGoa4G7tI9yiI4fwrhvQaKkexk=";
+        };
       });
 
       python-slugify = super.python-slugify.overridePythonAttrs (oldAttrs: rec {
@@ -254,7 +258,7 @@ let
   extraPackagesFile = writeText "home-assistant-packages" (lib.concatMapStringsSep "\n" (pkg: pkg.pname) extraBuildInputs);
 
   # Don't forget to run parse-requirements.py after updating
-  hassVersion = "2022.10.4";
+  hassVersion = "2022.11.4";
 
 in python.pkgs.buildPythonApplication rec {
   pname = "homeassistant";
@@ -272,7 +276,7 @@ in python.pkgs.buildPythonApplication rec {
     owner = "home-assistant";
     repo = "core";
     rev = version;
-    hash = "sha256-949QvezOYW6hA3iU9j2Wu6DhX35CzW0ruwGe3JGPsH4=";
+    hash = "sha256-3vNwWPFSR9Ap89rAxZjUOptigBaDlboxvLZysMyUUX0=";
   };
 
   # leave this in, so users don't have to constantly update their downstream patch handling
@@ -285,6 +289,7 @@ in python.pkgs.buildPythonApplication rec {
 
   postPatch = let
     relaxedConstraints = [
+      "aiohttp"
       "attrs"
       "awesomeversion"
       "bcrypt"

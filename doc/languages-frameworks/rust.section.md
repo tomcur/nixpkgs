@@ -15,7 +15,7 @@ For other versions such as daily builds (beta and nightly),
 use either `rustup` from nixpkgs (which will manage the rust installation in your home directory),
 or use a community maintained [Rust overlay](#using-community-rust-overlays).
 
-## Compiling Rust applications with Cargo {#compiling-rust-applications-with-cargo}
+## `buildRustPackage`: Compiling Rust applications with Cargo {#compiling-rust-applications-with-cargo}
 
 Rust applications are packaged by using the `buildRustPackage` helper from `rustPlatform`:
 
@@ -319,6 +319,18 @@ The above are just guidelines, and exceptions may be granted on a case-by-case b
 However, please check if it's possible to disable a problematic subset of the
 test suite and leave a comment explaining your reasoning.
 
+This can be achived with `--skip` in `checkFlags`:
+
+```nix
+rustPlatform.buildRustPackage {
+  /* ... */
+  checkFlags = [
+    # reason for disabling test
+    "--skip=example::tests:example_test"
+  ];
+}
+```
+
 #### Setting `test-threads` {#setting-test-threads}
 
 `buildRustPackage` will use parallel test threads by default,
@@ -596,7 +608,7 @@ buildPythonPackage rec {
 }
 ```
 
-## Compiling Rust crates using Nix instead of Cargo {#compiling-rust-crates-using-nix-instead-of-cargo}
+## `buildRustCrate`: Compiling Rust crates using Nix instead of Cargo {#compiling-rust-crates-using-nix-instead-of-cargo}
 
 ### Simple operation {#simple-operation}
 

@@ -106,7 +106,7 @@ self: super: {
       name = "git-annex-${super.git-annex.version}-src";
       url = "git://git-annex.branchable.com/";
       rev = "refs/tags/" + super.git-annex.version;
-      sha256 = "09ksaaf5kxpskq2hmi1ad35k15cnhn86j795iw6nk86gbvx5hrap";
+      sha256 = "14391vj0awvkpsd32kanmc85yic5mg4pxmjhiv7wjxy7ga13wfqw";
       # delete android and Android directories which cause issues on
       # darwin (case insensitive directory). Since we don't need them
       # during the build process, we can delete it to prevent a hash
@@ -122,6 +122,10 @@ self: super: {
     # https://git-annex.branchable.com/git-annex-shell/
     passthru.shellPath = "/bin/git-annex-shell";
   }) super.git-annex;
+
+  # Too strict bounds on servant
+  # Pending a hackage revision: https://github.com/berberman/arch-web/commit/5d08afee5b25e644f9e2e2b95380a5d4f4aa81ea#commitcomment-89230555
+  arch-web = doJailbreak super.arch-web;
 
   # Fix test trying to access /home directory
   shell-conduit = overrideCabal (drv: {
@@ -1105,6 +1109,8 @@ self: super: {
 
   # Requires pg_ctl command during tests
   beam-postgres = overrideCabal (drv: {
+    # https://github.com/NixOS/nixpkgs/issues/198495
+    doCheck = pkgs.postgresql.doCheck;
     testToolDepends = (drv.testToolDepends or []) ++ [pkgs.postgresql];
   }) super.beam-postgres;
 
@@ -1127,6 +1133,8 @@ self: super: {
           sed -i test/PostgreSQL/Test.hs \
             -e s^host=localhost^^
         '';
+        # https://github.com/NixOS/nixpkgs/issues/198495
+        doCheck = pkgs.postgresql.doCheck;
         # Match the test suite defaults (or hardcoded values?)
         preCheck = drv.preCheck or "" + ''
           PGUSER=esqutest
@@ -1267,6 +1275,8 @@ self: super: {
           sed -i test/PgInit.hs \
             -e s^'host=" <> host <> "'^^
         '';
+        # https://github.com/NixOS/nixpkgs/issues/198495
+        doCheck = pkgs.postgresql.doCheck;
         preCheck = drv.preCheck or "" + ''
           PGDATABASE=test
           PGUSER=test
@@ -1471,6 +1481,8 @@ self: super: {
     testToolDepends = drv.testToolDepends or [] ++ [
       pkgs.postgresql pkgs.postgresqlTestHook
     ];
+    # https://github.com/NixOS/nixpkgs/issues/198495
+    doCheck = pkgs.postgresql.doCheck;
     preCheck = drv.preCheck or "" + ''
       # empty string means use default connection
       export DATABASE_URL=""
@@ -1553,22 +1565,36 @@ self: super: {
     (disableCabalFlag "stan") # Sorry stan is totally unmaintained and terrible to get to run. It only works on ghc 8.8 or 8.10 anyways …
   ]).overrideScope (lself: lsuper: {
     ormolu = doJailbreak lself.ormolu_0_5_0_1;
-    fourmolu = doJailbreak lself.fourmolu_0_8_2_0;
+    fourmolu = doJailbreak lself.fourmolu_0_9_0_0;
     hlint = enableCabalFlag "ghc-lib" lself.hlint_3_4_1;
     ghc-lib-parser-ex = self.ghc-lib-parser-ex_9_2_0_4;
-    ghc-lib-parser = lself.ghc-lib-parser_9_2_4_20220729;
+    ghc-lib-parser = lself.ghc-lib-parser_9_2_5_20221107;
+    # For most ghc versions, we overrideScope Cabal in the configuration-ghc-???.nix,
+    # because some packages, like ormolu, need a newer Cabal version.
+    # ghc-paths is special because it depends on Cabal for building
+    # its Setup.hs, and therefor declares a Cabal dependency, but does
+    # not actually use it as a build dependency.
+    # That means ghc-paths can just use the ghc included Cabal version,
+    # without causing package-db incoherence and we should do that because
+    # otherwise we have different versions of ghc-paths
+    # around with have the same abi-hash, which can lead to confusions and conflicts.
+    ghc-paths = lsuper.ghc-paths.override { Cabal = null; };
+  });
+
+  hledger_1_27_1 = doDistribute (super.hledger_1_27_1.override {
+    hledger-lib = self.hledger-lib_1_27_1;
   });
 
   hls-hlint-plugin = super.hls-hlint-plugin.overrideScope (lself: lsuper: {
     # For "ghc-lib" flag see https://github.com/haskell/haskell-language-server/issues/3185#issuecomment-1250264515
     hlint = enableCabalFlag "ghc-lib" lself.hlint_3_4_1;
     ghc-lib-parser-ex = self.ghc-lib-parser-ex_9_2_0_4;
-    ghc-lib-parser = lself.ghc-lib-parser_9_2_4_20220729;
+    ghc-lib-parser = lself.ghc-lib-parser_9_2_5_20221107;
   });
 
   # For -f-auto see cabal.project in haskell-language-server.
   ghc-lib-parser-ex_9_2_0_4 = disableCabalFlag "auto" (super.ghc-lib-parser-ex_9_2_0_4.override {
-    ghc-lib-parser = self.ghc-lib-parser_9_2_4_20220729;
+    ghc-lib-parser = self.ghc-lib-parser_9_2_5_20221107;
   });
 
   # 2021-05-08: Tests fail: https://github.com/haskell/haskell-language-server/issues/1809
@@ -1592,6 +1618,14 @@ self: super: {
 
   # 2022-09-19: https://github.com/haskell/haskell-language-server/issues/3200
   hls-refactor-plugin = dontCheck super.hls-refactor-plugin;
+
+  # 2022-11-18: https://github.com/haskell/haskell-language-server/commit/c1a7527c4fb348bee6093d9794b7d3e0c8d563f2
+  hls-fourmolu-plugin = assert super.hls-fourmolu-plugin.version == "1.1.0.0"; doJailbreak super.hls-fourmolu-plugin;
+
+  # 2022-10-27: implicit-hie 0.1.3.0 needs a newer version of Cabal-syntax.
+  implicit-hie = super.implicit-hie.override {
+    Cabal-syntax = self.Cabal-syntax_3_8_1_0;
+  };
 
   # 2021-03-21: Test hangs
   # https://github.com/haskell/haskell-language-server/issues/1562
@@ -1692,7 +1726,17 @@ self: super: {
   # waiting for aeson bump
   servant-swagger-ui-core = doJailbreak super.servant-swagger-ui-core;
 
-  hercules-ci-agent = self.generateOptparseApplicativeCompletions [ "hercules-ci-agent" ] super.hercules-ci-agent;
+  hercules-ci-agent = lib.pipe super.hercules-ci-agent [
+    (appendPatches [
+      # https://github.com/hercules-ci/hercules-ci-agent/pull/446
+      (fetchpatch {
+        url = "https://github.com/hercules-ci/hercules-ci-agent/commit/99afac77ddb84122a5321494a08e6fe2e95548a1.patch";
+        sha256 = "sha256-0dtmNL1rqzeXvXWinfANc57a5LIM3uNnhR3A+p8mH0A=";
+        stripLen = 1;
+      })
+    ])
+    (self.generateOptparseApplicativeCompletions [ "hercules-ci-agent" ])
+  ];
 
   # Test suite doesn't compile with aeson 2.0
   # https://github.com/hercules-ci/hercules-ci-agent/pull/387
@@ -1900,9 +1944,6 @@ self: super: {
 
   # 2021-04-02: Outdated optparse-applicative bound is fixed but not realeased on upstream.
   trial-optparse-applicative = assert super.trial-optparse-applicative.version == "0.0.0.0"; doJailbreak super.trial-optparse-applicative;
-
-  # 2021-04-02: Outdated optparse-applicative bound is fixed but not realeased on upstream.
-  extensions = assert super.extensions.version == "0.0.0.1"; doJailbreak super.extensions;
 
   # 2021-04-02: iCalendar is basically unmaintained.
   # There are PRs for bumping the bounds: https://github.com/chrra/iCalendar/pull/46
@@ -2141,7 +2182,7 @@ self: super: {
 
   # 2022-03-21: Newest stylish-haskell needs ghc-lib-parser-9_2
   stylish-haskell = (super.stylish-haskell.override {
-    ghc-lib-parser = self.ghc-lib-parser_9_2_4_20220729;
+    ghc-lib-parser = self.ghc-lib-parser_9_2_5_20221107;
     ghc-lib-parser-ex = self.ghc-lib-parser-ex_9_2_0_4;
   });
 
@@ -2357,17 +2398,6 @@ self: super: {
   # https://github.com/kuribas/mfsolve/issues/8
   mfsolve = dontCheck super.mfsolve;
 
-  # GHC 9 support https://github.com/lambdabot/dice/pull/2
-  dice = appendPatch (fetchpatch {
-    name = "dice-ghc9.patch";
-    url = "https://github.com/lambdabot/dice/commit/80d6fd443cb17b21d91b725f994ece6e8274e0a0.patch";
-    excludes = [ ".gitignore" ];
-    sha256 = "sha256-MtS1n7v5D6MRWWzzTyKl3Lqd/NhD1bV+g80wnhZ3P/Y=";
-  }) (overrideCabal (drv: {
-    revision = null;
-    editedCabalFile = null;
-  }) super.dice);
-
   # GHC 9 support https://github.com/lambdabot/lambdabot/pull/204
   lambdabot-core = appendPatch ./patches/lambdabot-core-ghc9.patch (overrideCabal (drv: {
     revision = null;
@@ -2417,7 +2447,7 @@ self: super: {
   csv = overrideCabal (drv: { preCompileBuildDriver = "rm Setup.hs"; }) super.csv;
 
   cabal-fmt = doJailbreak (super.cabal-fmt.override {
-    # Needs newer Cabal-syntex version.
+    # Needs newer Cabal-syntax version.
     Cabal-syntax = self.Cabal-syntax_3_8_1_0;
   });
 
@@ -2430,10 +2460,6 @@ self: super: {
 
   # 2022-02-25: Unmaintained and to strict upper bounds
   paths = doJailbreak super.paths;
-
-  # Too strict bounds on hspec, fixed on main branch, but unreleased
-  colourista = assert super.colourista.version == "0.1.0.1";
-    doJailbreak super.colourista;
 
   # 2022-02-26: https://github.com/emilypi/base64/issues/39
   base64 = dontCheck super.base64;
@@ -2543,10 +2569,13 @@ self: super: {
     testTarget = "regex-tdfa-unittest";
   } super.regex-tdfa;
 
-  # 2022-09-01:
-  # Restrictive upper bound on base.
-  # Remove once version 1.* is released
-  monad-bayes = doJailbreak super.monad-bayes;
+  # Missing test files https://github.com/kephas/xdg-basedir-compliant/issues/1
+  xdg-basedir-compliant = dontCheck super.xdg-basedir-compliant;
+
+  # Test failure after libxcrypt migration, reported upstrem at
+  # https://github.com/phadej/crypt-sha512/issues/13
+  crypt-sha512 = dontCheck super.crypt-sha512;
+
 } // import ./configuration-tensorflow.nix {inherit pkgs haskellLib;} self super // (let
   # We need to build purescript with these dependencies and thus also its reverse
   # dependencies to avoid version mismatches in their dependency closure.
@@ -2577,7 +2606,7 @@ in {
   purescript =
     lib.pipe
       (super.purescript.overrideScope purescriptOverlay)
-      [
+      ([
         # PureScript uses nodejs to run tests, so the tests have been disabled
         # for now.  If someone is interested in figuring out how to get this
         # working, it seems like it might be possible.
@@ -2588,7 +2617,10 @@ in {
         doJailbreak
         # Generate shell completions
         (self.generateOptparseApplicativeCompletions [ "purs" ])
-      ];
+      ] ++ lib.optionals (lib.versions.majorMinor self.ghc.version == "9.2") [
+        markUnbroken
+        doDistribute
+      ]);
 
   purescript-cst = purescriptStOverride super.purescript-cst;
 
@@ -2605,4 +2637,21 @@ in {
 
   # 2022-10-04: Needs newer tasty-dejafu than (currently) in stackage
   rec-def = super.rec-def.override { tasty-dejafu = self.tasty-dejafu_2_1_0_0; };
+
+  # 2022-11-05: https://github.com/ysangkok/haskell-tzdata/issues/3
+  tzdata = dontCheck super.tzdata;
+
+  # 2022-11-04: The situation around heist-emanote is quite terrible.
+  # It‘s simply a heist fork because heist is unmaintained.
+  # Upstream jailbreak is unreleased: https://github.com/srid/heist/commit/988692ea850b3cbe966c7dc4dd26ba1d49647706
+  heist-emanote = doJailbreak (dontCheck super.heist-emanote);
+
+  # 2022-11-15: Needs newer witch package and brick 1.3 which in turn works with text-zipper 0.12
+  # Other dependencies are resolved with doJailbreak for both swarm and brick_1_3
+  swarm = doJailbreak (super.swarm.override {
+    witch = super.witch_1_1_2_0;
+    brick = doJailbreak (dontCheck (super.brick_1_3.override {
+      text-zipper = super.text-zipper_0_12;
+    }));
+  });
 })

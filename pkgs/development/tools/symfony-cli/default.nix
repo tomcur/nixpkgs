@@ -2,14 +2,14 @@
 
 buildGoModule rec {
   pname = "symfony-cli";
-  version = "5.4.16";
-  vendorSha256 = "sha256-A0Dq5QoKSFDpif8x27a1O8CGZ9s5PzOycvPfvEp4qn4=";
+  version = "5.4.19";
+  vendorSha256 = "sha256-P5KEliTqj9kGYffhl014QK6qPY9gLG+bViOz4dtsQwA=";
 
   src = fetchFromGitHub {
     owner = "symfony-cli";
     repo = "symfony-cli";
     rev = "v${version}";
-    sha256 = "sha256-dKt7hM04gDQtpGwDSppDmJqr2uEb77tke4YJYbXMCgU=";
+    sha256 = "sha256-GAsyI8I+tHFMV/LqwPx2ph+w3zaqKSn9vieVQcuO+y0=";
   };
 
   postInstall = ''

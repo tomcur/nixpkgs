@@ -96,7 +96,7 @@
 , gpgme
 , libwebp
 , abseil-cpp
-, langs ? [ "ca" "cs" "da" "de" "en-GB" "en-US" "eo" "es" "fr" "hu" "it" "ja" "nl" "pl" "pt" "pt-BR" "ro" "ru" "sl" "uk" "zh-CN" ]
+, langs ? [ "ca" "cs" "da" "de" "en-GB" "en-US" "eo" "es" "fr" "hu" "it" "ja" "nl" "pl" "pt" "pt-BR" "ro" "ru" "sl" "tr" "uk" "zh-CN" ]
 , withHelp ? true
 , kdeIntegration ? false
 , mkDerivation ? null
@@ -363,6 +363,11 @@ in
 
     ln -s $out/bin/soffice $out/bin/libreoffice
     ln -s $out/lib/libreoffice/share/xdg $out/share/applications
+
+    for f in $out/share/applications/*.desktop; do
+      substituteInPlace "$f" \
+        --replace "Exec=libreoffice${major}.${minor}" "Exec=libreoffice"
+    done
 
     cp -r sysui/desktop/icons  "$out/share"
     sed -re 's@Icon=libreoffice(dev)?[0-9.]*-?@Icon=@' -i "$out/share/applications/"*.desktop

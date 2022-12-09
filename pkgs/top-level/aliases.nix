@@ -310,6 +310,7 @@ mapAliases ({
   cloud-print-connector = throw "Google Cloudprint is officially discontinued since Jan 2021, more info https://support.google.com/chrome/a/answer/9633006";
   cquery = throw "cquery has been removed because it is abandoned by upstream. Consider switching to clangd or ccls instead"; # Added 2020-06-15
   cups-googlecloudprint = throw "Google Cloudprint is officially discontinued since Jan 2021, more info https://support.google.com/chrome/a/answer/9633006";
+  cups-kyodialog3 = cups-kyodialog; # Added 2022-11-12
   cupsBjnp = throw "'cupsBjnp' has been renamed to/replaced by 'cups-bjnp'"; # Converted to throw 2022-02-22
   cups_filters = throw "'cups_filters' has been renamed to/replaced by 'cups-filters'"; # Converted to throw 2022-02-22
   curlcpp = throw "curlcpp has been removed, no active maintainers and no usage within nixpkgs"; # Added 2022-05-10
@@ -1244,6 +1245,7 @@ mapAliases ({
   pyMAILt = throw "pyMAILt has been removed from nixpkgs as it is unmaintained and python2-only";
   pybind11 = throw "pybind11 was removed because pythonPackages.pybind11 for the appropriate version of Python should be used"; # Added 2021-05-14
   pybitmessage = throw "pybitmessage was removed from nixpkgs as it is stuck on python2"; # Added 2022-01-01
+  pyext = throw "pyext was removed because it does not support python 3.11, is upstream unmaintained and was unused"; # Added 2022-11-21
   pygmentex = texlive.bin.pygmentex; # Added 2019-12-15
   pyload = throw "pyload has been removed from nixpkgs, as it was unmaintained"; # Added 2021-03-21
   pynagsystemd = throw "pynagsystemd was removed as it was unmaintained and incompatible with recent systemd versions. Instead use its fork check_systemd"; # Added 2020-10-24
@@ -1300,12 +1302,6 @@ mapAliases ({
   redis-desktop-manager = throw "'redis-desktop-manager' has been renamed to/replaced by 'resp-app'"; # Added 2022-11-10
   redshift-wlr = throw "redshift-wlr has been replaced by gammastep"; # Added 2021-12-25
   reicast = throw "reicast has been removed from nixpkgs as it is unmaintained, please use flycast instead"; # Added 2022-03-07
-
-  # 3 resholve aliases below added 2022-04-08; drop after 2022-11-30?
-  resholvePackage = throw "resholvePackage has been renamed to resholve.mkDerivation";
-  resholveScript = throw "resholveScript has been renamed to resholve.writeScript";
-  resholveScriptBin = throw "resholveScriptBin has been renamed to resholve.writeScriptBin";
-
   residualvm = throw "residualvm was merged to scummvm code in 2018-06-15; consider using scummvm"; # Added 2021-11-27
   retroArchCores = throw "retroArchCores has been removed. Please use overrides instead, e.g.: `retroarch.override { cores = with libretro; [ ... ]; }`"; # Added 2021-11-19
   retroshare06 = retroshare;
@@ -1531,6 +1527,7 @@ mapAliases ({
   ufraw = throw "ufraw is unmaintained and has been removed from nixpkgs. Its successor, nufraw, doesn't seem to be stable enough. Consider using Darktable for now"; # Added 2020-01-11
   ultrastardx-beta = throw "'ultrastardx-beta' has been renamed to/replaced by 'ultrastardx'"; # Converted to throw 2022-02-22
   unicorn-emu = unicorn; # Added 2020-10-29
+  unifi-poller = unpoller; # Added 2022-11-24
   unifiStable = unifi6; # Added 2020-12-28
   unity3d = throw "'unity3d' is unmaintained, has seen no updates in years and depends on deprecated GTK2"; # Added 2022-06-16
   untrunc = untrunc-anthwlock; # Added 2021-02-01
@@ -1597,6 +1594,8 @@ mapAliases ({
   wxGTK = throw "wxGTK28 has been removed from nixpkgs as it has reached end of life"; # Added 2022-11-04
   wxGTK28 = throw "wxGTK28 has been removed from nixpkgs as it has reached end of life"; # Added 2022-11-04
   wxGTK29 = throw "wxGTK29 has been removed from nixpkgs as it has reached end of life"; # Added 2022-11-04
+  wxGTK30-gtk2 = throw "'wxGTK30-gtk2' has been removed from nixpkgs as it depends on deprecated GTK2"; # Added 2022-12-03
+  wxGTK30-gtk3 = throw "'wxGTK30-gtk3' has been renamed to/replaced by 'wxGTK30'"; # Added 2022-12-03
   wxGTK31-gtk2 = throw "'wxGTK31-gtk2' has been removed from nixpkgs as it depends on deprecated GTK2"; # Added 2022-10-27
   wxGTK31-gtk3 = throw "'wxGTK31-gtk3' has been renamed to/replaced by 'wxGTK31'"; # Added 2022-10-27
   wxmupen64plus = throw "wxmupen64plus was removed because the upstream disappeared"; # Added 2022-01-31
@@ -1645,7 +1644,7 @@ mapAliases ({
   youtubeDL = throw "'youtubeDL' has been renamed to/replaced by 'youtube-dl'"; # Converted to throw 2022-02-22
   ytop = throw "ytop has been abandoned by upstream. Consider switching to bottom instead";
   yubikey-neo-manager = throw "yubikey-neo-manager has been removed because it was broken. Use yubikey-manager-qt instead"; # Added 2021-03-08
-  yubioath-desktop = throw "yubioath-desktop has been deprecated by upstream in favor of https://github.com/Yubico/yubioath-flutter"; # Added 2022-11-22
+  yubioath-desktop = throw "yubioath-desktop has been deprecated by upstream in favor of yubioath-flutter"; # Added 2022-11-22
   yuzu-ea = yuzu-early-access; # Added 2022-08-18
   yuzu = yuzu-mainline; # Added 2021-01-25
 

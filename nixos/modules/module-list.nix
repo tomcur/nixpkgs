@@ -135,6 +135,7 @@
   ./programs/bandwhich.nix
   ./programs/bash/bash.nix
   ./programs/bash/bash-completion.nix
+  ./programs/bash/blesh.nix
   ./programs/bash/ls-colors.nix
   ./programs/bash/undistract-me.nix
   ./programs/bash-my-aws.nix
@@ -996,6 +997,7 @@
   ./services/video/rtsp-simple-server.nix
   ./services/networking/uptermd.nix
   ./services/networking/v2ray.nix
+  ./services/networking/v2raya.nix
   ./services/networking/vdirsyncer.nix
   ./services/networking/vsftpd.nix
   ./services/networking/wasabibackend.nix

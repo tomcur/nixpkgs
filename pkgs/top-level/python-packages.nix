@@ -244,6 +244,8 @@ self: super: with self; {
 
   aiolip = callPackage ../development/python-modules/aiolip { };
 
+  aiolivisi = callPackage ../development/python-modules/aiolivisi { };
+
   aiolyric = callPackage ../development/python-modules/aiolyric { };
 
   aiomisc = callPackage ../development/python-modules/aiomisc { };
@@ -545,6 +547,8 @@ self: super: with self; {
   aqualogic = callPackage ../development/python-modules/aqualogic { };
 
   arabic-reshaper = callPackage ../development/python-modules/arabic-reshaper { };
+
+  aranet4 = callPackage ../development/python-modules/aranet4 { };
 
   arc4 = callPackage ../development/python-modules/arc4 { };
 
@@ -1512,9 +1516,13 @@ self: super: with self; {
 
   caldav = callPackage ../development/python-modules/caldav { };
 
+  calver = callPackage ../development/python-modules/calver { };
+
   callee = callPackage ../development/python-modules/callee { };
 
   calmjs-parse = callPackage ../development/python-modules/calmjs-parse { };
+
+  camel-converter = callPackage ../development/python-modules/camel-converter { };
 
   can = callPackage ../development/python-modules/can { };
 
@@ -2423,6 +2431,8 @@ self: super: with self; {
 
   dissect-target = callPackage ../development/python-modules/dissect-target { };
 
+  dissect-thumbcache = callPackage ../development/python-modules/dissect-thumbcache { };
+
   dissect-util = callPackage ../development/python-modules/dissect-util { };
 
   dissect-vmfs = callPackage ../development/python-modules/dissect-vmfs { };
@@ -2671,6 +2681,8 @@ self: super: with self; {
   };
 
   dnachisel = callPackage ../development/python-modules/dnachisel { };
+
+  dnfile = callPackage ../development/python-modules/dnfile { };
 
   dnslib = callPackage ../development/python-modules/dnslib { };
 
@@ -4046,7 +4058,7 @@ self: super: with self; {
   gspread = callPackage ../development/python-modules/gspread { };
 
   gssapi = callPackage ../development/python-modules/gssapi {
-    inherit (pkgs) krb5Full;
+    inherit (pkgs) krb5;
     inherit (pkgs.darwin.apple_sdk.frameworks) GSS;
   };
 
@@ -4940,7 +4952,7 @@ self: super: with self; {
   jxmlease = callPackage ../development/python-modules/jxmlease { };
 
   k5test = callPackage ../development/python-modules/k5test {
-    inherit (pkgs) krb5Full findutils which;
+    inherit (pkgs) krb5 findutils which;
   };
 
   kaa-base = callPackage ../development/python-modules/kaa-base { };
@@ -5410,8 +5422,6 @@ self: super: with self; {
   logi-circle = callPackage ../development/python-modules/logi-circle { };
 
   logical-unification = callPackage ../development/python-modules/logical-unification { };
-
-  logilab_astng = callPackage ../development/python-modules/logilab_astng { };
 
   logilab-common = callPackage ../development/python-modules/logilab/common.nix { };
 
@@ -6887,8 +6897,6 @@ self: super: with self; {
 
   pandas-stubs = callPackage ../development/python-modules/pandas-stubs { };
 
-  parameterizedtestcase = callPackage ../development/python-modules/parameterizedtestcase { };
-
   pdunehd = callPackage ../development/python-modules/pdunehd { };
 
   pencompy = callPackage ../development/python-modules/pencompy { };
@@ -7917,8 +7925,6 @@ self: super: with self; {
   pygmo = callPackage ../development/python-modules/pygmo { };
 
   pygmt = callPackage ../development/python-modules/pygmt { };
-
-  pygobject2 = callPackage ../development/python-modules/pygobject { };
 
   pygobject3 = callPackage ../development/python-modules/pygobject/3.nix {
     # inherit (pkgs) meson won't work because it won't be spliced
@@ -9018,6 +9024,8 @@ self: super: with self; {
 
   python-dbusmock = callPackage ../development/python-modules/python-dbusmock { };
 
+  python-decouple = callPackage ../development/python-modules/python-decouple { };
+
   pythondialog = callPackage ../development/python-modules/pythondialog { };
 
   python-didl-lite = callPackage ../development/python-modules/python-didl-lite { };
@@ -9962,6 +9970,8 @@ self: super: with self; {
   ruffus = callPackage ../development/python-modules/ruffus { };
 
   runway-python = callPackage ../development/python-modules/runway-python { };
+
+  ruuvitag-ble = callPackage ../development/python-modules/ruuvitag-ble { };
 
   ruyaml = callPackage ../development/python-modules/ruyaml { };
 
@@ -11210,6 +11220,8 @@ self: super: with self; {
   tmb = callPackage ../development/python-modules/tmb { };
 
   todoist = callPackage ../development/python-modules/todoist { };
+
+  todoist-api-python = callPackage ../development/python-modules/todoist-api-python { };
 
   toggl-cli = callPackage ../development/python-modules/toggl-cli { };
 

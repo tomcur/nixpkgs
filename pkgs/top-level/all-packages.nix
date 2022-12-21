@@ -10718,6 +10718,10 @@ with pkgs;
 
   po4a = perlPackages.Po4a;
 
+  poac = callPackage ../development/tools/poac {
+    inherit (llvmPackages_14) stdenv;
+  };
+
   podiff = callPackage ../tools/text/podiff { };
 
   pocketbase = callPackage ../servers/pocketbase { };
@@ -15324,6 +15328,7 @@ with pkgs;
   cargo-cache = callPackage ../development/tools/rust/cargo-cache {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
+  cargo-chef = callPackage ../development/tools/rust/cargo-chef { };
   cargo-crev = callPackage ../development/tools/rust/cargo-crev {
     inherit (darwin.apple_sdk.frameworks) Security SystemConfiguration CoreFoundation;
   };
@@ -16273,6 +16278,8 @@ with pkgs;
   scheme-bytestructures = callPackage ../development/scheme-modules/scheme-bytestructures { };
 
   self = pkgsi686Linux.callPackage ../development/interpreters/self { };
+
+  smiley-sans = callPackage ../data/fonts/smiley-sans { };
 
   inherit (callPackages ../applications/networking/cluster/spark { })
     spark_3_2
@@ -17296,6 +17303,8 @@ with pkgs;
 
   gi-docgen = callPackage ../development/tools/documentation/gi-docgen { };
 
+  git2-cpp = callPackage ../development/libraries/git2-cpp { };
+
   github-release = callPackage ../development/tools/github/github-release { };
 
   global = callPackage ../development/tools/misc/global { };
@@ -17732,6 +17741,8 @@ with pkgs;
   oprofile = callPackage ../development/tools/profiling/oprofile {
     libiberty_static = libiberty.override { staticBuild = true; };
   };
+
+  package-project-cmake = callPackage ../development/tools/package-project-cmake { };
 
   pactorio = callPackage ../development/tools/pactorio {
     inherit (darwin.apple_sdk.frameworks) Security;
@@ -18746,6 +18757,7 @@ with pkgs;
   CoinMP = callPackage ../development/libraries/CoinMP { };
 
   coinlive = callPackage ../tools/misc/coinlive {
+    inherit (darwin.apple_sdk.frameworks) Security;
     openssl = openssl_1_1;
   };
 
@@ -22148,7 +22160,11 @@ with pkgs;
   prospector = callPackage ../development/tools/prospector { };
 
   # https://github.com/protocolbuffers/protobuf/issues/10418
-  protobuf = if stdenv.hostPlatform.is32bit then protobuf3_20 else
+  # protobuf versions have to match between build-time and run-time
+  # Using "targetPlatform" in the check makes sure that the version of
+  # pkgsCross.armv7l-hf-multiplatform.buildPackages.protobuf matches the
+  # version of pkgsCross.armv7l-hf-multiplatform.protobuf
+  protobuf = if stdenv.targetPlatform.is32bit then protobuf3_20 else
     protobuf3_21;
 
   protobuf3_21 = callPackage ../development/libraries/protobuf/3.21.nix { };
@@ -30569,6 +30585,8 @@ with pkgs;
 
   mmsd = callPackage ../tools/networking/mmsd { };
 
+  mmsd-tng = callPackage ../tools/networking/mmsd-tng { };
+
   mmtc = callPackage ../applications/audio/mmtc { };
 
   mnamer = callPackage ../applications/misc/mnamer { };
@@ -37165,9 +37183,7 @@ with pkgs;
 
   rucksack = callPackage ../development/tools/rucksack { };
 
-  ruff = callPackage ../development/tools/ruff {
-    inherit (darwin.apple_sdk.frameworks) CoreServices Security;
-  };
+  ruff = callPackage ../development/tools/ruff { };
 
   sam-ba = callPackage ../tools/misc/sam-ba { };
 

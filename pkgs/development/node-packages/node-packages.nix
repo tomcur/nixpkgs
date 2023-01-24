@@ -114174,7 +114174,7 @@ in
     buildInputs = globalBuildInputs;
     meta = {
       description = "Utility to inline images, CSS and JavaScript for a web page - useful for mobile sites";
-      homepage = "http://github.com/remy/inliner";
+      homepage = "https://github.com/remy/inliner";
       license = "MIT";
     };
     production = true;
@@ -116541,7 +116541,7 @@ in
     buildInputs = globalBuildInputs;
     meta = {
       description = "Static analysis tool for JavaScript";
-      homepage = "http://jshint.com/";
+      homepage = "https://jshint.com/";
       license = "MIT";
     };
     production = true;
@@ -124046,7 +124046,7 @@ in
     buildInputs = globalBuildInputs;
     meta = {
       description = "Web Inspector based nodeJS debugger";
-      homepage = "http://github.com/node-inspector/node-inspector";
+      homepage = "https://github.com/node-inspector/node-inspector";
     };
     production = true;
     bypassCache = true;
@@ -129307,7 +129307,7 @@ in
     buildInputs = globalBuildInputs;
     meta = {
       description = "Production process manager for Node.JS applications with a built-in load balancer.";
-      homepage = "http://pm2.keymetrics.io/";
+      homepage = "https://pm2.keymetrics.io/";
       license = "AGPL-3.0";
     };
     production = true;

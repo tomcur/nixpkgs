@@ -85,6 +85,7 @@ mapAliases ({
   filemagic = throw "inactive since 2014, so use python-magic instead"; # added 2022-11-19
   flaskbabel = flask-babel; # added 2023-01-19
   flask_login = flask-login; # added 2022-10-17
+  flask-restplus = throw "flask-restplus is no longer maintained, use flask-restx instead"; # added 2023-02-21
   flask_sqlalchemy = flask-sqlalchemy; # added 2022-07-20
   flask_testing = flask-testing; # added 2022-04-25
   flask_wtf = flask-wtf; # added 2022-05-24
@@ -96,6 +97,7 @@ mapAliases ({
   gitdb2 = throw "gitdb2 has been deprecated, use gitdb instead."; # added 2020-03-14
   GitPython = gitpython; # added 2022-10-28
   glances = throw "glances has moved to pkgs.glances"; # added 2020-20-28
+  glasgow = throw "glasgow has been promoted to a top-level attribute"; # added 2023-02-05
   google_api_python_client = google-api-python-client; # added 2021-03-19
   googleapis_common_protos = googleapis-common-protos; # added 2021-03-19
   graphite_api = throw "graphite_api was removed, because it is no longer maintained"; # added 2022-07-10
@@ -123,6 +125,7 @@ mapAliases ({
   logilab_common = logilab-common; # added 2022-11-21
   loo-py = loopy; # added 2022-05-03
   Markups = markups; # added 2022-02-14
+  MDP = mdp; # added 2023-02-24
   MechanicalSoup = mechanicalsoup; # added 2021-06-01
   memcached = python-memcached; # added 2022-05-06
   mailman = throw "Please use pkgs.mailman"; # added 2022-04-29
@@ -130,6 +133,7 @@ mapAliases ({
   mailman-web = throw "Please use pkgs.mailman-web"; # added 2022-04-29
   mistune_0_8 = throw "mistune_0_8 was removed because it was outdated and insecure"; # added 2022-08-12
   mistune_2_0 = mistune; # added 2022-08-12
+  mox = throw "mox was removed because it is unmaintained"; # added 2023-02-21
   mutmut = throw "mutmut has been promoted to a top-level attribute"; # added 2022-10-02
   net2grid = gridnet; # add 2022-04-22
   nose-cover3 = throw "nose-cover3 has been removed, it was using setuptools 2to3 translation feature, which has been removed in setuptools 58"; # added 2022-02-16

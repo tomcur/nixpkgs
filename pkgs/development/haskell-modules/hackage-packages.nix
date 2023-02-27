@@ -129405,8 +129405,8 @@ self: {
      }:
      mkDerivation {
        pname = "haskell-gi";
-       version = "0.26.2";
-       sha256 = "05r84czb05n69g7p7jazljh95yzdh2lpzgjjypgpg75mh83igr2w";
+       version = "0.26.3";
+       sha256 = "sha256-jsAb3JCSHCmi2dp9bpi/J3NRO/EQFB8ar4GpxAuBGOo=";
        setupHaskellDepends = [ base Cabal cabal-doctest ];
        libraryHaskellDepends = [
          ansi-terminal attoparsec base bytestring Cabal containers directory

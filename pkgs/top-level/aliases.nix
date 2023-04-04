@@ -1,5 +1,22 @@
 lib: self: super:
 
+### Deprecated aliases - for backward compatibility
+### Please maintain this list in ASCIIbetical ordering.
+### Hint: the "sections" are delimited by ### <letter> ###
+
+# These aliases should not be used within nixpkgs, but exist to improve
+# backward compatibility in projects outside of nixpkgs. See the
+# documentation for the `allowAliases` option for more background.
+
+# A script to convert old aliases to throws and remove old
+# throws can be found in './maintainers/scripts/remove-old-aliases.py'.
+
+# Add 'preserve, reason: reason why' after the date if the alias should not be removed.
+# Try to keep them to a minimum.
+# valid examples of what to preserve:
+#   distro aliases such as:
+#     debian-package-name -> nixos-package-name
+
 with self;
 
 let
@@ -30,19 +47,6 @@ let
           (checkInPkgs n alias)))
       aliases;
 in
-
-### Deprecated aliases - for backward compatibility
-### Please maintain this list in ASCIIbetical ordering.
-### Hint: the "sections" are delimited by ### <letter> ###
-
-# A script to convert old aliases to throws and remove old
-# throws can be found in './maintainers/scripts/remove-old-aliases.py'.
-
-# Add 'preserve, reason: reason why' after the date if the alias should not be removed.
-# Try to keep them to a minimum.
-# valid examples of what to preserve:
-#   distro aliases such as:
-#     debian-package-name -> nixos-package-name
 
 mapAliases ({
   # Added 2018-07-16 preserve, reason: forceSystem should not be used directly in Nixpkgs.
@@ -511,9 +515,9 @@ mapAliases ({
   fuse2fs = if stdenv.isLinux then e2fsprogs.fuse2fs else null; # Added 2022-03-27 preserve, reason: convenience, arch has a package named fuse2fs too.
   fwupdate = throw "fwupdate was merged into fwupd"; # Added 2020-05-19
 
-  fcitx = throw "fcitx4 is deprecated, please use fcitx5 instead."; # Added 2023-03-13
-  fcitx-engines = throw "fcitx4 is deprecated, please use fcitx5 instead."; # Added 2023-03-13
-  fcitx-configtools = throw "fcitx4 is deprecated, please use fcitx5 instead."; # Added 2023-03-13
+  fcitx = throw "fcitx is deprecated, please use fcitx5 instead."; # Added 2023-03-13
+  fcitx-engines = throw "fcitx-engines is deprecated, please use fcitx5 instead."; # Added 2023-03-13
+  fcitx-configtool = throw "fcitx-configtool is deprecated, please use fcitx5 instead."; # Added 2023-03-13
 
   ### G ###
 

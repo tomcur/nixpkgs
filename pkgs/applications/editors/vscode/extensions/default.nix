@@ -1056,6 +1056,23 @@ let
         };
       };
 
+      equinusocio.vsc-material-theme = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "vsc-material-theme";
+          publisher = "Equinusocio";
+          version = "33.8.0";
+          sha256 = "sha256-+I4AUwsrElT62XNvmuAC2iBfHfjNYY0bmAqzQvfwUYM=";
+        };
+        meta = {
+          changelog = "https://marketplace.visualstudio.com/items/Equinusocio.vsc-material-theme/changelog";
+          description = "The most epic theme now for Visual Studio Code";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=Equinusocio.vsc-material-theme";
+          homepage = "https://github.com/material-theme/vsc-material-theme";
+          license = lib.licenses.asl20;
+          maintainers = [ lib.maintainers.stunkymonkey ];
+        };
+      };
+
       esbenp.prettier-vscode = buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "prettier-vscode";
@@ -2194,6 +2211,23 @@ let
         };
       };
 
+      nonylene.dark-molokai-theme = buildVscodeMarketplaceExtension {
+        mktplcRef = {
+          name = "dark-molokai-theme";
+          publisher = "nonylene";
+          version = "1.0.5";
+          sha256 = "sha256-2qjV6iSz8DDU1yP1II9sxGSgiETmEtotFvfNjm+cTuI=";
+        };
+        meta = {
+          changelog = "https://marketplace.visualstudio.com/items/nonylene.dark-molokai-theme/changelog";
+          description = "Theme inspired by VSCode default dark theme, monokai theme and Vim Molokai theme";
+          downloadPage = "https://marketplace.visualstudio.com/items?itemName=nonylene.dark-molokai-theme";
+          homepage = "https://github.com/nonylene/vscode-dark-molokai-theme";
+          license = lib.licenses.mit;
+          maintainers = [ lib.maintainers.amz-x ];
+        };
+      };
+
       nvarner.typst-lsp = buildVscodeMarketplaceExtension {
         mktplcRef = {
           name = "typst-lsp";
@@ -2680,8 +2714,8 @@ let
         mktplcRef = {
           name = "code-spell-checker";
           publisher = "streetsidesoftware";
-          version = "2.20.3";
-          sha256 = "sha256-28ybNBobXoq194d9VGD9kOq/OWscJkSlgSZ7ViaNQtw=";
+          version = "2.20.4";
+          sha256 = "sha256-GOXKXZPEynyqRUUY0pdNwt+141kJleg74IbCP4/34R8=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/streetsidesoftware.code-spell-checker/changelog";
@@ -3252,6 +3286,9 @@ let
     };
 
   aliases = super: {
+    _1Password = super."1Password";
+    _2gua = super."2gua";
+    _4ops = super."4ops";
     Arjun.swagger-viewer = super.arjun.swagger-viewer;
     jakebecker.elixir-ls = super.elixir-lsp.vscode-elixir-ls;
     jpoissonnier.vscode-styled-components = super.styled-components.vscode-styled-components;
@@ -3260,9 +3297,6 @@ let
     ms-vscode.PowerShell = super.ms-vscode.powershell;
     rioj7.commandOnAllFiles = super.rioj7.commandonallfiles;
     WakaTime.vscode-wakatime = super.wakatime.vscode-wakatime;
-    _1Password = throw ''_1Password has been replaced with "1Password"'';
-    _2gua = throw ''_2gua has been replaced with "2gua"'';
-    _4ops = throw ''_4ops has been replaced with "4ops"'';
   };
 
   # TODO: add overrides overlay, so that we can have a generated.nix

@@ -16,8 +16,12 @@
 , tenacity
 , bash
   # optional dependencies
+, anthropic
+, cohere
 , openai
+, nlpcloud
 , huggingface-hub
+, manifest-ml
 , torch
 , transformers
 , qdrant-client
@@ -27,6 +31,7 @@
 , azure-core
 , elasticsearch
 , opensearch-py
+, google-search-results
 , faiss
 , spacy
 , nltk
@@ -47,10 +52,18 @@
 , atlassian-python-api
 , duckduckgo-search
 , lark
+, jq
+, steamship
+, pdfminer-six
+, lxml
+, chardet
+, requests-toolbelt
+, neo4j
   # test dependencies
 , pytest-vcr
 , pytest-asyncio
 , pytest-mock
+, pytest-socket
 , pandas
 , toml
 , freezegun
@@ -61,7 +74,7 @@
 
 buildPythonPackage rec {
   pname = "langchain";
-  version = "0.0.158";
+  version = "0.0.188";
   format = "pyproject";
 
   disabled = pythonOlder "3.8";
@@ -70,7 +83,7 @@ buildPythonPackage rec {
     owner = "hwchase17";
     repo = "langchain";
     rev = "refs/tags/v${version}";
-    hash = "sha256-R8l7Y33CiTL4px5A7rB6PHMnSjvINZBrgANwUMFkls8=";
+    hash = "sha256-hf0pfWPXdutUKDzt56Uc0Q02TzScLAegQZ2gdR2IM/c=";
   };
 
   postPatch = ''
@@ -105,12 +118,12 @@ buildPythonPackage rec {
 
   passthru.optional-dependencies = {
     llms = [
-      # anthropic
-      # cohere
+      anthropic
+      cohere
       openai
-      # nlpcloud
+      nlpcloud
       huggingface-hub
-      # manifest-ml
+      manifest-ml
       torch
       transformers
     ];
@@ -120,8 +133,14 @@ buildPythonPackage rec {
     openai = [
       openai
     ];
+    text_helpers = [
+      chardet
+    ];
     cohere = [
-      # cohere
+      cohere
+    ];
+    docarray = [
+      # docarray
     ];
     embeddings = [
       sentence-transformers
@@ -133,16 +152,16 @@ buildPythonPackage rec {
       azure-core
     ];
     all = [
-      # anthropic
-      # cohere
+      anthropic
+      cohere
       openai
-      # nlpcloud
+      nlpcloud
       huggingface-hub
       # jina
-      # manifest-ml
+      manifest-ml
       elasticsearch
       opensearch-py
-      # google-search-results
+      google-search-results
       faiss
       sentence-transformers
       transformers
@@ -180,10 +199,22 @@ buildPythonPackage rec {
       # clickhouse-connect
       azure-cosmos
       # lancedb
+      # langkit
       lark
       pexpect
       # pyvespa
       # O365
+      jq
+      # docarray
+      steamship
+      pdfminer-six
+      lxml
+      requests-toolbelt
+      neo4j
+      # openlm
+      # azure-ai-formrecognizer
+      # azure-ai-vision
+      # azure-cognitiveservices-speech
     ];
   };
 
@@ -191,6 +222,7 @@ buildPythonPackage rec {
     pytestCheckHook
     pytest-vcr
     pytest-mock
+    pytest-socket
     pytest-asyncio
     pandas
     toml
@@ -198,15 +230,18 @@ buildPythonPackage rec {
     responses
   ];
 
-  preCheck = ''
+  pytestFlagsArray = [
     # integration_tests have many network, db access and require `OPENAI_API_KEY`, etc.
-    rm -r tests/integration_tests
-  '';
+    "tests/unit_tests"
+  ];
 
   disabledTests = [
     # these tests have db access
     "test_table_info"
     "test_sql_database_run"
+
+    # these tests have network access
+    "test_socket_disabled"
   ];
 
   meta = with lib; {

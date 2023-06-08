@@ -1,6 +1,6 @@
 { lib, fetchurl, jdk, buildFHSEnv, unzip, makeDesktopItem }:
 let
-  version = "2023.3.5";
+  version = "2023.5.2";
 
   src = fetchurl {
     name = "burpsuite.jar";
@@ -8,7 +8,7 @@ let
       "https://portswigger.net/burp/releases/download?productId=100&version=${version}&type=Jar"
       "https://web.archive.org/web/https://portswigger.net/burp/releases/download?productId=100&version=${version}&type=Jar"
     ];
-    sha256 = "ef1b1094bbe7388b5b4d515b8e42347243efb34a4d8acc27d9d553fe62f45fb5";
+    sha256 = "0afcea8603a57e531792764a37e16e7c90634cca06eb51e6e8b031f0283d84ce";
   };
 
   name = "burpsuite-${version}";

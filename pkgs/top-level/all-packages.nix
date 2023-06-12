@@ -6241,6 +6241,8 @@ with pkgs;
 
   can-utils = callPackage ../os-specific/linux/can-utils { };
 
+  cannelloni = callPackage ../os-specific/linux/cannelloni { };
+
   caudec = callPackage ../applications/audio/caudec { };
 
   ccd2iso = callPackage ../tools/cd-dvd/ccd2iso { };
@@ -9398,6 +9400,8 @@ with pkgs;
 
   mask = callPackage ../development/tools/mask { };
 
+  maskromtool = qt6Packages.callPackage ../tools/graphics/maskromtool { };
+
   mathpix-snipping-tool = callPackage ../tools/misc/mathpix-snipping-tool { };
 
   matrix-conduit = callPackage ../servers/matrix-conduit { };
@@ -12167,6 +12171,8 @@ with pkgs;
 
   s4cmd = callPackage ../tools/networking/s4cmd { };
 
+  s5 = callPackage ../tools/security/s5 { };
+
   s5cmd = callPackage ../tools/networking/s5cmd { };
 
   sacad = callPackage ../tools/misc/sacad { };
@@ -13395,6 +13401,8 @@ with pkgs;
   typst = callPackage ../tools/typesetting/typst { };
 
   typst-fmt = callPackage ../tools/typesetting/typst-fmt { };
+
+  typst-live = callPackage ../tools/typesetting/typst-live { };
 
   tz = callPackage ../tools/misc/tz { };
 
@@ -18680,8 +18688,6 @@ with pkgs;
   heroku = callPackage ../development/tools/heroku { };
 
   highlight-assertions = callPackage ../development/tools/misc/highlight-assertions { };
-
-  ccloud-cli = callPackage ../development/tools/ccloud-cli { };
 
   confluent-cli = callPackage ../development/tools/confluent-cli { };
 
@@ -27442,6 +27448,8 @@ with pkgs;
 
   goconvey = callPackage ../development/tools/goconvey { };
 
+  go-callvis = callPackage ../development/tools/go-callvis { };
+
   gofumpt = callPackage ../development/tools/gofumpt { };
 
   gotags = callPackage ../development/tools/gotags { };
@@ -29518,6 +29526,8 @@ with pkgs;
   };
 
   blocky = callPackage ../applications/networking/blocky { };
+
+  brutefir = callPackage ../applications/audio/brutefir { };
 
   cadence = libsForQt5.callPackage ../applications/audio/cadence { };
 
@@ -36214,6 +36224,8 @@ with pkgs;
   katawa-shoujo = callPackage ../games/katawa-shoujo { };
 
   keeperrl = callPackage ../games/keeperrl { };
+
+  shipwright = callPackage ../games/shipwright { };
 
   ### GAMES/DOOM-PORTS
 

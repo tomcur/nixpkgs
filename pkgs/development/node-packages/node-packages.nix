@@ -142185,24 +142185,6 @@ in
     bypassCache = true;
     reconstructLock = true;
   };
-  typescript = nodeEnv.buildNodePackage {
-    name = "typescript";
-    packageName = "typescript";
-    version = "5.1.3";
-    src = fetchurl {
-      url = "https://registry.npmjs.org/typescript/-/typescript-5.1.3.tgz";
-      sha512 = "XH627E9vkeqhlZFQuL+UsyAXEnibT0kWR2FWONlr4sTjvxyJYnyefgrkyECLzM5NenmKzRAy2rR/OlYLA1HkZw==";
-    };
-    buildInputs = globalBuildInputs;
-    meta = {
-      description = "TypeScript is a language for application scale JavaScript development";
-      homepage = "https://www.typescriptlang.org/";
-      license = "Apache-2.0";
-    };
-    production = true;
-    bypassCache = true;
-    reconstructLock = true;
-  };
   typescript-language-server = nodeEnv.buildNodePackage {
     name = "typescript-language-server";
     packageName = "typescript-language-server";

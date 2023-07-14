@@ -2561,6 +2561,12 @@
       }
     ];
   };
+  CaitlinDavitt = {
+    email = "CaitlinDavitt@gmail.com";
+    github = "CaitlinDavitt";
+    githubId = 48105979;
+    name = "Caitlin Davitt";
+  };
   calavera = {
     email = "david.calavera@gmail.com";
     github = "calavera";
@@ -2844,6 +2850,13 @@
     github = "CharlesHD";
     githubId = 6608071;
     name = "Charles Huyghues-Despointes";
+  };
+  chayleaf = {
+    email = "chayleaf-nix@pavluk.org";
+    github = "chayleaf";
+    githubId = 9590981;
+    matrix = "@chayleaf:matrix.pavluk.org";
+    name = "Anna Pavlyuk";
   };
   chekoopa = {
     email = "chekoopa@mail.ru";
@@ -3262,6 +3275,12 @@
     github = "collares";
     githubId = 244239;
     name = "Mauricio Collares";
+  };
+  coloquinte = {
+    email = "gabriel.gouvine_nix@m4x.org";
+    github = "coloquinte";
+    githubId = 4102525;
+    name = "Gabriel Gouvine";
   };
   commandodev = {
     email = "ben@perurbis.com";
@@ -15002,6 +15021,12 @@
     email = "sam@samhofi.us";
     github = "kf5grd";
     githubId = 18297490;
+  };
+  shortcord = {
+    name = "Short Cord";
+    email = "short@shortcord.com";
+    github = "shortcord";
+    githubId = 3823744;
   };
   shou = {
     email = "x+g@shou.io";

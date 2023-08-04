@@ -94386,24 +94386,6 @@ in
     bypassCache = true;
     reconstructLock = true;
   };
-  bibtex-tidy = nodeEnv.buildNodePackage {
-    name = "bibtex-tidy";
-    packageName = "bibtex-tidy";
-    version = "1.11.0";
-    src = fetchurl {
-      url = "https://registry.npmjs.org/bibtex-tidy/-/bibtex-tidy-1.11.0.tgz";
-      sha512 = "jbY7PxjYQlRQIWpqdCxEVtW0T9xTLecXxvGPFGMs3FlzKNTylTr5yutC2qWsFyfNQgMHvAzyCdqT5YIU9p/ZHg==";
-    };
-    buildInputs = globalBuildInputs;
-    meta = {
-      description = "Tidy bibtex files";
-      homepage = "https://github.com/FlamingTempura/bibtex-tidy";
-      license = "MIT";
-    };
-    production = true;
-    bypassCache = true;
-    reconstructLock = true;
-  };
   bower = nodeEnv.buildNodePackage {
     name = "bower";
     packageName = "bower";
@@ -112852,99 +112834,6 @@ in
     meta = {
       description = "GraphQL Linter";
       homepage = "https://github.com/happylinks/gqlint#readme";
-      license = "MIT";
-    };
-    production = true;
-    bypassCache = true;
-    reconstructLock = true;
-  };
-  gtop = nodeEnv.buildNodePackage {
-    name = "gtop";
-    packageName = "gtop";
-    version = "1.1.3";
-    src = fetchurl {
-      url = "https://registry.npmjs.org/gtop/-/gtop-1.1.3.tgz";
-      sha512 = "LkZYdWebxn7qeQApnDN7Q50rwCg4raayL4DIQNPdhIyNKwwm3rbKHeX4+K4cV0SKBen7jVkY4s1c7aIdxGsF8A==";
-    };
-    dependencies = [
-      sources."@colors/colors-1.5.0"
-      sources."abbrev-1.1.1"
-      sources."ansi-escapes-6.2.0"
-      sources."ansi-regex-2.1.1"
-      sources."ansi-styles-2.2.1"
-      sources."ansi-term-0.0.2"
-      sources."ansicolors-0.3.2"
-      sources."blessed-0.1.81"
-      sources."blessed-contrib-4.11.0"
-      sources."bresenham-0.0.3"
-      sources."buffers-0.1.1"
-      sources."cardinal-2.1.1"
-      sources."chalk-1.1.3"
-      sources."charm-0.1.2"
-      sources."cli-table3-0.6.3"
-      sources."core-util-is-1.0.3"
-      sources."drawille-blessed-contrib-1.0.0"
-      sources."drawille-canvas-blessed-contrib-0.1.3"
-      sources."emoji-regex-8.0.0"
-      sources."escape-string-regexp-1.0.5"
-      sources."esprima-4.0.1"
-      (sources."event-stream-0.9.8" // {
-        dependencies = [
-          sources."optimist-0.2.8"
-        ];
-      })
-      sources."gl-matrix-2.8.1"
-      sources."has-ansi-2.0.0"
-      sources."has-flag-4.0.0"
-      sources."here-0.0.2"
-      sources."inherits-2.0.4"
-      sources."is-fullwidth-code-point-3.0.0"
-      sources."isarray-0.0.1"
-      sources."lodash-4.17.21"
-      sources."map-canvas-0.1.5"
-      sources."marked-4.3.0"
-      (sources."marked-terminal-5.2.0" // {
-        dependencies = [
-          sources."chalk-5.3.0"
-        ];
-      })
-      sources."memory-streams-0.1.3"
-      sources."memorystream-0.3.1"
-      sources."node-emoji-1.11.0"
-      sources."nopt-2.1.2"
-      sources."optimist-0.3.7"
-      sources."picture-tuber-1.0.2"
-      sources."png-js-0.1.1"
-      sources."readable-stream-1.0.34"
-      sources."redeyed-2.1.1"
-      sources."sax-1.2.4"
-      sources."sparkline-0.1.2"
-      (sources."string-width-4.2.3" // {
-        dependencies = [
-          sources."ansi-regex-5.0.1"
-          sources."strip-ansi-6.0.1"
-        ];
-      })
-      sources."string_decoder-0.10.31"
-      sources."strip-ansi-3.0.1"
-      sources."supports-color-2.0.0"
-      (sources."supports-hyperlinks-2.3.0" // {
-        dependencies = [
-          sources."supports-color-7.2.0"
-        ];
-      })
-      sources."systeminformation-5.18.7"
-      sources."term-canvas-0.0.5"
-      sources."type-fest-3.13.1"
-      sources."wordwrap-0.0.3"
-      sources."x256-0.0.2"
-      sources."xml2js-0.4.23"
-      sources."xmlbuilder-11.0.1"
-    ];
-    buildInputs = globalBuildInputs;
-    meta = {
-      description = "graphic top";
-      homepage = "https://github.com/aksakalli/gtop#readme";
       license = "MIT";
     };
     production = true;
@@ -134162,7 +134051,7 @@ in
   "rust-analyzer-build-deps-../../applications/editors/vscode/extensions/rust-lang.rust-analyzer/build-deps" = nodeEnv.buildNodePackage {
     name = "rust-analyzer";
     packageName = "rust-analyzer";
-    version = "0.3.1426";
+    version = "0.3.1607";
     src = ../../applications/editors/vscode/extensions/rust-lang.rust-analyzer/build-deps;
     dependencies = [
       sources."@aashutoshrathi/word-wrap-1.2.6"
@@ -151941,81 +151830,6 @@ in
     meta = {
       description = "Full access to zwave-js driver through Websockets";
       homepage = "https://github.com/zwave-js/zwave-js-server#readme";
-      license = "Apache-2.0";
-    };
-    production = true;
-    bypassCache = true;
-    reconstructLock = true;
-  };
-  zx = nodeEnv.buildNodePackage {
-    name = "zx";
-    packageName = "zx";
-    version = "7.2.3";
-    src = fetchurl {
-      url = "https://registry.npmjs.org/zx/-/zx-7.2.3.tgz";
-      sha512 = "QODu38nLlYXg/B/Gw7ZKiZrvPkEsjPN3LQ5JFXM7h0JvwhEdPNNl+4Ao1y4+o3CLNiDUNcwzQYZ4/Ko7kKzCMA==";
-    };
-    dependencies = [
-      sources."@nodelib/fs.scandir-2.1.5"
-      sources."@nodelib/fs.stat-2.0.5"
-      sources."@nodelib/fs.walk-1.2.8"
-      sources."@types/fs-extra-11.0.1"
-      sources."@types/jsonfile-6.1.1"
-      sources."@types/minimist-1.2.2"
-      sources."@types/node-18.16.19"
-      sources."@types/ps-tree-1.1.2"
-      sources."@types/which-3.0.0"
-      sources."braces-3.0.2"
-      sources."chalk-5.3.0"
-      sources."data-uri-to-buffer-4.0.1"
-      sources."dir-glob-3.0.1"
-      sources."duplexer-0.1.2"
-      sources."event-stream-3.3.4"
-      sources."fast-glob-3.3.0"
-      sources."fastq-1.15.0"
-      sources."fetch-blob-3.2.0"
-      sources."fill-range-7.0.1"
-      sources."formdata-polyfill-4.0.10"
-      sources."from-0.1.7"
-      sources."fs-extra-11.1.1"
-      sources."fx-28.0.0"
-      sources."glob-parent-5.1.2"
-      sources."globby-13.2.2"
-      sources."graceful-fs-4.2.11"
-      sources."ignore-5.2.4"
-      sources."is-extglob-2.1.1"
-      sources."is-glob-4.0.3"
-      sources."is-number-7.0.0"
-      sources."isexe-2.0.0"
-      sources."jsonfile-6.1.0"
-      sources."map-stream-0.1.0"
-      sources."merge2-1.4.1"
-      sources."micromatch-4.0.5"
-      sources."minimist-1.2.8"
-      sources."node-domexception-1.0.0"
-      sources."node-fetch-3.3.1"
-      sources."path-type-4.0.0"
-      sources."pause-stream-0.0.11"
-      sources."picomatch-2.3.1"
-      sources."ps-tree-1.2.0"
-      sources."queue-microtask-1.2.3"
-      sources."reusify-1.0.4"
-      sources."run-parallel-1.2.0"
-      sources."slash-4.0.0"
-      sources."split-0.3.3"
-      sources."stream-combiner-0.0.4"
-      sources."through-2.3.8"
-      sources."to-regex-range-5.0.1"
-      sources."universalify-2.0.0"
-      sources."web-streams-polyfill-3.2.1"
-      sources."webpod-0.0.2"
-      sources."which-3.0.1"
-      sources."yaml-2.3.1"
-    ];
-    buildInputs = globalBuildInputs;
-    meta = {
-      description = "A tool for writing better scripts";
-      homepage = "https://github.com/google/zx#readme";
       license = "Apache-2.0";
     };
     production = true;

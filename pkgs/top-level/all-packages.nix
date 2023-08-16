@@ -4525,6 +4525,8 @@ with pkgs;
                           { inherit (haskellPackages) alex happy Agda ghcWithPackages;
                           };
 
+  cel-go = callPackage ../development/interpreters/cel-go { };
+
   cfdyndns = callPackage ../applications/networking/dyndns/cfdyndns { };
 
   cf-terraforming = callPackage ../tools/misc/cf-terraforming { };
@@ -5968,6 +5970,8 @@ with pkgs;
   nix-template = callPackage ../tools/package-management/nix-template {
     inherit (darwin.apple_sdk.frameworks) Security;
   };
+
+  nltk-data = callPackage ../tools/text/nltk_data { };
 
   nodepy-runtime = with python3.pkgs; toPythonApplication nodepy-runtime;
 
@@ -7440,7 +7444,7 @@ with pkgs;
 
   dropbear = callPackage ../tools/networking/dropbear { };
 
-  dsview = libsForQt5.callPackage ../applications/science/electronics/dsview { };
+  dsview = qt6Packages.callPackage ../applications/science/electronics/dsview { };
 
   dtach = callPackage ../tools/misc/dtach { };
 
@@ -9120,6 +9124,8 @@ with pkgs;
 
   ibniz = callPackage ../tools/graphics/ibniz { };
 
+  icebreaker = callPackage ../servers/icebreaker { };
+
   icecast = callPackage ../servers/icecast { };
 
   icemon = libsForQt5.callPackage ../applications/networking/icemon { };
@@ -9835,11 +9841,10 @@ with pkgs;
 
   matrix-sliding-sync = callPackage ../servers/matrix-synapse/sliding-sync { };
 
-  matrix-synapse = callPackage ../servers/matrix-synapse { };
-
-  matrix-synapse-plugins = recurseIntoAttrs matrix-synapse.plugins;
-
-  matrix-synapse-tools = recurseIntoAttrs matrix-synapse.tools;
+  matrix-synapse = callPackage ../servers/matrix-synapse/wrapper.nix { };
+  matrix-synapse-unwrapped = callPackage ../servers/matrix-synapse/default.nix { };
+  matrix-synapse-plugins = recurseIntoAttrs matrix-synapse-unwrapped.plugins;
+  matrix-synapse-tools = recurseIntoAttrs matrix-synapse-unwrapped.tools;
 
   matrix-appservice-irc = callPackage ../servers/matrix-synapse/matrix-appservice-irc { };
 
@@ -17448,6 +17453,8 @@ with pkgs;
 
   angelscript = callPackage ../development/interpreters/angelscript { };
 
+  anko = callPackage ../development/interpreters/anko { };
+
   babashka-unwrapped = callPackage ../development/interpreters/babashka { };
   babashka = callPackage ../development/interpreters/babashka/wrapped.nix { };
 
@@ -18089,6 +18096,8 @@ with pkgs;
   wasm = ocamlPackages.wasm;
 
   wasm3 = callPackage ../development/interpreters/wasm3 { };
+
+  yaegi = callPackage ../development/interpreters/yaegi { };
 
   yex-lang = callPackage ../development/interpreters/yex-lang { };
 
@@ -18908,6 +18917,8 @@ with pkgs;
   libcxxabi = llvmPackages.libcxxabi;
 
   librarian-puppet-go = callPackage ../development/tools/librarian-puppet-go { };
+
+  libgcc = stdenv.cc.cc.libgcc or null;
 
   # This is for e.g. LLVM libraries on linux.
   gccForLibs =
@@ -19794,7 +19805,7 @@ with pkgs;
 
   cutter = libsForQt5.callPackage ../development/tools/analysis/rizin/cutter.nix { };
 
-  cutterPlugins = recurseIntoAttrs rizin.plugins;
+  cutterPlugins = recurseIntoAttrs cutter.plugins;
 
   ragel = ragelStable;
 
@@ -20330,6 +20341,8 @@ with pkgs;
   tockloader = callPackage ../development/tools/misc/tockloader { };
 
   zon2nix = callPackage ../tools/nix/zon2nix { };
+
+  ztags = callPackage ../development/tools/misc/ztags { };
 
   ### DEVELOPMENT / LIBRARIES
 
@@ -21435,6 +21448,11 @@ with pkgs;
   # Being redundant to avoid cycles on boot. TODO: find a better way
   glibcCross = callPackage ../development/libraries/glibc {
     stdenv = gccCrossLibcStdenv; # doesn't compile without gcc
+    libgcc = callPackage ../development/libraries/gcc/libgcc {
+      gcc = gccCrossLibcStdenv.cc;
+      glibc = glibcCross.override { libgcc = null; };
+      stdenvNoLibs = gccCrossLibcStdenv;
+    };
   };
 
   muslCross = musl.override {
@@ -30875,6 +30893,8 @@ with pkgs;
 
   cwm = callPackage ../applications/window-managers/cwm { };
 
+  cyber = callPackage ../development/interpreters/cyber { };
+
   cyberduck = callPackage ../applications/networking/cyberduck { };
 
   cyclone = callPackage ../applications/audio/pd-plugins/cyclone  { };
@@ -32131,6 +32151,8 @@ with pkgs;
   gpxsee = gpxsee-qt5;
 
   gspell = callPackage ../development/libraries/gspell { };
+
+  gst123 = callPackage ../applications/audio/gst123 { };
 
   gtk2fontsel = callPackage ../applications/misc/gtk2fontsel { };
 

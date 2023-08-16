@@ -1211,6 +1211,8 @@ self: super: with self; {
 
   backports-shutil-which = callPackage ../development/python-modules/backports-shutil-which { };
 
+  backports-strenum = callPackage ../development/python-modules/backports-strenum { };
+
   backports-zoneinfo = callPackage ../development/python-modules/backports-zoneinfo { };
 
   bacpypes = callPackage ../development/python-modules/bacpypes { };
@@ -7507,6 +7509,8 @@ self: super: with self; {
   opt-einsum = callPackage ../development/python-modules/opt-einsum { };
 
   optax = callPackage ../development/python-modules/optax { };
+
+  optimum = callPackage ../development/python-modules/optimum { };
 
   optuna = callPackage ../development/python-modules/optuna { };
 

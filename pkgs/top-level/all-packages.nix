@@ -2458,6 +2458,8 @@ with pkgs;
 
   transcrypt = callPackage ../applications/version-management/transcrypt { };
 
+  ungit = callPackage ../applications/version-management/ungit { };
+
   inherit (haskellPackages) git-annex;
 
   inherit (haskellPackages) git-brunch;
@@ -4212,7 +4214,7 @@ with pkgs;
     inherit (plasma5Packages) breeze-icons;
   };
 
-  beautysh = callPackage ../development/tools/beautysh { };
+  beautysh = with python3.pkgs; toPythonApplication beautysh;
 
   bc = callPackage ../tools/misc/bc { };
 
@@ -4573,7 +4575,9 @@ with pkgs;
 
   map-cmd = callPackage ../tools/misc/map { };
 
-  clash = callPackage ../tools/networking/clash { };
+  clash = callPackage ../tools/networking/clash {
+    buildGoModule = buildGo121Module;
+  };
 
   clash-geoip = callPackage ../data/misc/clash-geoip { };
 
@@ -4772,6 +4776,8 @@ with pkgs;
   ydotool = callPackage ../tools/wayland/ydotool { };
 
   cambalache = callPackage ../development/tools/cambalache { };
+
+  cambrinary = python3Packages.callPackage ../applications/misc/cambrinary { };
 
   changedetection-io = callPackage ../servers/web-apps/changedetection-io { };
 
@@ -6753,6 +6759,8 @@ with pkgs;
   ;
   citrix_workspace = citrix_workspace_23_07_0;
 
+  clima = callPackage ../tools/text/clima { };
+
   cmigemo = callPackage ../tools/text/cmigemo { };
 
   cmospwd = callPackage ../tools/security/cmospwd { };
@@ -7622,6 +7630,8 @@ with pkgs;
 
   rar2fs = callPackage ../tools/filesystems/rar2fs { };
 
+  rune = callPackage ../development/interpreters/rune { };
+
   s9fes = callPackage ../development/interpreters/s9fes { };
 
   s-tar = callPackage ../tools/archivers/s-tar { };
@@ -7756,6 +7766,8 @@ with pkgs;
   zoekt = callPackage ../tools/text/zoekt { };
 
   zonemaster-cli = perlPackages.ZonemasterCLI;
+
+  zotero-translation-server = callPackage ../tools/misc/zotero-translation-server { };
 
   zoxide = callPackage ../tools/misc/zoxide { };
 
@@ -9653,8 +9665,6 @@ with pkgs;
   keystore-explorer = callPackage ../applications/misc/keystore-explorer {
     jdk = jdk11;
   };
-
-  kfctl = callPackage ../applications/networking/cluster/kfctl { };
 
   kluctl = callPackage ../applications/networking/cluster/kluctl { };
 
@@ -12482,6 +12492,8 @@ with pkgs;
     rekor-cli
     rekor-server;
 
+  rhai-doc = callPackage ../development/tools/misc/rhai-doc { };
+
   rich-cli = callPackage ../misc/rich-cli { };
 
   richgo = callPackage ../development/tools/richgo {  };
@@ -14451,6 +14463,8 @@ with pkgs;
   wormhole-william = callPackage ../tools/networking/wormhole-william { };
 
   wpscan = callPackage ../tools/security/wpscan { };
+
+  write-good = callPackage ../tools/text/write-good { };
 
   wsmancli = callPackage ../tools/system/wsmancli { };
 
@@ -17254,6 +17268,8 @@ with pkgs;
 
   opensycl = darwin.apple_sdk_11_0.callPackage ../development/compilers/opensycl { };
   opensyclWithRocm = opensycl.override { rocmSupport = true; };
+
+  pest-ide-tools = callPackage ../development/tools/misc/pest-ide-tools { };
 
   ravedude = callPackage ../development/tools/rust/ravedude { };
 
@@ -20369,6 +20385,8 @@ with pkgs;
 
   watson-ruby = callPackage ../development/tools/misc/watson-ruby { };
 
+  web-ext = callPackage ../development/tools/web-ext { };
+
   webdis = callPackage ../development/tools/database/webdis { };
 
   xmake = callPackage ../development/tools/build-managers/xmake {
@@ -20423,6 +20441,8 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Cocoa;
     python = python3;
   };
+
+  yo = callPackage ../development/tools/yo { };
 
   yodl = callPackage ../development/tools/misc/yodl { };
 
@@ -29953,6 +29973,8 @@ with pkgs;
 
   starfetch = callPackage ../tools/misc/starfetch { };
 
+  starry = callPackage ../tools/misc/starry { };
+
   starship = callPackage ../tools/misc/starship {
     inherit (darwin.apple_sdk.frameworks) Security Foundation Cocoa;
   };
@@ -31006,6 +31028,8 @@ with pkgs;
   crun = callPackage ../applications/virtualization/crun { };
 
   csdp = callPackage ../applications/science/math/csdp { };
+
+  csv2svg = callPackage ../tools/graphics/csv2svg { };
 
   ctop = callPackage ../tools/system/ctop { };
 
@@ -32657,10 +32681,6 @@ with pkgs;
 
   waybar = callPackage ../applications/misc/waybar { };
 
-  waybar-hyprland = callPackage ../applications/misc/waybar {
-    hyprlandSupport = true;
-  };
-
   waycorner = callPackage ../applications/misc/waycorner { };
 
   waylock = callPackage ../applications/misc/waylock { };
@@ -33396,7 +33416,10 @@ with pkgs;
 
   lifelines = callPackage ../applications/misc/lifelines { };
 
-  liferea = callPackage ../applications/networking/newsreaders/liferea { };
+  liferea = callPackage ../applications/networking/newsreaders/liferea {
+    libsoup = libsoup_3;
+    webkitgtk = webkitgtk_4_1;
+  };
 
   lightworks = callPackage ../applications/video/lightworks { };
 
@@ -42023,4 +42046,6 @@ with pkgs;
   wttrbar = callPackage ../applications/misc/wttrbar { };
 
   wpm = callPackage ../applications/misc/wpm { };
+
+  yazi = callPackage ../applications/file-managers/yazi { inherit (darwin.apple_sdk.frameworks) Foundation; };
 }

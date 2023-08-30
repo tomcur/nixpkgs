@@ -378,6 +378,8 @@ with pkgs;
 
   circumflex = callPackage ../applications/networking/circumflex { };
 
+  citron = callPackage ../tools/misc/citron { };
+
   cxx-rs = callPackage ../development/libraries/cxx-rs { };
 
   elfcat = callPackage ../tools/misc/elfcat { };
@@ -1887,6 +1889,8 @@ with pkgs;
   };
 
   nominatim = callPackage ../servers/nominatim { };
+
+  ntpd-rs = callPackage ../tools/networking/ntpd-rs { };
 
   ocs-url = libsForQt5.callPackage ../tools/misc/ocs-url { };
 
@@ -3859,6 +3863,8 @@ with pkgs;
 
   hakrawler = callPackage ../tools/security/hakrawler { };
 
+  harsh = callPackage ../applications/misc/harsh { };
+
   harvid = callPackage ../tools/video/harvid { };
 
   headset = callPackage ../applications/audio/headset { };
@@ -5683,8 +5689,6 @@ with pkgs;
 
   jellyfin-media-player = libsForQt5.callPackage ../applications/video/jellyfin-media-player {
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Cocoa CoreAudio MediaPlayer;
-    # Disable pipewire to avoid segfault, see https://github.com/jellyfin/jellyfin-media-player/issues/341
-    mpv = wrapMpv (mpv-unwrapped.override { pipewireSupport = false; }) { };
   };
 
   jellyfin-mpv-shim = python3Packages.callPackage ../applications/video/jellyfin-mpv-shim { };
@@ -6099,6 +6103,7 @@ with pkgs;
   };
 
   odoo = callPackage ../applications/finance/odoo { };
+  odoo15 = callPackage ../applications/finance/odoo/odoo15.nix { };
 
   odafileconverter = libsForQt5.callPackage ../applications/graphics/odafileconverter { };
 
@@ -6461,6 +6466,8 @@ with pkgs;
   mcelog = callPackage ../os-specific/linux/mcelog {
     util-linux = util-linuxMinimal;
   };
+
+  sqldef = callPackage ../development/tools/sqldef { };
 
   sqlint = callPackage ../development/tools/sqlint { };
 
@@ -9600,6 +9607,14 @@ with pkgs;
 
   jupyter = callPackage ../applications/editors/jupyter { };
 
+  jupyter-all = jupyter.override {
+    definitions = {
+      clojure = clojupyter.definition;
+      octave = octave-kernel.definition;
+      # wolfram = wolfram-for-jupyter-kernel.definition; # unfree
+    };
+  };
+
   jupyter-kernel = callPackage ../applications/editors/jupyter/kernel.nix { };
 
   justify = callPackage ../tools/text/justify { };
@@ -12201,6 +12216,8 @@ with pkgs;
 
   ps3-disc-dumper = callPackage ../tools/games/ps3-disc-dumper { };
 
+  ps3iso-utils = callPackage ../tools/games/ps3iso-utils { };
+
   ps3netsrv = callPackage ../servers/ps3netsrv { };
 
   pscircle = callPackage ../os-specific/linux/pscircle { };
@@ -13217,7 +13234,9 @@ with pkgs;
   };
 
   soapui = callPackage ../applications/networking/soapui {
-    jdk = jdk11;
+    jdk = if stdenv.isDarwin
+      then (jdk11.override { enableJavaFX = true; })
+      else jdk11;
   };
 
   sockdump = callPackage ../tools/networking/sockdump { };
@@ -14769,7 +14788,7 @@ with pkgs;
   volumeicon = callPackage ../tools/audio/volumeicon { };
 
   waf = callPackage ../development/tools/build-managers/waf { };
-  wafHook = callPackage ../development/tools/build-managers/wafHook { };
+  wafHook = callPackage ../development/tools/build-managers/waf/hook.nix { };
 
   waf-tester = callPackage ../tools/security/waf-tester { };
 
@@ -19153,7 +19172,15 @@ with pkgs;
 
   doclifter = callPackage ../development/tools/misc/doclifter { };
 
-  docutils = with python3Packages; toPythonApplication docutils;
+  docutils = with python3Packages; toPythonApplication (
+    docutils.overridePythonAttrs (attrs: rec {
+      version = "0.20.1";
+      src = attrs.src.override {
+        inherit version;
+        hash = "sha256-8IpOJ2w6FYOobc4+NKuj/gTQK7ot1R7RYQYkToqSPjs=";
+      };
+    })
+  );
 
   doctl = callPackage ../development/tools/doctl { };
 
@@ -20681,6 +20708,8 @@ with pkgs;
   ayatana-ido = callPackage ../development/libraries/ayatana-ido { };
 
   ayatana-webmail = callPackage ../applications/networking/mailreaders/ayatana-webmail { };
+
+  azmq = callPackage ../development/libraries/azmq { };
 
   babl = callPackage ../development/libraries/babl { };
 
@@ -25606,6 +25635,7 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) AppKit Cocoa;
   };
   vulkan-tools-lunarg = callPackage ../tools/graphics/vulkan-tools-lunarg { };
+  vulkan-utility-libraries = callPackage ../development/libraries/vulkan-utility-libraries { };
   vulkan-validation-layers = callPackage ../development/tools/vulkan-validation-layers { };
 
   vxl = callPackage ../development/libraries/vxl { };
@@ -26995,12 +27025,14 @@ with pkgs;
 
   rpcsvc-proto = callPackage ../tools/misc/rpcsvc-proto { };
 
-  libmysqlclient = libmysqlclient_3_2;
+  libmysqlclient = libmysqlclient_3_3;
   libmysqlclient_3_1 = mariadb-connector-c_3_1;
   libmysqlclient_3_2 = mariadb-connector-c_3_2;
-  mariadb-connector-c = mariadb-connector-c_3_2;
+  libmysqlclient_3_3 = mariadb-connector-c_3_3;
+  mariadb-connector-c = mariadb-connector-c_3_3;
   mariadb-connector-c_3_1 = callPackage ../servers/sql/mariadb/connector-c/3_1.nix { };
   mariadb-connector-c_3_2 = callPackage ../servers/sql/mariadb/connector-c/3_2.nix { };
+  mariadb-connector-c_3_3 = callPackage ../servers/sql/mariadb/connector-c/3_3.nix { };
 
   mariadb-galera = callPackage ../servers/sql/mariadb/galera { };
 
@@ -34291,6 +34323,8 @@ with pkgs;
 
   qemacs = callPackage ../applications/editors/qemacs { };
 
+  ragnarwm = callPackage ../applications/window-managers/ragnarwm {};
+
   rime-cli = callPackage ../applications/office/rime-cli { };
 
   roxctl = callPackage ../applications/networking/cluster/roxctl {
@@ -39362,6 +39396,7 @@ with pkgs;
 
   or-tools = callPackage ../development/libraries/science/math/or-tools {
     python = python3;
+    protobuf = protobuf3_21;
     # or-tools builds with -std=c++20, so abseil-cpp must
     # also be built that way
     abseil-cpp = abseil-cpp_202206.override {
@@ -42151,4 +42186,6 @@ with pkgs;
   wpm = callPackage ../applications/misc/wpm { };
 
   yazi = callPackage ../applications/file-managers/yazi { inherit (darwin.apple_sdk.frameworks) Foundation; };
+
+  ssl-proxy = callPackage ../tools/networking/ssl-proxy { };
 }

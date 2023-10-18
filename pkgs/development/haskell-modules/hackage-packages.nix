@@ -147458,9 +147458,7 @@ self: {
        testToolDepends = [ hspec-discover ];
        description = "A terminal UI as drop-in replacement for hledger add";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
        mainProgram = "hledger-iadd";
-       broken = true;
      }) {};
 
   "hledger-interest" = callPackage

@@ -78840,6 +78840,34 @@ self: {
      }:
      mkDerivation {
        pname = "daemons";
+       version = "0.3.0";
+       sha256 = "05h03qk31lank60cd0ig9h4rf8zl6p4li5smba919lgpm89lyvy3";
+       isLibrary = true;
+       isExecutable = true;
+       enableSeparateDataOutput = true;
+       libraryHaskellDepends = [
+         base bytestring cereal data-default directory filepath ghc-prim
+         network pipes transformers unix
+       ];
+       executableHaskellDepends = [
+         base bytestring cereal containers data-default ghc-prim network
+         pipes transformers
+       ];
+       testHaskellDepends = [
+         base data-default directory ghc-prim HUnit test-framework
+         test-framework-hunit unix
+       ];
+       description = "Daemons in Haskell made fun and easy";
+       license = lib.licenses.gpl3Only;
+     }) {};
+
+  "daemons_0_4_0" = callPackage
+    ({ mkDerivation, base, bytestring, cereal, containers, data-default
+     , directory, filepath, ghc-prim, HUnit, network, pipes
+     , test-framework, test-framework-hunit, transformers, unix
+     }:
+     mkDerivation {
+       pname = "daemons";
        version = "0.4.0";
        sha256 = "10fcxk749q90mlwgknqn6l5mff8b09acmikxzh5jkk5sr6bj86hz";
        isLibrary = true;
@@ -78860,7 +78888,6 @@ self: {
        description = "Daemons in Haskell made fun and easy";
        license = lib.licenses.gpl3Only;
        hydraPlatforms = lib.platforms.none;
-       broken = true;
      }) {};
 
   "dag" = callPackage

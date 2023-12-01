@@ -146371,7 +146371,6 @@ self: {
        librarySystemDepends = [ systemd ];
        description = "Haskell bindings to HIDAPI";
        license = lib.licenses.mit;
-       badPlatforms = lib.platforms.darwin;
      }) {inherit (pkgs) systemd;};
 
   "hidden-char" = callPackage

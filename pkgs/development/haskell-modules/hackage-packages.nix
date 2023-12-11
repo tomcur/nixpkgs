@@ -77372,7 +77372,6 @@ self: {
        ];
        description = "a gallery of Csound instruments";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "csound-controllers" = callPackage
@@ -77384,7 +77383,6 @@ self: {
        libraryHaskellDepends = [ base csound-expression ];
        testHaskellDepends = [ base csound-expression ];
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "csound-expression" = callPackage
@@ -77406,7 +77404,6 @@ self: {
        ];
        description = "library to make electronic music";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "csound-expression-dynamic" = callPackage
@@ -77426,8 +77423,6 @@ self: {
        ];
        description = "dynamic core for csound-expression library";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
-       broken = true;
      }) {};
 
   "csound-expression-opcodes" = callPackage
@@ -77445,7 +77440,6 @@ self: {
        ];
        description = "opcodes for the library csound-expression";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "csound-expression-typed" = callPackage
@@ -77468,7 +77462,6 @@ self: {
        ];
        description = "typed core for the library csound-expression";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "csound-sampler" = callPackage
@@ -77482,7 +77475,6 @@ self: {
        libraryHaskellDepends = [ base csound-expression transformers ];
        description = "A musical sampler based on Csound";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "csp" = callPackage
@@ -295736,7 +295728,6 @@ self: {
        ];
        description = "library to make electronic music, brings together temporal-music-notation and csound-expression packages";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "temporal-media" = callPackage

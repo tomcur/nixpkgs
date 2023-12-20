@@ -214650,9 +214650,7 @@ self: {
        ];
        description = "A drop-in replacement for nix-serve that's faster and more stable";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
        mainProgram = "nix-serve";
-       broken = true;
      }) {inherit (pkgs) nix;};
 
   "nix-thunk" = callPackage

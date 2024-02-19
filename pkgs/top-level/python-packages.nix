@@ -3749,6 +3749,10 @@ self: super: with self; {
 
   escapism = callPackage ../development/python-modules/escapism { };
 
+  essentials = callPackage ../development/python-modules/essentials { };
+
+  essentials-openapi = callPackage ../development/python-modules/essentials-openapi { };
+
   etcd = callPackage ../development/python-modules/etcd { };
 
   etcd3 = callPackage ../development/python-modules/etcd3 {
@@ -6713,6 +6717,8 @@ self: super: with self; {
 
   ltpycld2 = callPackage ../development/python-modules/ltpycld2 { };
 
+  lttng = callPackage ../development/python-modules/lttng { };
+
   luddite = callPackage ../development/python-modules/luddite { };
 
   luftdaten = callPackage ../development/python-modules/luftdaten { };
@@ -8189,6 +8195,8 @@ self: super: with self; {
 
   myst-parser = callPackage ../development/python-modules/myst-parser { };
 
+  myuplink = callPackage ../development/python-modules/myuplink { };
+
   n3fit = callPackage ../development/python-modules/n3fit { };
 
   nad-receiver = callPackage ../development/python-modules/nad-receiver { };
@@ -8304,6 +8312,8 @@ self: super: with self; {
   neo = callPackage ../development/python-modules/neo { };
 
   neo4j = callPackage ../development/python-modules/neo4j { };
+
+  neoteroi-mkdocs = callPackage ../development/python-modules/neoteroi-mkdocs { };
 
   nessclient = callPackage ../development/python-modules/nessclient { };
 
@@ -9330,6 +9340,8 @@ self: super: with self; {
   pypemicro = callPackage ../development/python-modules/pypemicro { };
 
   pyprecice = callPackage ../development/python-modules/pyprecice { };
+
+  pyprobables = callPackage ../development/python-modules/pyprobables { };
 
   pyproject-api = callPackage ../development/python-modules/pyproject-api { };
 
@@ -11721,6 +11733,8 @@ self: super: with self; {
 
   pytest-testmon = callPackage ../development/python-modules/pytest-testmon { };
 
+  pytest-textual-snapshot = callPackage ../development/python-modules/pytest-textual-snapshot { };
+
   pytest-timeout = callPackage ../development/python-modules/pytest-timeout { };
 
   pytest-tornado = callPackage ../development/python-modules/pytest-tornado { };
@@ -12021,6 +12035,8 @@ self: super: with self; {
   python-sql = callPackage ../development/python-modules/python-sql { };
 
   python-stdnum = callPackage ../development/python-modules/python-stdnum { };
+
+  python-technove = callPackage ../development/python-modules/python-technove { };
 
   python-telegram = callPackage ../development/python-modules/python-telegram { };
 
@@ -14232,7 +14248,7 @@ self: super: with self; {
   tensorflow-build = let
     compat = rec {
       protobufTF = pkgs.protobuf_21.override {
-        abseil-cpp = pkgs.abseil-cpp;
+        abseil-cpp = pkgs.abseil-cpp_202301;
       };
       grpcTF = (pkgs.grpc.overrideAttrs (
         oldAttrs: rec {
@@ -14284,6 +14300,7 @@ self: super: with self; {
     grpc = compat.grpcTF;
     grpcio = compat.grpcioTF;
     tensorboard = compat.tensorboardTF;
+    abseil-cpp = pkgs.abseil-cpp_202301;
 
     # Tensorflow 2.13 doesn't support gcc13:
     # https://github.com/tensorflow/tensorflow/issues/61289
@@ -16411,6 +16428,10 @@ self: super: with self; {
   xpath-expressions = callPackage ../development/python-modules/xpath-expressions { };
 
   xpybutil = callPackage ../development/python-modules/xpybutil { };
+
+  xrootd = callPackage ../development/python-modules/xrootd {
+    inherit (pkgs) xrootd;
+  };
 
   xsdata = callPackage ../development/python-modules/xsdata { };
 

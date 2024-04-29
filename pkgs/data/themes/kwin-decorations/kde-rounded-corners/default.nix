@@ -12,13 +12,13 @@
 
 stdenv.mkDerivation rec {
   pname = "kde-rounded-corners";
-  version = "0.6.0";
+  version = "0.6.2";
 
   src = fetchFromGitHub {
     owner = "matinlotfali";
     repo = "KDE-Rounded-Corners";
     rev = "v${version}";
-    hash = "sha256-DE3XTu3CQY9mGuOpehWno/4yFyLjHuh4RxdUh+aTU7M=";
+    hash = "sha256-4bB1EKK9XUkX8o3ca2dQtJe0UuSDgITVXWnpddTsJDs=";
   };
 
   postConfigure = ''
@@ -33,6 +33,6 @@ stdenv.mkDerivation rec {
     description = "Rounds the corners of your windows";
     homepage = "https://github.com/matinlotfali/KDE-Rounded-Corners";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ flexagoon ];
+    maintainers = with maintainers; [ ];
   };
 }

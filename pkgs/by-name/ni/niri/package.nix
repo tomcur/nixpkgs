@@ -20,19 +20,19 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "niri";
-  version = "0.1.1";
+  version = "0.1.5";
 
   src = fetchFromGitHub {
     owner = "YaLTeR";
     repo = "niri";
     rev = "v${version}";
-    hash = "sha256-+Y7dnq8gwVxefwvRnamqGneCTI4uUXgAo0SEffIvNB0=";
+    hash = "sha256-YuYowUw5ecPa78bhT72zY2b99wn68mO3vVkop8hnb8M=";
   };
 
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
-      "smithay-0.3.0" = "sha256-TWq4L7Pe4/s0+hGjvTixoOFQ3P6tJXzV4/VgKcJ0tWU=";
+      "smithay-0.3.0" = "sha256-1ANERwRG7Uwe1gSm6zQnEMQlpRrGSFP8mp6JItzjz0k=";
     };
   };
 
@@ -62,13 +62,26 @@ rustPlatform.buildRustPackage rec {
     libglvnd # For libEGL
   ];
 
-  LIBCLANG_PATH = "${libclang.lib}/lib";
+  passthru.providedSessions = ["niri"];
+
+  postPatch = ''
+    patchShebangs ./resources/niri-session
+    substituteInPlace ./resources/niri.service \
+      --replace-fail '/usr/bin' "$out/bin"
+  '';
+
+  postInstall = ''
+    install -Dm0755 ./resources/niri-session -t $out/bin
+    install -Dm0644 resources/niri.desktop -t $out/share/wayland-sessions
+    install -Dm0644 resources/niri-portals.conf -t $out/share/xdg-desktop-portal
+    install -Dm0644 resources/niri{-shutdown.target,.service} -t $out/share/systemd/user
+  '';
 
   meta = with lib; {
     description = "A scrollable-tiling Wayland compositor";
     homepage = "https://github.com/YaLTeR/niri";
     license = licenses.gpl3Only;
-    maintainers = with maintainers; [ iogamaster ];
+    maintainers = with maintainers; [ iogamaster foo-dogsquared sodiboo ];
     mainProgram = "niri";
     platforms = platforms.linux;
   };

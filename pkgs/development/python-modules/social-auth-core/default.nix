@@ -19,7 +19,7 @@
 
 buildPythonPackage rec {
   pname = "social-auth-core";
-  version = "4.5.2";
+  version = "4.5.4";
   pyproject = true;
 
   disabled = pythonOlder "3.7";
@@ -28,7 +28,7 @@ buildPythonPackage rec {
     owner = "python-social-auth";
     repo = "social-core";
     rev = "refs/tags/${version}";
-    hash = "sha256-4oUSGTDNJc+qZRYiexRUaz8IOaZRXlwqswfPiEzTuR4=";
+    hash = "sha256-tFaRvNoO5K7ytqMhL//Ntasc7jb4PYXB1yyjFvFqQH8=";
   };
 
   nativeBuildInputs = [

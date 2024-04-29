@@ -22,6 +22,10 @@ rustPlatform.buildRustPackage rec {
     sha256 = "sha256-BgsLmE50mGmB5fcUjov8wcAHRTKMYaoyoXjSUyIddlc=";
   };
 
+  patches = [
+    ./1.7.4-CVE-2024-3078.patch
+  ];
+
   cargoLock = {
     lockFile = ./Cargo.lock;
     outputHashes = {
@@ -46,8 +50,6 @@ rustPlatform.buildRustPackage rec {
     OPENSSL_NO_VENDOR = 1;
   } // lib.optionalAttrs stdenv.cc.isClang {
     NIX_CFLAGS_COMPILE = "-faligned-allocation";
-    # Work around https://github.com/NixOS/nixpkgs/issues/166205.
-    NIX_LDFLAGS = "-l${stdenv.cc.libcxx.cxxabi.libName}";
   };
 
   passthru = {

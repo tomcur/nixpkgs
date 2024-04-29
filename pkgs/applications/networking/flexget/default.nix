@@ -6,7 +6,7 @@
 
 python3.pkgs.buildPythonApplication rec {
   pname = "flexget";
-  version = "3.11.18";
+  version = "3.11.29";
   pyproject = true;
 
   # Fetch from GitHub in order to use `requirements.in`
@@ -14,7 +14,7 @@ python3.pkgs.buildPythonApplication rec {
     owner = "Flexget";
     repo = "Flexget";
     rev = "refs/tags/v${version}";
-    hash = "sha256-ykHBGZS/1cRBdMuZ6tz+3QY5cOBxt+Z2Dp3lKuTKj7w=";
+    hash = "sha256-rtLn3QkcVwCh2DfJmtkKvZQcFL/zlZCh7VTUpWtQErw=";
   };
 
   postPatch = ''
@@ -22,12 +22,12 @@ python3.pkgs.buildPythonApplication rec {
     sed 's/[~<>=][^;]*//' -i requirements.txt
   '';
 
-  nativeBuildInputs = with python3.pkgs; [
+  build-system = with python3.pkgs; [
     setuptools
     wheel
   ];
 
-  propagatedBuildInputs = with python3.pkgs; [
+  dependencies = with python3.pkgs; [
     # See https://github.com/Flexget/Flexget/blob/master/requirements.txt
     apscheduler
     beautifulsoup4
@@ -42,7 +42,7 @@ python3.pkgs.buildPythonApplication rec {
     loguru
     more-itertools
     packaging
-    pendulum_3
+    pendulum
     psutil
     pynzb
     pyrsistent
@@ -85,6 +85,6 @@ python3.pkgs.buildPythonApplication rec {
     changelog = "https://github.com/Flexget/Flexget/releases/tag/v${version}";
     description = "Multipurpose automation tool for all of your media";
     license = licenses.mit;
-    maintainers = with maintainers; [ marsam ];
+    maintainers = with maintainers; [ ];
   };
 }

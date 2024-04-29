@@ -8,12 +8,12 @@
 
 buildPythonPackage rec {
   pname = "pyaml";
-  version = "23.9.7";
+  version = "24.4.0";
   pyproject = true;
 
   src = fetchPypi {
     inherit pname version;
-    hash = "sha256-WB6k6Z8OMIhkQH4EwDxgkkGu+joV37qJZNp2RLrzshc=";
+    hash = "sha256-Dkg9kokBDnR6Ml3EMXG8w51lYt0d1HGejMfnyWyZ/OY=";
   };
 
   nativeBuildInputs = [
@@ -32,6 +32,7 @@ buildPythonPackage rec {
 
   meta = with lib; {
     description = "PyYAML-based module to produce pretty and readable YAML-serialized data";
+    mainProgram = "pyaml";
     homepage = "https://github.com/mk-fg/pretty-yaml";
     license = licenses.wtfpl;
     maintainers = with maintainers; [ ];

@@ -2,16 +2,16 @@
 
 buildGoModule rec {
   pname = "minio-client";
-  version = "2024-02-09T22-18-24Z";
+  version = "2024-04-18T16-45-29Z";
 
   src = fetchFromGitHub {
     owner = "minio";
     repo = "mc";
     rev = "RELEASE.${version}";
-    sha256 = "sha256-Z4bqbU5ZDVlHLHyJWTNLSjBgE3Fybn/oUyqjod0bUCw=";
+    sha256 = "sha256-aEhkk1nB8CGzuZfD8a62RwzcvF2HZTm1LPfb13c6x9Q=";
   };
 
-  vendorHash = "sha256-wxFhj+oqj5WV/UkPZlmeJHF2WC4oLlZOql1qgSFs+zU=";
+  vendorHash = "sha256-qb4gR//8UzJAJ5WthfyxYwhR3YCwUGxfy8aRMW2MXks=";
 
   subPackages = [ "." ];
 

@@ -14,14 +14,13 @@
 , numba
 , numpy
 , openai-triton
-, scipy
 , tiktoken
 , torch
 , tqdm
-, transformers
 
 # tests
 , pytestCheckHook
+, scipy
 }:
 
 buildPythonPackage rec {
@@ -45,6 +44,7 @@ buildPythonPackage rec {
 
   nativeBuildInputs = [
     setuptools
+    scipy
   ];
 
   propagatedBuildInputs = [
@@ -52,11 +52,9 @@ buildPythonPackage rec {
     numba
     numpy
     openai-triton
-    scipy
     tiktoken
     torch
     tqdm
-    transformers
   ];
 
   preCheck = ''
@@ -78,6 +76,7 @@ buildPythonPackage rec {
   meta = with lib; {
     changelog = "https://github.com/openai/whisper/blob/v${version}/CHANGELOG.md";
     description = "General-purpose speech recognition model";
+    mainProgram = "whisper";
     homepage = "https://github.com/openai/whisper";
     license = licenses.mit;
     maintainers = with maintainers; [ hexa MayNiklas ];

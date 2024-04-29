@@ -11,7 +11,7 @@
 
 buildPythonPackage rec {
   pname = "m2crypto";
-  version = "0.40.1";
+  version = "0.41.0";
   format = "setuptools";
 
   disabled = pythonOlder "3.7";
@@ -19,7 +19,7 @@ buildPythonPackage rec {
   src = fetchPypi {
     pname = "M2Crypto";
     inherit version;
-    hash = "sha256-u/0RPsVXCMBYFiUqTwnkI33087v8gXHLvDMFfSV7uzA=";
+    hash = "sha256-OhNYx+6EkEbZF4Knd/F4a/AnocHVG1+vjxlDW/w/FJU=";
   };
 
   nativeBuildInputs = [
@@ -50,6 +50,6 @@ buildPythonPackage rec {
     homepage = "https://gitlab.com/m2crypto/m2crypto";
     changelog = "https://gitlab.com/m2crypto/m2crypto/-/blob/${version}/CHANGES";
     license = licenses.mit;
-    maintainers = with maintainers; [ andrew-d ];
+    maintainers = with maintainers; [ ];
   };
 }

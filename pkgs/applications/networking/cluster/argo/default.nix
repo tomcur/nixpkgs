@@ -34,16 +34,16 @@ let
 in
 buildGoModule rec {
   pname = "argo";
-  version = "3.5.4";
+  version = "3.5.6";
 
   src = fetchFromGitHub {
     owner = "argoproj";
     repo = "argo";
     rev = "refs/tags/v${version}";
-    hash = "sha256-23O8YNnMONrlWcTj6gxXQ0xJw0s0pa/ZoY0OKhzEv5o=";
+    hash = "sha256-CcPY9eEpvDTIxilxHI+VBVVRxZy/82fi6uayBrGR/Dc=";
   };
 
-  vendorHash = "sha256-bUCbrHr7N3IB0tnnQ0TlHjaW7tp4iIGFO28KoJEj2sg=";
+  vendorHash = "sha256-ttpDGeANQyrTfRyNGFkmJFpE+nnjz8PZN+0HScBJ1yg=";
 
   doCheck = false;
 
@@ -84,6 +84,7 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "Container native workflow engine for Kubernetes";
+    mainProgram = "argo";
     homepage = "https://github.com/argoproj/argo";
     changelog = "https://github.com/argoproj/argo-workflows/blob/v${version}/CHANGELOG.md";
     license = licenses.asl20;

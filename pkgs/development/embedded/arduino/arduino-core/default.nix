@@ -4,6 +4,7 @@
 , fetchurl
 , jdk
 , ant
+, stripJavaArchivesHook
 , libusb-compat-0_1
 , libusb1
 , unzip
@@ -112,7 +113,7 @@ stdenv.mkDerivation rec {
   # the glib setup hook will populate GSETTINGS_SCHEMAS_PATH,
   # wrapGAppHooks (among other things) adds it to XDG_DATA_DIRS
   # so 'save as...' works:
-  nativeBuildInputs = [ glib wrapGAppsHook unzip ];
+  nativeBuildInputs = [ glib stripJavaArchivesHook wrapGAppsHook unzip ];
   buildInputs = [
     jdk
     ant
@@ -242,6 +243,7 @@ stdenv.mkDerivation rec {
 
   meta = with lib; {
     description = "Open-source electronics prototyping platform";
+    mainProgram = "arduino";
     homepage = "https://www.arduino.cc/";
     license = if withTeensyduino then licenses.unfreeRedistributable else licenses.gpl2;
     sourceProvenance = with sourceTypes; [

@@ -9,16 +9,16 @@
 
 buildGoModule rec {
   pname = "tbls";
-  version = "1.73.2";
+  version = "1.74.0";
 
   src = fetchFromGitHub {
     owner = "k1LoW";
     repo = "tbls";
     rev = "v${version}";
-    hash = "sha256-UXvUewArdClOolWFgN4Ta11vzq9C9zBjEzVGTtWSjiA=";
+    hash = "sha256-diMg47aZvMpVtvSbg1nA2Sva7JnEBfh8ZU9AHcz+xno=";
   };
 
-  vendorHash = "sha256-zNQADZkAaohTZReD8qTnNJsfy58NXdQjUdd5j8KcOyY=";
+  vendorHash = "sha256-UbMR3yTabGSUqT30T81R/fGnWI4Mz7/utCjZ5Fq0MWU=";
 
   nativeBuildInputs = [ installShellFiles ];
 

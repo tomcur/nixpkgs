@@ -5,20 +5,21 @@
 , darwin
 , pkg-config
 , libiconv
+, nrxAlias ? true
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "nrr";
-  version = "0.5.2";
+  version = "0.9.0";
 
   src = fetchFromGitHub {
     owner = "ryanccn";
     repo = "nrr";
     rev = "v${version}";
-    hash = "sha256-WrpyT5h+eoCu7cspf9KGaM0FgLmnBm8tOHIWbj8sYpo=";
+    hash = "sha256-94BeBCYCxZBoOp6xo4I/uxd6ULjIfmF4nw/vUWoaEpo=";
   };
 
-  cargoHash = "sha256-XTKaVHy7FWYgMq5gNCLF8kIjDDyiyZ+GPZYBMKtLrsI=";
+  cargoHash = "sha256-DTQTIAk914XC+LecQTXk1TdBc/5sMFG8KiD9lO5HLiM=";
 
   buildInputs = lib.optionals stdenv.isDarwin [
     darwin.apple_sdk.frameworks.CoreFoundation
@@ -31,8 +32,10 @@ rustPlatform.buildRustPackage rec {
     pkg-config
   ];
 
+  postInstall = lib.optionalString nrxAlias "ln -s $out/bin/nr{r,x}";
+
   meta = with lib; {
-    description = "Minimal, blazing fast Node.js script runner";
+    description = "Minimal, blazing fast npm scripts runner";
     maintainers = with maintainers; [ ryanccn ];
     license = licenses.gpl3Only;
     mainProgram = "nrr";

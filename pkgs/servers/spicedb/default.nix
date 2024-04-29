@@ -6,16 +6,16 @@
 
 buildGoModule rec {
   pname = "spicedb";
-  version = "1.29.1";
+  version = "1.31.0";
 
   src = fetchFromGitHub {
     owner = "authzed";
     repo = "spicedb";
     rev = "v${version}";
-    hash = "sha256-fUTJpdFFNf/r+NQYBU4y8sGdtEShF9Yi89aB0rU7Xd8=";
+    hash = "sha256-xbYK+9wTsOIh8fpgbL63JmDzsXFmfPa0TKS06hmwLAg=";
   };
 
-  vendorHash = "sha256-wPQ6RjDldO2m4myKcLtGoe5LurX6FI7yLoWLZUkex4o=";
+  vendorHash = "sha256-RBQfrz74Fzse9Rjj6DGfMttbupfSFjP5KbxFHihwMKY=";
 
   subPackages = [ "cmd/spicedb" ];
 

@@ -45,9 +45,10 @@ buildGoModule rec {
 
   meta = with lib; {
     description = "Terraform linter focused on possible errors, best practices, and so on";
+    mainProgram = "tflint";
     homepage = "https://github.com/terraform-linters/tflint";
     changelog = "https://github.com/terraform-linters/tflint/blob/v${version}/CHANGELOG.md";
     license = licenses.mpl20;
-    maintainers = [ maintainers.marsam ];
+    maintainers = [ ];
   };
 }

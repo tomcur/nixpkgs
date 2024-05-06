@@ -291012,9 +291012,7 @@ self: {
        ];
        description = "A tool to prune unused symbols from icon SVG files";
        license = lib.licenses.gpl3Plus;
-       hydraPlatforms = lib.platforms.none;
        mainProgram = "svgsym";
-       broken = true;
      }) {};
 
   "svgutils" = callPackage

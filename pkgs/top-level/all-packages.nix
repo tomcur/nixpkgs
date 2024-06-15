@@ -525,8 +525,6 @@ with pkgs;
 
   containerlab = callPackage ../tools/networking/containerlab { };
 
-  containerpilot = callPackage ../applications/networking/cluster/containerpilot { };
-
   coolercontrol = recurseIntoAttrs (callPackage ../applications/system/coolercontrol { });
 
   confetty = callPackage ../applications/misc/confetty { };
@@ -813,6 +811,9 @@ with pkgs;
   onesixtyone = callPackage ../tools/security/onesixtyone { };
 
   oletools = with python3.pkgs; toPythonApplication oletools;
+
+  ollama-rocm = callPackage ../by-name/ol/ollama/package.nix { acceleration = "rocm"; };
+  ollama-cuda = callPackage ../by-name/ol/ollama/package.nix { acceleration = "cuda"; };
 
   ots = callPackage ../tools/security/ots {  };
 
@@ -2144,7 +2145,9 @@ with pkgs;
 
   archi = callPackage ../tools/misc/archi { };
 
-  breitbandmessung = callPackage ../applications/networking/breitbandmessung { };
+  breitbandmessung = callPackage ../applications/networking/breitbandmessung {
+    electron = electron_29;
+  };
 
   ### APPLICATIONS/VERSION-MANAGEMENT
 
@@ -2810,6 +2813,7 @@ with pkgs;
   ### APPLICATIONS/EMULATORS/DOLPHIN-EMU
 
   dolphin-emu = qt6Packages.callPackage ../applications/emulators/dolphin-emu {
+    stdenv = if stdenv.isDarwin then overrideSDK stdenv "11.0" else stdenv;
     inherit (darwin.apple_sdk_11_0.frameworks) CoreBluetooth ForceFeedback IOBluetooth IOKit OpenGL VideoToolbox;
     inherit (darwin) moltenvk;
   };
@@ -3311,8 +3315,6 @@ with pkgs;
   aws-assume-role = callPackage ../tools/admin/aws-assume-role { };
 
   aws-lambda-rie = callPackage ../tools/admin/aws-lambda-runtime-interface-emulator { };
-
-  aws-env = callPackage ../tools/admin/aws-env { };
 
   aws-google-auth = python3Packages.callPackage ../tools/admin/aws-google-auth { };
 
@@ -5270,7 +5272,7 @@ with pkgs;
   # TeX Live; see https://nixos.org/nixpkgs/manual/#sec-language-texlive
   texlive = callPackage ../tools/typesetting/tex/texlive { };
   inherit (texlive.schemes) texliveBasic texliveBookPub texliveConTeXt texliveFull texliveGUST texliveInfraOnly texliveMedium texliveMinimal texliveSmall texliveTeTeX;
-  texlivePackages = recurseIntoAttrs (lib.filterAttrs (_: lib.isDerivation) texlive.pkgs);
+  texlivePackages = recurseIntoAttrs (lib.mapAttrs (_: v: v.build) texlive.pkgs);
 
   fop = callPackage ../tools/typesetting/fop { };
 
@@ -5551,10 +5553,6 @@ with pkgs;
 
   jellycli = callPackage ../applications/audio/jellycli { };
 
-  jellyfin = callPackage ../servers/jellyfin {
-    ffmpeg = jellyfin-ffmpeg;
-  };
-
   jellyfin-ffmpeg = callPackage ../development/libraries/jellyfin-ffmpeg { };
 
   jellyfin-media-player = libsForQt5.callPackage ../applications/video/jellyfin-media-player {
@@ -5562,8 +5560,6 @@ with pkgs;
   };
 
   jellyfin-mpv-shim = python3Packages.callPackage ../applications/video/jellyfin-mpv-shim { };
-
-  jellyfin-web = callPackage ../servers/jellyfin/web.nix { };
 
   jellyseerr = callPackage ../servers/jellyseerr { };
 
@@ -9224,8 +9220,6 @@ with pkgs;
 
   iroh = callPackage ../applications/networking/iroh { };
 
-  irrd = callPackage ../servers/misc/irrd { };
-
   ised = callPackage ../tools/misc/ised { };
 
   isl = isl_0_20;
@@ -10647,7 +10641,7 @@ with pkgs;
   mole = callPackage ../tools/networking/mole { };
 
   morgen = callPackage ../applications/office/morgen {
-    electron = electron_28;
+    electron = electron_29;
   };
 
   mosh = callPackage ../tools/networking/mosh { };
@@ -13614,8 +13608,6 @@ with pkgs;
     pkgs = pkgs.__splicedPackages;
   });
 
-  tmsu = callPackage ../tools/filesystems/tmsu { };
-
   tncattach = callPackage ../applications/radio/tncattach { };
 
   to-html = callPackage ../tools/text/to-html { };
@@ -14248,8 +14240,6 @@ with pkgs;
 
   woodpecker-cli = callPackage ../development/tools/continuous-integration/woodpecker/cli.nix { };
 
-  woodpecker-pipeline-transform = callPackage ../development/tools/continuous-integration/woodpecker-pipeline-transform { };
-
   woodpecker-plugin-git = callPackage ../development/tools/continuous-integration/woodpecker-plugin-git { };
 
   woodpecker-server = callPackage ../development/tools/continuous-integration/woodpecker/server.nix { };
@@ -14265,8 +14255,6 @@ with pkgs;
   write-good = callPackage ../tools/text/write-good { };
 
   wsmancli = callPackage ../tools/system/wsmancli { };
-
-  wstunnel = haskell.lib.compose.justStaticExecutables haskellPackages.wstunnel;
 
   wolfebin = callPackage ../tools/networking/wolfebin { };
 
@@ -16536,11 +16524,11 @@ with pkgs;
   wrapRustcWith = { rustc-unwrapped, ... } @ args: callPackage ../build-support/rust/rustc-wrapper args;
   wrapRustc = rustc-unwrapped: wrapRustcWith { inherit rustc-unwrapped; };
 
-  rust_1_77 = callPackage ../development/compilers/rust/1_77.nix {
+  rust_1_78 = callPackage ../development/compilers/rust/1_78.nix {
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Security SystemConfiguration;
-    llvm_17 = llvmPackages_17.libllvm;
+    llvm_18 = llvmPackages_18.libllvm;
   };
-  rust = rust_1_77;
+  rust = rust_1_78;
 
   mrustc = callPackage ../development/compilers/mrustc { };
   mrustc-minicargo = callPackage ../development/compilers/mrustc/minicargo.nix { };
@@ -16548,8 +16536,8 @@ with pkgs;
     openssl = openssl_1_1;
   };
 
-  rustPackages_1_77 = rust_1_77.packages.stable;
-  rustPackages = rustPackages_1_77;
+  rustPackages_1_78 = rust_1_78.packages.stable;
+  rustPackages = rustPackages_1_78;
 
   inherit (rustPackages) cargo cargo-auditable cargo-auditable-cargo-wrapper clippy rustc rustPlatform;
 
@@ -17185,7 +17173,7 @@ with pkgs;
 
   inherit (beam.interpreters)
     erlang erlang_27 erlang_26 erlang_25 erlang_24
-    elixir elixir_1_16 elixir_1_15 elixir_1_14 elixir_1_13 elixir_1_12 elixir_1_11 elixir_1_10
+    elixir elixir_1_17 elixir_1_16 elixir_1_15 elixir_1_14 elixir_1_13 elixir_1_12 elixir_1_11 elixir_1_10
     elixir-ls;
 
   erlang_nox = beam_nox.interpreters.erlang;
@@ -17943,6 +17931,10 @@ with pkgs;
 
   ansible-lint = callPackage ../tools/admin/ansible/lint.nix { };
 
+  antares = callPackage ../by-name/an/antares/package.nix {
+    electron = electron_29;
+  };
+
   antlr2 = callPackage ../development/tools/parsing/antlr/2.7.7.nix { };
   antlr3_4 = callPackage ../development/tools/parsing/antlr/3.4.nix { };
   antlr3_5 = callPackage ../development/tools/parsing/antlr/3.5.nix { };
@@ -18008,12 +18000,12 @@ with pkgs;
     electron_30-bin;
 
   electron_24 = electron_24-bin;
-  electron_27 = if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_27 then electron-source.electron_27 else electron_27-bin;
-  electron_28 = if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_28 then electron-source.electron_28 else electron_28-bin;
+  electron_27 = electron_27-bin;
+  electron_28 = electron_28-bin;
   electron_29 = if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_29 then electron-source.electron_29 else electron_29-bin;
   electron_30 = if lib.meta.availableOn stdenv.hostPlatform electron-source.electron_30 then electron-source.electron_30 else electron_30-bin;
-  electron = electron_29;
-  electron-bin = electron_29-bin;
+  electron = electron_30;
+  electron-bin = electron_30-bin;
 
   autobuild = callPackage ../development/tools/misc/autobuild { };
 
@@ -18460,8 +18452,6 @@ with pkgs;
   devbox = callPackage ../development/tools/devbox { };
 
   libcxx = llvmPackages.libcxx;
-
-  librarian-puppet-go = callPackage ../development/tools/librarian-puppet-go { };
 
   libgcc = stdenv.cc.cc.libgcc or null;
 
@@ -19136,8 +19126,6 @@ with pkgs;
   nap = callPackage ../development/tools/nap { };
 
   nex = callPackage ../development/tools/parsing/nex { };
-
-  ninja = callPackage ../development/tools/build-managers/ninja { };
 
   nimbo = with python3Packages; callPackage ../applications/misc/nimbo { };
 
@@ -20512,8 +20500,6 @@ with pkgs;
   doctest = callPackage ../development/libraries/doctest { };
 
   docopt_cpp = callPackage ../development/libraries/docopt_cpp { };
-
-  docopts = callPackage ../development/tools/misc/docopts { };
 
   dotconf = callPackage ../development/libraries/dotconf { };
 
@@ -22676,8 +22662,6 @@ with pkgs;
 
   libopenglrecorder = callPackage ../development/libraries/libopenglrecorder { };
 
-  libopus = callPackage ../development/libraries/libopus { };
-
   libopusenc = callPackage ../development/libraries/libopusenc { };
 
   libosinfo = callPackage ../development/libraries/libosinfo { };
@@ -23861,7 +23845,7 @@ with pkgs;
 
   prospector = callPackage ../development/tools/prospector { };
 
-  protobuf = protobuf_24;
+  protobuf = protobuf_25;
 
   inherit
     ({
@@ -25370,8 +25354,6 @@ with pkgs;
 
   alerta-server = callPackage ../servers/monitoring/alerta { };
 
-  allmark = callPackage ../servers/allmark { };
-
   alps = callPackage ../servers/alps { };
 
   anuko-time-tracker = callPackage ../servers/web-apps/anuko-time-tracker { };
@@ -26338,7 +26320,6 @@ with pkgs;
   prometheus-consul-exporter = callPackage ../servers/monitoring/prometheus/consul-exporter.nix { };
   prometheus-dcgm-exporter = callPackage ../servers/monitoring/prometheus/dcgm-exporter { };
   prometheus-dnsmasq-exporter = callPackage ../servers/monitoring/prometheus/dnsmasq-exporter.nix { };
-  prometheus-dovecot-exporter = callPackage ../servers/monitoring/prometheus/dovecot-exporter.nix { };
   prometheus-domain-exporter = callPackage ../servers/monitoring/prometheus/domain-exporter.nix { };
   prometheus-fastly-exporter = callPackage ../servers/monitoring/prometheus/fastly-exporter.nix { };
   prometheus-flow-exporter = callPackage ../servers/monitoring/prometheus/flow-exporter.nix { };
@@ -27569,8 +27550,6 @@ with pkgs;
 
   gotraceui = callPackage ../development/tools/gotraceui { };
 
-  govers = callPackage ../development/tools/govers { };
-
   goverview = callPackage ../tools/security/goverview { };
 
   go-tools = callPackage ../development/tools/go-tools {
@@ -28254,8 +28233,6 @@ with pkgs;
 
   brise = callPackage ../data/misc/brise { };
 
-  apl386 = callPackage ../data/fonts/apl386 { };
-
   bqn386 = callPackage ../data/fonts/bqn386 { };
 
   cacert = callPackage ../data/misc/cacert { };
@@ -28466,8 +28443,6 @@ with pkgs;
   };
   flat-remix-gtk = callPackage ../data/themes/flat-remix-gtk { };
   flat-remix-gnome = callPackage ../data/themes/flat-remix-gnome { };
-
-  fluent-gtk-theme = callPackage ../data/themes/fluent-gtk-theme { };
 
   fluent-icon-theme = callPackage ../data/icons/fluent-icon-theme { };
 
@@ -29180,6 +29155,8 @@ with pkgs;
   scientifica = callPackage ../data/fonts/scientifica { };
 
   siji = callPackage ../data/fonts/siji { };
+
+  smc-chilanka = callPackage ../data/fonts/smc-chilanka { };
 
   sound-theme-freedesktop = callPackage ../data/misc/sound-theme-freedesktop { };
 
@@ -31254,6 +31231,13 @@ with pkgs;
 
   manuskript = libsForQt5.callPackage ../applications/editors/manuskript { };
 
+  metacubexd = callPackage ../by-name/me/metacubexd/package.nix {
+    pnpm = callPackage ../development/tools/pnpm/generic.nix {
+      version = "9.1.4";
+      hash = "sha256-MKGAGsTnI3ee/tE6IfTDn562yfu0ztEBvOBrQiWT18k=";
+    };
+  };
+
   minari = python3Packages.toPythonApplication python3Packages.minari;
 
   mindforger = libsForQt5.callPackage ../applications/editors/mindforger { };
@@ -31405,8 +31389,6 @@ with pkgs;
   gtklock-powerbar-module = callPackage ../tools/wayland/gtklock/powerbar-module.nix { };
 
   gtklock-userinfo-module = callPackage ../tools/wayland/gtklock/userinfo-module.nix { };
-
-  guardian-agent = callPackage ../tools/networking/guardian-agent { };
 
   gv = callPackage ../applications/misc/gv { };
 
@@ -31676,8 +31658,6 @@ with pkgs;
   };
 
   srain = callPackage ../applications/networking/irc/srain { };
-
-  streamdeck-ui = callPackage ../applications/misc/streamdeck-ui { };
 
   super-productivity = callPackage ../applications/office/super-productivity { };
 
@@ -33391,9 +33371,7 @@ with pkgs;
   obs-studio-plugins = recurseIntoAttrs (callPackage ../applications/video/obs-studio/plugins {});
   wrapOBS = callPackage ../applications/video/obs-studio/wrapper.nix { };
 
-  obsidian = callPackage ../applications/misc/obsidian {
-    electron = electron_28;
-  };
+  obsidian = callPackage ../applications/misc/obsidian { };
 
   octoprint = callPackage ../applications/misc/octoprint { };
 
@@ -34571,8 +34549,6 @@ with pkgs;
 
   stc-cli = callPackage ../applications/networking/stc-cli { };
 
-  syncthing-tray = callPackage ../applications/misc/syncthing-tray { };
-
   syncthingtray = kdePackages.callPackage ../applications/misc/syncthingtray {
     # renamed in KF5 -> KF6
     plasma-framework = kdePackages.libplasma;
@@ -34699,6 +34675,8 @@ with pkgs;
   termdown = python3Packages.callPackage ../applications/misc/termdown { };
 
   termimage = callPackage ../tools/graphics/termimage { };
+
+  terminaltexteffects = with python3Packages; toPythonApplication terminaltexteffects ;
 
   terminal-notifier = callPackage ../applications/misc/terminal-notifier { };
 
@@ -35796,7 +35774,9 @@ with pkgs;
 
   youtube-dl-light = with python3Packages; toPythonApplication youtube-dl-light;
 
-  youtube-music = callPackage ../applications/audio/youtube-music { pnpm = pnpm_8; };
+  youtube-music = callPackage ../applications/audio/youtube-music {
+    pnpm = pnpm_9;
+  };
 
   youtube-tui = callPackage ../applications/video/youtube-tui {
     inherit (darwin.apple_sdk.frameworks) CoreFoundation Security AppKit;
@@ -37683,6 +37663,8 @@ with pkgs;
   };
 
   marvin = callPackage ../applications/science/chemistry/marvin { };
+
+  molbar = with python3Packages; toPythonApplication molbar;
 
   molden = callPackage ../applications/science/chemistry/molden { };
 

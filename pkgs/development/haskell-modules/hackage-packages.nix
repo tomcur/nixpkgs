@@ -336489,7 +336489,6 @@ self: {
        description = "Add CSP headers to Yesod apps";
        license = lib.licenses.mit;
        hydraPlatforms = lib.platforms.none;
-       broken = true;
      }) {};
 
   "yesod-datatables" = callPackage

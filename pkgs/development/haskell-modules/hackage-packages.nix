@@ -20331,7 +20331,6 @@ self: {
        ];
        description = "Another Haskell web framework for rapid development";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "Spock-api" = callPackage
@@ -20371,7 +20370,6 @@ self: {
        libraryHaskellDepends = [ base hvect mtl Spock-api Spock-core ];
        description = "Another Haskell web framework for rapid development";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "Spock-auth" = callPackage
@@ -20415,8 +20413,6 @@ self: {
        ];
        description = "Another Haskell web framework for rapid development";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
-       broken = true;
      }) {};
 
   "Spock-digestive" = callPackage
@@ -20433,7 +20429,6 @@ self: {
        ];
        description = "Digestive functors support for Spock";
        license = lib.licenses.mit;
-       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "Spock-lucid" = callPackage
@@ -20445,7 +20440,6 @@ self: {
        libraryHaskellDepends = [ base lucid Spock transformers ];
        description = "Lucid support for Spock";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "Spock-worker" = callPackage
@@ -20463,7 +20457,6 @@ self: {
        testHaskellDepends = [ base containers HTF stm vector ];
        description = "Background workers for Spock";
        license = lib.licenses.mit;
-       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "SpreadsheetML" = callPackage
@@ -50668,7 +50661,6 @@ self: {
        ];
        description = "A small tool that clears cookies (and more)";
        license = lib.licenses.gpl3Only;
-       hydraPlatforms = lib.platforms.none;
        mainProgram = "bisc";
      }) {};
 
@@ -121353,6 +121345,7 @@ self: {
        sha256 = "1cx9jqpbr6b30qckp2zpsfk3swa58snjb79pq0l6485nvrxa9mls";
        description = "base library for GHCJS";
        license = lib.licenses.mit;
+       platforms = [ "javascript-ghcjs" ];
        maintainers = [ lib.maintainers.alexfmpe ];
      }) {};
 
@@ -121422,7 +121415,6 @@ self: {
        ];
        description = "GHCJS DOM Hello World, an example package";
        license = lib.licenses.mit;
-       badPlatforms = lib.platforms.darwin;
        maintainers = [ lib.maintainers.alexfmpe ];
      }) {};
 
@@ -121434,9 +121426,8 @@ self: {
        sha256 = "0im7wn7bn43rhkblh0wn9angadbdvywsalfz0adr9pkwv6hvc8qs";
        description = "DOM library using JSFFI and GHCJS";
        license = lib.licenses.mit;
-       hydraPlatforms = lib.platforms.none;
+       platforms = [ "javascript-ghcjs" ];
        maintainers = [ lib.maintainers.alexfmpe ];
-       broken = true;
      }) {};
 
   "ghcjs-dom-jsaddle" = callPackage
@@ -121449,6 +121440,7 @@ self: {
        doHaddock = false;
        description = "DOM library that supports both GHCJS and GHC using jsaddle";
        license = lib.licenses.mit;
+       maintainers = [ lib.maintainers.alexfmpe ];
      }) {};
 
   "ghcjs-dom-jsffi" = callPackage
@@ -121573,6 +121565,8 @@ self: {
        ];
        description = "Deprecated: use ghcjs-base's native websockets";
        license = lib.licenses.mit;
+       hydraPlatforms = lib.platforms.none;
+       broken = true;
      }) {};
 
   "ghcjs-xhr" = callPackage
@@ -151711,9 +151705,7 @@ self: {
        testToolDepends = [ hspec-discover ];
        description = "A terminal UI as drop-in replacement for hledger add";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
        mainProgram = "hledger-iadd";
-       broken = true;
      }) {};
 
   "hledger-iadd_1_3_21" = callPackage
@@ -151749,7 +151741,6 @@ self: {
        license = lib.licenses.bsd3;
        hydraPlatforms = lib.platforms.none;
        mainProgram = "hledger-iadd";
-       broken = true;
      }) {};
 
   "hledger-interest" = callPackage
@@ -163899,8 +163890,6 @@ self: {
        ];
        description = "A high-performance HTML tokenizer";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
-       broken = true;
      }) {};
 
   "html-parse-util" = callPackage
@@ -178690,7 +178679,6 @@ self: {
        ];
        description = "JSaddle Hello World, an example package";
        license = lib.licenses.mit;
-       badPlatforms = lib.platforms.darwin;
        maintainers = [ lib.maintainers.alexfmpe ];
      }) {};
 
@@ -179537,7 +179525,6 @@ self: {
        ];
        description = "Generics JSON (de)serialization using generics-sop";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
        maintainers = [ lib.maintainers.alexfmpe ];
      }) {};
 
@@ -189161,9 +189148,7 @@ self: {
        ];
        description = "Computing lenses generically using generics-sop";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
        maintainers = [ lib.maintainers.alexfmpe ];
-       broken = true;
      }) {};
 
   "lens-tell" = callPackage
@@ -189498,8 +189483,6 @@ self: {
        ];
        description = "Haskell bindings to LevelDB";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
-       broken = true;
      }) {inherit (pkgs) leveldb;};
 
   "leveldb-haskell-fork" = callPackage
@@ -249277,9 +249260,7 @@ self: {
        testHaskellDepends = [ aeson base hspec ];
        description = "Send push notifications to mobile iOS devices";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
        mainProgram = "sendapn";
-       broken = true;
      }) {};
 
   "push-notify-ccs" = callPackage
@@ -267562,9 +267543,7 @@ self: {
        description = "Generates unique passwords for various websites from a single password";
        license = lib.licenses.bsd3;
        platforms = lib.platforms.x86;
-       hydraPlatforms = lib.platforms.none;
        mainProgram = "scat";
-       broken = true;
      }) {};
 
   "scc" = callPackage
@@ -269939,8 +269918,6 @@ self: {
        ];
        description = "Multi-backend, high-level EDSL for interacting with SQL databases";
        license = lib.licenses.mit;
-       hydraPlatforms = lib.platforms.none;
-       broken = true;
      }) {};
 
   "selda-json" = callPackage
@@ -269952,7 +269929,6 @@ self: {
        libraryHaskellDepends = [ aeson base bytestring selda text ];
        description = "JSON support for the Selda database library";
        license = lib.licenses.mit;
-       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "selda-postgresql" = callPackage
@@ -269987,7 +269963,6 @@ self: {
        ];
        description = "SQLite backend for the Selda database EDSL";
        license = lib.licenses.mit;
-       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "select" = callPackage
@@ -274945,8 +274920,6 @@ self: {
        libraryHaskellDepends = [ base containers mtl syb ];
        description = "Functions that could be added to Data.Set.";
        license = lib.licenses.bsd3;
-       hydraPlatforms = lib.platforms.none;
-       broken = true;
      }) {};
 
   "set-monad" = callPackage
@@ -336488,7 +336461,6 @@ self: {
        ];
        description = "Add CSP headers to Yesod apps";
        license = lib.licenses.mit;
-       hydraPlatforms = lib.platforms.none;
      }) {};
 
   "yesod-datatables" = callPackage

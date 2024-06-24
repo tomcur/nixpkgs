@@ -21834,7 +21834,6 @@ self: {
        ];
        description = "It provides the functionality like unix \"uniq\" utility";
        license = lib.licenses.bsd3;
-       maintainers = [ lib.maintainers.kiwi ];
      }) {};
 
   "Unixutils" = callPackage
@@ -73682,7 +73681,6 @@ self: {
        testHaskellDepends = [ base config-value text ];
        description = "Schema definitions for the config-value package";
        license = lib.licenses.isc;
-       maintainers = [ lib.maintainers.kiwi ];
      }) {};
 
   "config-select" = callPackage
@@ -73716,7 +73714,6 @@ self: {
        testHaskellDepends = [ base text ];
        description = "Simple, layout-based value language similar to YAML or JSON";
        license = lib.licenses.mit;
-       maintainers = [ lib.maintainers.kiwi ];
      }) {};
 
   "config-value-getopt" = callPackage
@@ -125275,7 +125272,6 @@ self: {
        license = lib.licenses.isc;
        hydraPlatforms = lib.platforms.none;
        mainProgram = "glirc";
-       maintainers = [ lib.maintainers.kiwi ];
      }) {};
 
   "gll" = callPackage
@@ -175544,7 +175540,6 @@ self: {
        description = "IRC core library for glirc";
        license = lib.licenses.isc;
        hydraPlatforms = lib.platforms.none;
-       maintainers = [ lib.maintainers.kiwi ];
        broken = true;
      }) {};
 
@@ -201019,7 +201014,6 @@ self: {
        description = "Terminal client for the Mattermost chat system";
        license = lib.licenses.bsd3;
        mainProgram = "matterhorn";
-       maintainers = [ lib.maintainers.kiwi ];
      }) {};
 
   "mattermost-api" = callPackage
@@ -201048,7 +201042,6 @@ self: {
        ];
        description = "Client API for Mattermost chat system";
        license = lib.licenses.bsd3;
-       maintainers = [ lib.maintainers.kiwi ];
      }) {};
 
   "mattermost-api-qc" = callPackage
@@ -201064,7 +201057,6 @@ self: {
        ];
        description = "QuickCheck instances for the Mattermost client API library";
        license = lib.licenses.isc;
-       maintainers = [ lib.maintainers.kiwi ];
      }) {};
 
   "maude" = callPackage

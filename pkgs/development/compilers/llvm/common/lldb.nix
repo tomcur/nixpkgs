@@ -5,8 +5,7 @@
 , cmake
 , zlib
 , ncurses
-, swig3
-, swig4
+, swig
 , which
 , libedit
 , libxml2
@@ -24,6 +23,7 @@
 , monorepoSrc ? null
 , patches ? [ ]
 , enableManpages ? false
+, devExtraCmakeFlags ? [ ]
 , ...
 }:
 
@@ -42,7 +42,6 @@ let
     name = if lib.versionAtLeast release_version "18" then "lldb-dap" else "lldb-vscode";
     version = if lib.versionAtLeast release_version "18" then "0.2.0" else "0.1.0";
   };
-  swig = if lib.versionAtLeast release_version "18" then swig4 else swig3;
 in
 
 stdenv.mkDerivation (rec {
@@ -144,7 +143,7 @@ stdenv.mkDerivation (rec {
   ]) ++ lib.optionals doCheck [
     "-DLLDB_TEST_C_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}cc"
     "-DLLDB_TEST_CXX_COMPILER=${stdenv.cc}/bin/${stdenv.cc.targetPrefix}c++"
-  ];
+  ] ++ devExtraCmakeFlags;
 
   doCheck = false;
   doInstallCheck = lib.versionOlder release_version "15";
@@ -186,10 +185,7 @@ stdenv.mkDerivation (rec {
       larger LLVM Project, such as the Clang expression parser and LLVM
       disassembler.
     '';
-    # llvm <10 never built on aarch64-darwin since first introduction in nixpkgs
-    broken =
-      (lib.versionOlder release_version "11" && stdenv.isDarwin && stdenv.isAarch64)
-        || (((lib.versions.major release_version) == "13") && stdenv.isDarwin);
+    broken = lib.versionOlder release_version "14";
     mainProgram = "lldb";
   };
 } // lib.optionalAttrs enableManpages {

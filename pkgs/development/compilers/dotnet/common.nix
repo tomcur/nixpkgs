@@ -17,6 +17,7 @@
 , lndir
 , substituteAll
 , nugetPackageHook
+, xmlstarlet
 }: type: args: stdenv.mkDerivation (finalAttrs: args // {
   doInstallCheck = true;
 
@@ -30,12 +31,12 @@
     ./dotnet-setup-hook.sh
   ] ++ lib.optional (type == "sdk") (substituteAll {
     src = ./dotnet-sdk-setup-hook.sh;
-    inherit lndir;
+    inherit lndir xmlstarlet;
   });
 
   propagatedBuildInputs =
-    (args.propagatedBuildInputs or [])
-    ++ [ nugetPackageHook ];
+    (args.propagatedBuildInputs or [ ])
+    ++ lib.optional (type == "sdk") nugetPackageHook;
 
   nativeBuildInputs = (args.nativeBuildInputs or []) ++ [ installShellFiles ];
 

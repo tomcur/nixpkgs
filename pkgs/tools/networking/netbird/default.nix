@@ -31,16 +31,16 @@ let
 in
 buildGoModule rec {
   pname = "netbird";
-  version = "0.28.9";
+  version = "0.29.4";
 
   src = fetchFromGitHub {
     owner = "netbirdio";
     repo = "netbird";
     rev = "v${version}";
-    hash = "sha256-SM288I+N645vzGmLO5hfDeFDqSJOe11+0VZVPneagHw=";
+    hash = "sha256-W71CE83r/RcPdBjzfT+FSh72UcKcTmIuagkrC1eaeNk=";
   };
 
-  vendorHash = "sha256-UlxylKiszgB2XQ4bZI23/YY/RsFCE7OlHT3DBsRhvCk=";
+  vendorHash = "sha256-CD34U+Z8bUKN0Z4nxIVC+mYDp71Q8q1bmUypRDGgb3U=";
 
   nativeBuildInputs = [ installShellFiles ] ++ lib.optional ui pkg-config;
 
@@ -110,7 +110,7 @@ buildGoModule rec {
     changelog = "https://github.com/netbirdio/netbird/releases/tag/v${version}";
     description = "Connect your devices into a single secure private WireGuard®-based mesh network with SSO/MFA and simple access controls";
     license = licenses.bsd3;
-    maintainers = with maintainers; [ misuzu vrifox ];
+    maintainers = with maintainers; [ vrifox saturn745 ];
     mainProgram = "netbird";
   };
 }

@@ -36,6 +36,7 @@
 , languagetool
 , llvmPackages
 , meson
+, neovim-unwrapped
 , nim1
 , nodePackages
 , openscad
@@ -129,10 +130,12 @@
 , # hurl dependencies
   hurl
 , # must be lua51Packages
-  luaPackages
-, luajitPackages
+  luajitPackages
 ,
 }: self: super:
+let
+  luaPackages = neovim-unwrapped.lua.pkgs;
+in
 {
   alpha-nvim = super.alpha-nvim.overrideAttrs {
     dependencies = [
@@ -152,6 +155,14 @@
 
   autosave-nvim = super.autosave-nvim.overrideAttrs {
     dependencies = with super; [ plenary-nvim ];
+  };
+
+  avante-nvim = (callPackage ./avante-nvim { }).overrideAttrs {
+    dependencies = with self; [
+      dressing-nvim
+      nui-nvim
+      plenary-nvim
+    ];
   };
 
   barbecue-nvim = super.barbecue-nvim.overrideAttrs {
@@ -444,12 +455,12 @@
 
   codesnap-nvim =
     let
-      version = "1.6.0";
+      version = "1.6.1";
       src = fetchFromGitHub {
         owner = "mistricky";
         repo = "codesnap.nvim";
         rev = "refs/tags/v${version}";
-        hash = "sha256-3z0poNmS6LOS7/qGTBhvz1Q9WpYC7Wu4rNvHsUXB5ZY=";
+        hash = "sha256-OmSgrTYDtNb2plMyzjVvxGrfXB/lGKDpUQhpRqKfAMA=";
       };
       codesnap-lib = rustPlatform.buildRustPackage {
         pname = "codesnap-lib";
@@ -457,7 +468,7 @@
 
         sourceRoot = "${src.name}/generator";
 
-        cargoHash = "sha256-u0NvChN50LIxUhmsT4mvWs5xB/TwJkMabggFePA/b1E=";
+        cargoHash = "sha256-6n37n8oHIHrz3S1+40nuD0Ud3l0iNgXig1ZwrgsnYTI=";
 
         nativeBuildInputs = [
           pkg-config
@@ -876,6 +887,10 @@
     dependencies = with self; [ plenary-nvim ];
   };
 
+  git-worktree-nvim = super.git-worktree-nvim.overrideAttrs {
+    dependencies = with super; [ plenary-nvim ];
+  };
+
   guard-nvim = super.guard-nvim.overrideAttrs {
     dependencies = with self; [ guard-collection ];
   };
@@ -903,7 +918,7 @@
     dependencies = with self; [ nvim-treesitter ];
   };
 
-  haskell-tools-nvim = neovimUtils.buildNeovimPlugin { luaAttr = "haskell-tools-nvim"; };
+  haskell-tools-nvim = neovimUtils.buildNeovimPlugin { luaAttr = luaPackages.haskell-tools-nvim; };
 
   hex-nvim = super.hex-nvim.overrideAttrs {
     postPatch = ''
@@ -1046,7 +1061,7 @@
   };
 
   lsp-progress-nvim = neovimUtils.buildNeovimPlugin {
-    luaAttr = "lsp-progress-nvim";
+    luaAttr = luaPackages.lsp-progress-nvim;
     nvimRequireCheck = "lsp-progress";
   };
 
@@ -1054,9 +1069,11 @@
     dependencies = with self; [ luaPackages.jsregexp ];
   };
 
-  lz-n = neovimUtils.buildNeovimPlugin { luaAttr = "lz-n"; };
+  lz-n = neovimUtils.buildNeovimPlugin { luaAttr = luaPackages.lz-n; };
 
-  lzn-auto-require = neovimUtils.buildNeovimPlugin { luaAttr = "lzn-auto-require"; };
+  lze = neovimUtils.buildNeovimPlugin { luaAttr = luaPackages.lze; };
+
+  lzn-auto-require = neovimUtils.buildNeovimPlugin { luaAttr = luaPackages.lzn-auto-require; };
 
   magma-nvim-goose = buildVimPlugin {
     pname = "magma-nvim-goose";
@@ -1132,7 +1149,7 @@
   };
 
   middleclass = neovimUtils.buildNeovimPlugin {
-    luaAttr = "middleclass";
+    luaAttr = luaPackages.middleclass;
     nvimRequireCheck = "middleclass";
   };
 
@@ -1492,17 +1509,17 @@
     ];
   };
 
-  rocks-nvim = neovimUtils.buildNeovimPlugin { luaAttr = "rocks-nvim"; };
+  rocks-nvim = neovimUtils.buildNeovimPlugin { luaAttr = luaPackages.rocks-nvim; };
 
-  rocks-config-nvim = neovimUtils.buildNeovimPlugin { luaAttr = "rocks-config-nvim"; };
+  rocks-config-nvim = neovimUtils.buildNeovimPlugin { luaAttr = luaPackages.rocks-config-nvim; };
 
   roslyn-nvim = super.roslyn-nvim.overrideAttrs {
     dependencies = with self; [ nvim-lspconfig ];
   };
 
-  rtp-nvim = neovimUtils.buildNeovimPlugin { luaAttr = "rtp-nvim"; };
+  rtp-nvim = neovimUtils.buildNeovimPlugin { luaAttr = luaPackages.rtp-nvim; };
 
-  rustaceanvim = neovimUtils.buildNeovimPlugin { luaAttr = "rustaceanvim"; };
+  rustaceanvim = neovimUtils.buildNeovimPlugin { luaAttr = luaPackages.rustaceanvim; };
 
   sg-nvim = super.sg-nvim.overrideAttrs (old:
     let
@@ -1510,7 +1527,7 @@
         pname = "sg-nvim-rust";
         inherit (old) version src;
 
-        cargoHash = "sha256-dqa5Rd3NeOSqv18F1QdkrWEypJ0bvVwIDwrMOyBVsDM=";
+        cargoHash = "sha256-7Bo0DSRqxA7kgNuyuWw24r3PsP92y9h98SHFtIhG+Gs=";
 
         nativeBuildInputs = [ pkg-config ];
 
@@ -1539,10 +1556,6 @@
         mkdir -p $out/target/debug
         ln -s ${sg-nvim-rust}/{bin,lib}/* $out/target/debug
       '';
-
-      # Build fails with rust > 1.80
-      # https://github.com/sourcegraph/sg.nvim/issues/259
-      meta.broken = true;
     });
 
   skim = buildVimPlugin {
@@ -1561,12 +1574,12 @@
 
   sniprun =
     let
-      version = "1.3.15";
+      version = "1.3.16";
       src = fetchFromGitHub {
         owner = "michaelb";
         repo = "sniprun";
         rev = "refs/tags/v${version}";
-        hash = "sha256-8N+KUawQ6RI6sG8m9wpvJTMQyJ5j/43PRkrTPrWAREQ=";
+        hash = "sha256-2rVeBUkdLXUiHkd8slyiLTYQBKwgMQvIi/uyCToVBYA=";
       };
       sniprun-bin = rustPlatform.buildRustPackage {
         pname = "sniprun-bin";
@@ -1576,7 +1589,7 @@
           darwin.apple_sdk.frameworks.Security
         ];
 
-        cargoHash = "sha256-bLki+6uMKJtk/bu+LNf2E1m/HpEG8zmnM3JI89IjmNs=";
+        cargoHash = "sha256-eZcWS+DWec0V9G6hBnZRUNcb3uZeSiBhn4Ed9KodFV8=";
 
         nativeBuildInputs = [ makeWrapper ];
 
@@ -1601,7 +1614,7 @@
 
       meta = {
         homepage = "https://github.com/michaelb/sniprun/";
-        changelog = "https://github.com/michaelb/sniprun/releases/tag/v${version}";
+        changelog = "https://github.com/michaelb/sniprun/blob/v${version}/CHANGELOG.md";
         maintainers = with lib.maintainers; [ GaetanLepage ];
       };
     };
@@ -1699,6 +1712,11 @@
       };
     };
 
+  syntax-tree-surfer = super.syntax-tree-surfer.overrideAttrs {
+    dependencies = with self; [ nvim-treesitter ];
+    meta.maintainers = with lib.maintainers; [ callumio ];
+  };
+
   taskwarrior3 = buildVimPlugin {
     inherit (taskwarrior3) version pname;
     src = "${taskwarrior3.src}/scripts/vim";
@@ -1785,6 +1803,10 @@
   todo-comments-nvim = super.todo-comments-nvim.overrideAttrs {
     dependencies = [ self.plenary-nvim ];
     nvimRequireCheck = "todo-comments";
+  };
+
+  tssorter-nvim = super.tssorter-nvim.overrideAttrs {
+    dependencies = with self; [ nvim-treesitter ];
   };
 
   tup =

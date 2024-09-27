@@ -47,13 +47,13 @@ let
 in
 stdenv'.mkDerivation (finalAttrs: {
   pname = "fastfetch";
-  version = "2.23.0";
+  version = "2.25.0";
 
   src = fetchFromGitHub {
     owner = "fastfetch-cli";
     repo = "fastfetch";
     rev = finalAttrs.version;
-    hash = "sha256-ry7FWja/FGSTQU1IhfXUA778yO0T3O1cvYsS4pcqURY=";
+    hash = "sha256-I8In6JK9XWM29QdAj3wU2WHn/RsrDJo7s5S7R79HV8g=";
   };
 
   outputs = [
@@ -167,7 +167,7 @@ stdenv'.mkDerivation (finalAttrs: {
   };
 
   meta = {
-    description = "Like neofetch, but much faster because written in C";
+    description = "An actively maintained, feature-rich and performance oriented, neofetch like system information tool";
     homepage = "https://github.com/fastfetch-cli/fastfetch";
     changelog = "https://github.com/fastfetch-cli/fastfetch/releases/tag/${finalAttrs.version}";
     license = lib.licenses.mit;

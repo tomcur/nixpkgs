@@ -313,8 +313,8 @@ let
         mktplcRef = {
           name = "vscode-apollo";
           publisher = "apollographql";
-          version = "1.19.11";
-          hash = "sha256-EixefDuJiw/p5yAR/UQLK1a1RXJLXlTmOlD34qpAN+U=";
+          version = "2.3.2";
+          hash = "sha256-5PAmyy4RX2hLgviWxgnxGZjgeFWZaJKNiYGNdCTL0IE=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/apollographql.vscode-apollo/changelog";
@@ -406,8 +406,8 @@ let
         mktplcRef = {
           name = "vscode-neovim";
           publisher = "asvetliakov";
-          version = "1.18.10";
-          hash = "sha256-0Bb1DFuVjpAaMGK6o8+yIprVZgEf64itSh87H3jL7R8=";
+          version = "1.18.11";
+          hash = "sha256-j1igEItS4TT1WxSxK3tFG29McTTo8ojEs6TJShGZiGI=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/asvetliakov.vscode-neovim/changelog";
@@ -1234,8 +1234,8 @@ let
         mktplcRef = {
           name = "vscode-markdownlint";
           publisher = "DavidAnson";
-          version = "0.55.0";
-          hash = "sha256-slfHfRPcuRu+649n6kAr2bv9H6J+DvYVN/ysq1QpPQM=";
+          version = "0.56.0";
+          hash = "sha256-ITSpPe032XcGIlfRQtJSR0iNTizs85qwfRaTtKwNn50=";
         };
         meta = {
           changelog = "https://marketplace.visualstudio.com/items/DavidAnson.vscode-markdownlint/changelog";
@@ -4073,8 +4073,8 @@ let
         mktplcRef = {
           name = "wikitext";
           publisher = "RoweWilsonFrederiskHolme";
-          version = "3.8.1";
-          hash = "sha256-piwS3SPjx10nsjN5axC+EN0MEDf0r2lVFllqQzciOfc=";
+          version = "3.8.2";
+          hash = "sha256-rWifSoJSN37xPIaCQgPyXRz9tCX2Akahl/3CuqzXq94=";
         };
         meta = {
           description = "Extension that helps users view and write MediaWiki's Wikitext files";
@@ -4867,8 +4867,8 @@ let
         mktplcRef = {
           name = "uiua-vscode";
           publisher = "uiua-lang";
-          version = "0.0.53";
-          hash = "sha256-5CHAX1jGyJ2VVEBTh5G1JM8+L9paryBa2zJoTkZ+G7Q=";
+          version = "0.0.54";
+          hash = "sha256-oY8z3q4LOLhiTttm9Rtcy/CnhaSHkjyCBjwqYnuNBQA=";
         };
         meta = {
           description = "VSCode language extension for Uiua";

@@ -9,7 +9,6 @@
 , qtpositioning ? null # qt6 only
 , qtserialport
 , qtsvg
-, qt5compat ? null # qt6 only
 , wrapQtAppsHook
 }:
 
@@ -18,13 +17,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "gpxsee";
-  version = "13.23";
+  version = "13.26";
 
   src = fetchFromGitHub {
     owner = "tumic0";
     repo = "GPXSee";
     rev = finalAttrs.version;
-    hash = "sha256-GC1Csxhr2uh9oLgC+mFxJZiwCO7TMI2ljv6GMdEiuZQ=";
+    hash = "sha256-EIeUcSHJXpd1/90fAPrP9F/DVyZhkcZk8MJd9VO1D70=";
   };
 
   buildInputs = [
@@ -33,7 +32,6 @@ stdenv.mkDerivation (finalAttrs: {
     qtbase
     qtpositioning
     qtsvg
-    qt5compat
   ] else [
     qtlocation
   ]);

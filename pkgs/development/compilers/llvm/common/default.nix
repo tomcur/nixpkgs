@@ -88,12 +88,7 @@ let
                 }
                 {
                   after = "19";
-                  before = "20";
                   path = ../19;
-                }
-                {
-                  after = "20";
-                  path = ../git;
                 }
               ];
               "clang/purity.patch" = [
@@ -1058,7 +1053,7 @@ let
               lib.optional
                 (
                   lib.versions.major metadata.release_version == "17"
-                  && stdenv.isDarwin
+                  && stdenv.hostPlatform.isDarwin
                   && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13"
                 )
                 # https://github.com/llvm/llvm-project/issues/64226
@@ -1073,7 +1068,7 @@ let
               lib.optional
                 (
                   lib.versionAtLeast metadata.release_version "18"
-                  && stdenv.isDarwin
+                  && stdenv.hostPlatform.isDarwin
                   && lib.versionOlder stdenv.hostPlatform.darwinMinVersion "10.13"
                 )
                 # https://github.com/llvm/llvm-project/issues/64226

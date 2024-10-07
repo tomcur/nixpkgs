@@ -259,6 +259,7 @@
   ./programs/oblogout.nix
   ./programs/oddjobd.nix
   ./programs/openvpn3.nix
+  ./programs/obs-studio.nix
   ./programs/partition-manager.nix
   ./programs/plotinus.nix
   ./programs/pqos-wrapper.nix
@@ -882,6 +883,7 @@
   ./services/monitoring/datadog-agent.nix
   ./services/monitoring/do-agent.nix
   ./services/monitoring/fusion-inventory.nix
+  ./services/monitoring/gatus.nix
   ./services/monitoring/goss.nix
   ./services/monitoring/grafana-agent.nix
   ./services/monitoring/grafana-image-renderer.nix
@@ -1029,6 +1031,7 @@
   ./services/networking/expressvpn.nix
   ./services/networking/fakeroute.nix
   ./services/networking/fastnetmon-advanced.nix
+  ./services/networking/fedimintd.nix
   ./services/networking/ferm.nix
   ./services/networking/firefox-syncserver.nix
   ./services/networking/fireqos.nix
@@ -1192,6 +1195,7 @@
   ./services/networking/scion/scion-daemon.nix
   ./services/networking/scion/scion-dispatcher.nix
   ./services/networking/scion/scion-router.nix
+  ./services/networking/scion/scion-ip-gateway.nix
   ./services/networking/seafile.nix
   ./services/networking/searx.nix
   ./services/networking/shadowsocks.nix
@@ -1250,6 +1254,7 @@
   ./services/networking/uptermd.nix
   ./services/networking/v2ray.nix
   ./services/networking/v2raya.nix
+  ./services/networking/veilid.nix
   ./services/networking/vdirsyncer.nix
   ./services/networking/vsftpd.nix
   ./services/networking/wasabibackend.nix
@@ -1382,6 +1387,7 @@
   ./services/web-apps/atlassian/crowd.nix
   ./services/web-apps/atlassian/jira.nix
   ./services/web-apps/audiobookshelf.nix
+  ./services/web-apps/bluemap.nix
   ./services/web-apps/bookstack.nix
   ./services/web-apps/c2fmzq-server.nix
   ./services/web-apps/calibre-web.nix
@@ -1391,6 +1397,7 @@
   ./services/web-apps/chatgpt-retrieval-plugin.nix
   ./services/web-apps/cloudlog.nix
   ./services/web-apps/code-server.nix
+  ./services/web-apps/collabora-online.nix
   ./services/web-apps/commafeed.nix
   ./services/web-apps/convos.nix
   ./services/web-apps/crabfit.nix
@@ -1422,6 +1429,7 @@
   ./services/web-apps/goatcounter.nix
   ./services/web-apps/guacamole-client.nix
   ./services/web-apps/guacamole-server.nix
+  ./services/web-apps/hatsu.nix
   ./services/web-apps/healthchecks.nix
   ./services/web-apps/hedgedoc.nix
   ./services/web-apps/hledger-web.nix
@@ -1430,6 +1438,7 @@
   ./services/web-apps/icingaweb2/icingaweb2.nix
   ./services/web-apps/icingaweb2/module-monitoring.nix
   ./services/web-apps/ifm.nix
+  ./services/web-apps/immich.nix
   ./services/web-apps/invidious.nix
   ./services/web-apps/invoiceplane.nix
   ./services/web-apps/isso.nix
@@ -1511,7 +1520,6 @@
   ./services/web-apps/zitadel.nix
   ./services/web-servers/agate.nix
   ./services/web-servers/apache-httpd/default.nix
-  ./services/web-servers/bluemap.nix
   ./services/web-servers/caddy/default.nix
   ./services/web-servers/darkhttpd.nix
   ./services/web-servers/fcgiwrap.nix
@@ -1639,6 +1647,7 @@
   ./system/boot/systemd/sysupdate.nix
   ./system/boot/systemd/sysusers.nix
   ./system/boot/systemd/tmpfiles.nix
+  ./system/boot/systemd/tpm2.nix
   ./system/boot/systemd/user.nix
   ./system/boot/systemd/userdbd.nix
   ./system/boot/systemd/homed.nix

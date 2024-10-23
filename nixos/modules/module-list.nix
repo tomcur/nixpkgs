@@ -593,6 +593,7 @@
   ./services/hardware/irqbalance.nix
   ./services/hardware/joycond.nix
   ./services/hardware/kanata.nix
+  ./services/hardware/kmonad.nix
   ./services/hardware/lcd.nix
   ./services/hardware/libinput.nix
   ./services/hardware/lirc.nix
@@ -660,6 +661,7 @@
   ./services/logging/ulogd.nix
   ./services/mail/automx2.nix
   ./services/mail/clamsmtp.nix
+  ./services/mail/cyrus-imap.nix
   ./services/mail/davmail.nix
   ./services/mail/dkimproxy-out.nix
   ./services/mail/dovecot.nix
@@ -965,6 +967,7 @@
   ./services/network-filesystems/rsyncd.nix
   ./services/network-filesystems/samba-wsdd.nix
   ./services/network-filesystems/samba.nix
+  ./services/network-filesystems/saunafs.nix
   ./services/network-filesystems/tahoe.nix
   ./services/network-filesystems/u9fs.nix
   ./services/network-filesystems/webdav-server-rs.nix
@@ -979,6 +982,7 @@
   ./services/networking/aria2.nix
   ./services/networking/asterisk.nix
   ./services/networking/atftpd.nix
+  ./services/networking/atticd.nix
   ./services/networking/autossh.nix
   ./services/networking/avahi-daemon.nix
   ./services/networking/babeld.nix
@@ -1202,7 +1206,6 @@
   ./services/networking/shellhub-agent.nix
   ./services/networking/shorewall.nix
   ./services/networking/shorewall6.nix
-  ./services/networking/shout.nix
   ./services/networking/sing-box.nix
   ./services/networking/sitespeed-io.nix
   ./services/networking/skydns.nix
@@ -1275,6 +1278,7 @@
   ./services/networking/xray.nix
   ./services/networking/xrdp.nix
   ./services/networking/yggdrasil.nix
+  ./services/networking/zapret.nix
   ./services/networking/zerobin.nix
   ./services/networking/zeronet.nix
   ./services/networking/zerotierone.nix
@@ -1356,6 +1360,7 @@
   ./services/system/uptimed.nix
   ./services/system/userborn.nix
   ./services/system/zram-generator.nix
+  ./services/torrent/bitmagnet.nix
   ./services/torrent/deluge.nix
   ./services/torrent/flexget.nix
   ./services/torrent/flood.nix
@@ -1376,6 +1381,7 @@
   ./services/video/photonvision.nix
   ./services/video/mediamtx.nix
   ./services/video/v4l2-relayd.nix
+  ./services/video/wivrn.nix
   ./services/wayland/cage.nix
   ./services/wayland/hypridle.nix
   ./services/web-apps/akkoma.nix

@@ -199,6 +199,8 @@ in
     meta.homepage = "https://github.com/sblumentritt/bitbake.vim/";
   };
 
+  blink-cmp = callPackage ./blink-cmp { };
+
   # The GitHub repository returns 404, which breaks the update script
   vim-pony = buildVimPlugin {
     pname = "vim-pony";
@@ -2091,6 +2093,14 @@ in
     src = "${taskwarrior2.src}/scripts/vim";
   };
 
+  telekasten-nvim = super.telekasten-nvim.overrideAttrs {
+    dependencies = with self; [
+      plenary-nvim
+      telescope-nvim
+    ];
+    nvimRequireCheck = "telekasten";
+  };
+
   telescope-cheat-nvim = super.telescope-cheat-nvim.overrideAttrs {
     dependencies = with self; [
       sqlite-lua
@@ -2651,6 +2661,17 @@ in
     nvimRequireCheck = "yazi";
   };
 
+  leetcode-nvim = super.leetcode-nvim.overrideAttrs {
+    dependencies = with self; [
+      nui-nvim
+      plenary-nvim
+      telescope-nvim
+    ];
+
+    doInstallCheck = true;
+    nvimRequireCheck = "leetcode";
+  };
+
   YouCompleteMe = super.YouCompleteMe.overrideAttrs {
     buildPhase = ''
       substituteInPlace plugin/youcompleteme.vim \
@@ -2715,10 +2736,8 @@ in
       "coc-lists"
       "coc-ltex"
       "coc-markdownlint"
-      "coc-metals"
       "coc-pairs"
       "coc-prettier"
-      "coc-python"
       "coc-r-lsp"
       "coc-rls"
       "coc-rust-analyzer"

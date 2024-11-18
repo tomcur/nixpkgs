@@ -98,7 +98,7 @@
   ./hardware/sensor/iio.nix
   ./hardware/steam-hardware.nix
   ./hardware/system-76.nix
-  ./hardware/tuxedo-keyboard.nix
+  ./hardware/tuxedo-drivers.nix
   ./hardware/ubertooth.nix
   ./hardware/uinput.nix
   ./hardware/uni-sync.nix
@@ -362,6 +362,7 @@
   ./security/polkit.nix
   ./security/rngd.nix
   ./security/rtkit.nix
+  ./security/soteria.nix
   ./security/sudo.nix
   ./security/sudo-rs.nix
   ./security/systemd-confinement.nix
@@ -588,6 +589,7 @@
   ./services/hardware/fancontrol.nix
   ./services/hardware/freefall.nix
   ./services/hardware/fwupd.nix
+  ./services/hardware/g810-led.nix
   ./services/hardware/handheld-daemon.nix
   ./services/hardware/hddfancontrol.nix
   ./services/hardware/illum.nix
@@ -752,6 +754,7 @@
   ./services/misc/etebase-server.nix
   ./services/misc/etesync-dav.nix
   ./services/misc/evdevremapkeys.nix
+  ./services/misc/evremap.nix
   ./services/misc/felix.nix
   ./services/misc/flaresolverr.nix
   ./services/misc/forgejo.nix
@@ -887,6 +890,7 @@
   ./services/monitoring/do-agent.nix
   ./services/monitoring/fusion-inventory.nix
   ./services/monitoring/gatus.nix
+  ./services/monitoring/glances.nix
   ./services/monitoring/goss.nix
   ./services/monitoring/grafana-agent.nix
   ./services/monitoring/grafana-image-renderer.nix
@@ -1357,6 +1361,7 @@
   ./services/system/nscd.nix
   ./services/system/saslauthd.nix
   ./services/system/self-deploy.nix
+  ./services/system/swapspace.nix
   ./services/system/systembus-notify.nix
   ./services/system/systemd-lock-handler.nix
   ./services/system/uptimed.nix
@@ -1407,6 +1412,7 @@
   ./services/web-apps/crabfit.nix
   ./services/web-apps/davis.nix
   ./services/web-apps/cryptpad.nix
+  ./services/web-apps/dashy.nix
   ./services/web-apps/dependency-track.nix
   ./services/web-apps/dex.nix
   ./services/web-apps/discourse.nix
@@ -1479,6 +1485,7 @@
   ./services/web-apps/ocis.nix
   ./services/web-apps/onlyoffice.nix
   ./services/web-apps/openvscode-server.nix
+  ./services/web-apps/mediagoblin.nix
   ./services/web-apps/mobilizon.nix
   ./services/web-apps/openwebrx.nix
   ./services/web-apps/outline.nix

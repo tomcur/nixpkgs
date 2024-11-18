@@ -215,7 +215,7 @@ mapAliases {
   clwrapperFunction = throw "Lisp packages have been redesigned. See 'lisp-modules' in the nixpkgs manual."; # Added 2024-05-07
   CoinMP = coinmp; # Added 2024-06-12
   collada-dom = opencollada; # added 2024-02-21
-  colorpicker = throw "'colorpicker' has been removed due to lack of maintenance upstream. Consider using 'gcolor3' or 'eyedropper' instead"; # Added 2024-10-19
+  colorpicker = throw "'colorpicker' has been removed due to lack of maintenance upstream. Consider using 'xcolor', 'gcolor3', 'eyedropper' or 'gpick' instead"; # Added 2024-10-19
   coriander = throw "'coriander' has been removed because it depends on GNOME 2 libraries"; # Added 2024-06-27
   corretto19 = throw "Corretto 19 was removed as it has reached its end of life"; # Added 2024-08-01
   cosmic-tasks = tasks; # Added 2024-07-04
@@ -720,6 +720,8 @@ mapAliases {
   linuxPackages_testing_bcachefs = throw "'linuxPackages_testing_bcachefs' has been removed, please use 'linuxPackages_latest', any kernel version at least 6.7, or any other linux kernel with bcachefs support";
   linux_testing_bcachefs = throw "'linux_testing_bcachefs' has been removed, please use 'linux_latest', any kernel version at least 6.7, or any other linux kernel with bcachefs support";
 
+  linuxstopmotion = stopmotion; # Added 2024-11-01
+
   llvmPackages_git = (callPackages ../development/compilers/llvm { }).git;
 
   lld_9 = throw "lld_9 has been removed from nixpkgs"; # Added 2024-04-08
@@ -822,7 +824,6 @@ mapAliases {
   neochat = libsForQt5.kdeGear.neochat; # added 2022-05-10
   newlibCross = newlib; # Added 2024-09-06
   newlib-nanoCross = newlib-nano; # Added 2024-09-06
-  nitrokey-udev-rules = libnitrokey; # Added 2023-03-25
   nix-direnv-flakes = nix-direnv;
   nix-ld-rs = nix-ld; # Added 2024-08-17
   nix-repl = throw (
@@ -969,6 +970,11 @@ mapAliases {
   texinfo5 = throw "'texinfo5' has been removed from nixpkgs"; # Added 2024-09-10
   timescaledb = postgresqlPackages.timescaledb;
   tsearch_extras = postgresqlPackages.tsearch_extras;
+
+  postgresql_12 = throw "postgresql_12 has been removed since it reached its EOL upstream"; # Added 2024-11-14
+  postgresql_12_jit = throw "postgresql_12 has been removed since it reached its EOL upstream"; # Added 2024-11-14
+  postgresql12Packages = throw "postgresql_12 has been removed since it reached its EOL upstream"; # Added 2024-11-14
+  postgresql12JitPackages = throw "postgresql_12 has been removed since it reached its EOL upstream"; # Added 2024-11-14
 
   # pinentry was using multiple outputs, this emulates the old interface for i.e. home-manager
   # soon: throw "'pinentry' has been removed. Pick an appropriate variant like 'pinentry-curses' or 'pinentry-gnome3'";
@@ -1182,6 +1188,7 @@ mapAliases {
   tclx = tclPackages.tclx; # Added 2024-10-02
   tdesktop = telegram-desktop; # Added 2023-04-07
   tdom = tclPackages.tdom; # Added 2024-10-02
+  teamspeak_client = teamspeak3; # Added 2024-11-07
   teck-programmer = throw "teck-programmer was removed because it was broken and unmaintained"; # added 2024-08-23
   teleport_13 = throw "teleport 13 has been removed as it is EOL. Please upgrade to Teleport 14 or later"; # Added 2024-05-26
   teleport_14 = throw "teleport 14 has been removed as it is EOL. Please upgrade to Teleport 15 or later"; # Added 2024-10-18
@@ -1236,7 +1243,6 @@ mapAliases {
   ubuntu_font_family = ubuntu-classic; # Added 2024-02-19
   uclibc = uclibc-ng; # Added 2022-06-16
   uclibcCross = uclibc-ng; # Added 2022-06-16
-  uefi-firmware-parser = throw "The uefi-firmware-parser package was dropped since it was unmaintained."; # Added 2024-06-21
   unicorn-emu = throw "'unicorn-emu' has been renamed to/replaced by 'unicorn'"; # Converted to throw 2024-10-17
   uniffi-bindgen = throw "uniffi-bindgen has been removed since upstream no longer provides a standalone package for the CLI";
   unifi-poller = unpoller; # Added 2022-11-24
@@ -1301,6 +1307,7 @@ mapAliases {
   wordpress6_3 = throw "'wordpress6_3' has been removed in favor of the latest version"; # Added 2024-08-03
   wordpress6_4 = throw "'wordpress6_4' has been removed in favor of the latest version"; # Added 2024-08-03
   wordpress6_5 = wordpress_6_5; # Added 2024-08-03
+  wordpress_6_5 = throw "'wordpress_6_5' has been removed in favor of the latest version"; # Added 2024-11-11
   wormhole-rs = magic-wormhole-rs; # Added 2022-05-30. preserve, reason: Arch package name, main binary name
   wpa_supplicant_ro_ssids = lib.trivial.warn "Deprecated package: Please use wpa_supplicant instead. Read-only SSID patches are now upstream!" wpa_supplicant;
   wrapLisp_old = throw "Lisp packages have been redesigned. See 'lisp-modules' in the nixpkgs manual."; # Added 2024-05-07
@@ -1337,7 +1344,6 @@ mapAliases {
 
   yacc = throw "'yacc' has been renamed to/replaced by 'bison'"; # Converted to throw 2024-10-17
   yafaray-core = libyafaray; # Added 2022-09-23
-  yi = throw "'yi' has been removed, as it was broken and unmaintained"; # added 2024-05-09
   youtrack_2022_3 = throw "'youtrack_2022_3' has been removed as it was deprecated. Please update to the 'youtrack' package."; # Added 2024-10-17
   yrd = throw "'yrd' has been removed, as it was broken and unmaintained"; # added 2024-05-27
 

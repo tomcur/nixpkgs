@@ -7,7 +7,6 @@
   removeReferencesTo,
   autoAddDriverRunpath,
   apple-sdk_15,
-  darwinMinVersionHook,
   versionCheckHook,
   rocmPackages,
   cudaSupport ? config.cudaSupport,
@@ -16,13 +15,13 @@
 
 stdenv.mkDerivation rec {
   pname = "btop";
-  version = "1.4.0";
+  version = "1.4.1";
 
   src = fetchFromGitHub {
     owner = "aristocratos";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-A5hOBxj8tKlkHd8zDHfDoU6fIu8gDpt3/usbiDk0/G0=";
+    hash = "sha256-bCcgTi9jG2gM9ZCq4Xc7urOIoSsMwwztEDqKwPB65CE=";
   };
 
   nativeBuildInputs =
@@ -35,7 +34,6 @@ stdenv.mkDerivation rec {
 
   buildInputs = lib.optionals stdenv.hostPlatform.isDarwin [
     apple-sdk_15
-    (darwinMinVersionHook "10.15")
   ];
 
   installFlags = [ "PREFIX=$(out)" ];

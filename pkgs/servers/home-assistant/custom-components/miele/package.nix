@@ -9,22 +9,19 @@
 buildHomeAssistantComponent rec {
   owner = "astrandb";
   domain = "miele";
-  version = "2024.11.1";
+  version = "2025.1.1";
 
   src = fetchFromGitHub {
     inherit owner;
     repo = domain;
-    rev = "refs/tags/v${version}";
-    hash = "sha256-fM/ARQ4wJt2/vIVsdWpAur/YWPvBH5fOPYqiaz4DxzU=";
+    tag = "v${version}";
+    hash = "sha256-TShy2q3gKqTgRU3u4Wp7zQjzhEogqUVip8EkH8XIYw8=";
   };
 
   dependencies = [
     flatdict
     pymiele
   ];
-
-  # Makefile only used for bumping the version
-  dontBuild = true;
 
   meta = with lib; {
     changelog = "https://github.com/astrandb/miele/releases/tag/v${version}";

@@ -19,10 +19,11 @@
   testers,
   nushell,
   nix-update-script,
+  curlMinimal,
 }:
 
 let
-  version = "0.101.0";
+  version = "0.104.0";
 in
 
 rustPlatform.buildRustPackage {
@@ -32,11 +33,12 @@ rustPlatform.buildRustPackage {
   src = fetchFromGitHub {
     owner = "nushell";
     repo = "nushell";
-    rev = "refs/tags/${version}";
-    hash = "sha256-Ptctp2ECypmSd0BHa6l09/U7wEjtLsvRSQV/ISz9+3w=";
+    tag = version;
+    hash = "sha256-F4nHCOpbcvmdXDX5KJc9MS3hIIrtMlZR8IjDU7Us/xs=";
   };
 
-  cargoHash = "sha256-KOIVlF8V5bdtGIFbboTQpVSieETegA6iF7Hi6/F+2bE=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-zem4HgxO0DD22Bxvs9KN3Zb5E991svV5qcw7MfDUOq4=";
 
   nativeBuildInputs =
     [ pkg-config ]
@@ -63,8 +65,6 @@ rustPlatform.buildRustPackage {
   buildNoDefaultFeatures = !withDefaultFeatures;
   buildFeatures = additionalFeatures [ ];
 
-  doCheck = !stdenv.hostPlatform.isDarwin; # Skip checks on darwin. Failing tests since 0.96.0
-
   checkPhase = ''
     runHook preCheck
     (
@@ -80,6 +80,10 @@ rustPlatform.buildRustPackage {
     )
     runHook postCheck
   '';
+
+  checkInputs = lib.optionals stdenv.hostPlatform.isDarwin [
+    curlMinimal
+  ];
 
   passthru = {
     shellPath = "/bin/nu";

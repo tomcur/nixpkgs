@@ -20,7 +20,8 @@ rustPlatform.buildRustPackage rec {
     hash = "sha256-oZZrR86/acoyMX3vC1JGrpc8G+DEuplqfEAnaP+TBGU=";
   };
 
-  cargoHash = "sha256-nxq4mX2Sy6Hyi8tA2CQsQwISB/kau4DEkAgIm4SvGns=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-z0YpX1dMWcn2N6fKDbT7lYEQC5PaDNNHi4CW88d/dgI=";
 
   nativeBuildInputs = [
     pkg-config
@@ -37,7 +38,7 @@ rustPlatform.buildRustPackage rec {
     homepage = "https://t-rex.tileserver.ch/";
     changelog = "https://github.com/t-rex-tileserver/t-rex/blob/v${version}/CHANGELOG.md";
     license = licenses.mit;
-    maintainers = teams.geospatial.members;
+    teams = [ teams.geospatial ];
     mainProgram = "t_rex";
     platforms = platforms.unix;
     broken = true; # see https://github.com/t-rex-tileserver/t-rex/issues/320

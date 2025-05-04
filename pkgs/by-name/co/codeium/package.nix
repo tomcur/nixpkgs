@@ -23,10 +23,10 @@ let
 
   hash =
     {
-      x86_64-linux = "sha256-xbMiPmFGte4I6p+Zt4HaLL4MuHoMs++gf5iVPl7+h70=";
-      aarch64-linux = "sha256-2bu8cI0u8Q3mCxZFoM0W/gQ4BipLUIoVe2e0a16ZQco=";
-      x86_64-darwin = "sha256-lGRqxZxIpioTA5I9lsWIQ8S7AN8AXR7NGgSMCNN3cQI=";
-      aarch64-darwin = "sha256-MGqT4Jhq81rvnMhQtg+N0C4ElOfUvLpVBq7EtwKztOE=";
+      x86_64-linux = "sha256-wZl6wlR+K53rGeQ75ZVzmzKpiBnp6/UCTNx/iOHscug=";
+      aarch64-linux = "sha256-2wslvQlvhbaxZ9lwGh4UTBo0yHjSLcOZ8mxMQETY7kY=";
+      x86_64-darwin = "sha256-+34thUKUWV4P29Ak547fT5AKkaw/tgV9AMe+UT6GmD4=";
+      aarch64-darwin = "sha256-GkAh18MlZP4D+fpxZtAgXEPYSb3iiRycN/0sQm2oJnE=";
     }
     .${system} or throwSystem;
 
@@ -35,7 +35,7 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "codeium";
-  version = "1.30.2";
+  version = "1.46.0";
   src = fetchurl {
     name = "${finalAttrs.pname}-${finalAttrs.version}.gz";
     url = "https://github.com/Exafunction/codeium/releases/download/language-server-v${finalAttrs.version}/language_server_${plat}.gz";
@@ -60,7 +60,7 @@ stdenv.mkDerivation (finalAttrs: {
     versionCheckHook
   ];
   versionCheckProgram = "${placeholder "out"}/bin/codeium_language_server";
-  versionCheckProgramArg = [ "--version" ];
+  versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   passthru.updateScript = ./update.sh;

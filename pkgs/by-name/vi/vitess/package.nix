@@ -1,17 +1,22 @@
-{ lib, buildGoModule, fetchFromGitHub, sqlite }:
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
+  sqlite,
+}:
 
 buildGoModule rec {
   pname = "vitess";
-  version = "21.0.1";
+  version = "21.0.4";
 
   src = fetchFromGitHub {
     owner = "vitessio";
     repo = pname;
     rev = "v${version}";
-    hash = "sha256-UtacNZswbvkb78l5BITRorNtiZRMoJlWr0waimCvDFo=";
+    hash = "sha256-QapbbLZ/wDCKYQW98l780PT4ZEXAbhW0o4Zk2MlG6DQ=";
   };
 
-  vendorHash = "sha256-ash8IzT3mw7cpbkX/TU+lnIS7pSjaiFXuLbloZhuCBg=";
+  vendorHash = "sha256-Bc9rhfGSjqhDQBOPS4noW8qJ4P5xLtVcokRhDbqP3a0=";
 
   buildInputs = [ sqlite ];
 

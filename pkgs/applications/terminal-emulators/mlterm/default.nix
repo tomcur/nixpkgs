@@ -101,13 +101,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "mlterm";
-  version = "3.9.3";
+  version = "3.9.4";
 
   src = fetchFromGitHub {
     owner = "arakiken";
     repo = "mlterm";
-    rev = finalAttrs.version;
-    sha256 = "sha256-gfs5cdwUUwSBWwJJSaxrQGWJvLkI27RMlk5QvDALEDg=";
+    tag = finalAttrs.version;
+    sha256 = "sha256-YogapVTmW4HAyVgvhR4ZvW4Q6v0kGiW11CCxN6SpPCY=";
   };
 
   nativeBuildInputs =
@@ -240,16 +240,16 @@ stdenv.mkDerivation (finalAttrs: {
       ;
   };
 
-  meta = with lib; {
+  meta = {
     description = "Multi Lingual TERMinal emulator";
     homepage = "https://mlterm.sourceforge.net/";
-    license = licenses.bsd3;
-    maintainers = with maintainers; [
+    license = lib.licenses.bsd3;
+    maintainers = with lib.maintainers; [
       ramkromberg
       atemu
       doronbehar
     ];
-    platforms = platforms.all;
+    platforms = lib.platforms.all;
     mainProgram = desktopBinary;
   };
 })

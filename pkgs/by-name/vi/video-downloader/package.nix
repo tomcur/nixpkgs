@@ -18,14 +18,14 @@
 
 python3Packages.buildPythonApplication rec {
   pname = "video-downloader";
-  version = "0.12.20";
+  version = "0.12.24";
   pyproject = false; # Built with meson
 
   src = fetchFromGitHub {
     owner = "Unrud";
     repo = "video-downloader";
     tag = "v${version}";
-    hash = "sha256-UaSEcqD4hYRacQfLHgkXgO+/lIV5GxMX9NDOTLhTw+o=";
+    hash = "sha256-lgHAO4/dqwwp/PiIFHCBRfDNUw0GfomMvfaobakxFdA=";
   };
 
   propagatedBuildInputs = with python3Packages; [

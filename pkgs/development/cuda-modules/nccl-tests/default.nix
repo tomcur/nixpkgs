@@ -25,14 +25,19 @@ in
 backendStdenv.mkDerivation (finalAttrs: {
 
   pname = "nccl-tests";
-  version = "2.13.11";
+  version = "2.15.0";
 
   src = fetchFromGitHub {
     owner = "NVIDIA";
     repo = "nccl-tests";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-HHshp4fYW+dlyL9FZRxX761UCFR/pOBKNHfVme2TfJg=";
+    hash = "sha256-OgffbW9Vx/sm1I1tpaPGdAhIpV4jbB4hJa9UcEAWkdE=";
   };
+
+  postPatch = ''
+    # fix build failure with GCC14
+    substituteInPlace src/Makefile --replace-fail "-std=c++11" "-std=c++14"
+  '';
 
   strictDeps = true;
 
@@ -77,6 +82,7 @@ backendStdenv.mkDerivation (finalAttrs: {
     platforms = platforms.linux;
     license = licenses.bsd3;
     broken = !config.cudaSupport || (mpiSupport && mpi == null);
-    maintainers = with maintainers; [ jmillerpdt ] ++ teams.cuda.members;
+    maintainers = with maintainers; [ jmillerpdt ];
+    teams = [ teams.cuda ];
   };
 })

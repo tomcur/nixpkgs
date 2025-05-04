@@ -15,6 +15,7 @@
   libiconv,
   libintl,
   libjpeg,
+  libtiff,
   ninja,
   openjpeg,
   pkg-config,
@@ -123,6 +124,7 @@ stdenv.mkDerivation (finalAttrs: rec {
     ++ lib.optionals (!minimal) [
       cairo
       lcms
+      libtiff
       curl
       nss
     ]
@@ -205,6 +207,7 @@ stdenv.mkDerivation (finalAttrs: rec {
     '';
     license = with lib.licenses; [ gpl2Plus ];
     platforms = lib.platforms.all;
-    maintainers = with lib.maintainers; [ ttuegel ] ++ lib.teams.freedesktop.members;
+    maintainers = with lib.maintainers; [ ttuegel ];
+    teams = [ lib.teams.freedesktop ];
   };
 })

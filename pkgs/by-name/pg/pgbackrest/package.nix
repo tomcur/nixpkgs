@@ -9,7 +9,7 @@
   libbacktrace,
   bzip2,
   lz4,
-  postgresql,
+  libpq,
   libxml2,
   libyaml,
   zlib,
@@ -19,13 +19,13 @@
 
 stdenv.mkDerivation rec {
   pname = "pgbackrest";
-  version = "2.54.1";
+  version = "2.55.0";
 
   src = fetchFromGitHub {
     owner = "pgbackrest";
     repo = "pgbackrest";
     rev = "release/${version}";
-    sha256 = "sha256-kzFTWKzBQ0Jfew8oV+iaNAEx4lQncySyAI2VAgNu42s=";
+    sha256 = "sha256-w4jgIyZPglmI0yj8eyoIvFgNX7izpo3lBixuv7qSAxM=";
   };
 
   strictDeps = true;
@@ -41,7 +41,7 @@ stdenv.mkDerivation rec {
     libbacktrace
     bzip2
     lz4
-    postgresql
+    libpq
     libxml2
     libyaml
     zlib

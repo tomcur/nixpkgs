@@ -1,20 +1,21 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
   pname = "dblab";
-  version = "0.29.0";
+  version = "0.31.0";
 
   src = fetchFromGitHub {
     owner = "danvergara";
     repo = "dblab";
     rev = "v${version}";
-    hash = "sha256-fLsddW4yPK9hgaQ2oeEcQ2psEclM3pq62xEkm/ad0lY=";
+    hash = "sha256-ssxfKIHbhiekZFONRDFzb38mEKVgEKXEq4TIyj8FXjU=";
   };
 
-  vendorHash = "sha256-bcG3lYZ2Mfp/VCwUeIBPNRlTPXTJxesOu+229E2oa60=";
+  vendorHash = "sha256-WxIlGdd3Si3Lyf9FZOCAepDlRo2F3EDRy00EawkZATY=";
 
   ldflags = [ "-s -w -X main.version=${version}" ];
 

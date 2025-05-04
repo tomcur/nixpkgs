@@ -1,3 +1,6 @@
+# This file is used by .github/workflows/labels.yml
+# This version uses `sync-labels: true`, meaning that a non-match will remove the label
+
 # NOTE: bsd, darwin and cross-compilation labels are handled by ofborg
 "6.topic: agda":
   - any:
@@ -36,6 +39,16 @@
         - pkgs/applications/science/logic/coq/**/*
         - pkgs/development/coq-modules/**/*
         - pkgs/top-level/coq-packages.nix
+
+"6.topic: COSMIC":
+  - any:
+    - changed-files:
+      - any-glob-to-any-file:
+        - nixos/modules/services/desktop-managers/cosmic.nix
+        - nixos/modules/services/display-managers/cosmic-greeter.nix
+        - nixos/tests/cosmic.nix
+        - pkgs/by-name/co/cosmic-*/**/*
+        - pkgs/by-name/xd/xdg-desktop-portal-cosmic/*
 
 "6.topic: crystal":
   - any:
@@ -387,18 +400,6 @@
         - pkgs/test/php/default.nix
         - pkgs/top-level/php-packages.nix
 
-"6.topic: policy discussion":
-  - any:
-    - changed-files:
-      - any-glob-to-any-file:
-        - .github/**/*
-        - CONTRIBUTING.md
-        - pkgs/README.md
-        - nixos/README.md
-        - maintainers/README.md
-        - lib/README.md
-        - doc/README.md
-
 "6.topic: printing":
   - any:
     - changed-files:
@@ -484,6 +485,12 @@
         - pkgs/development/interpreters/tcl/*
         - pkgs/development/tcl-modules/**/*
         - pkgs/top-level/tcl-packages.nix
+
+"6.topic: teams":
+  - any:
+    - changed-files:
+      - any-glob-to-any-file:
+          - maintainers/team-list.nix
 
 "6.topic: TeX":
   - any:
@@ -571,13 +578,6 @@
     - changed-files:
       - any-glob-to-any-file:
         - nixos/doc/manual/release-notes/**/*
-
-"8.has: documentation":
-  - any:
-    - changed-files:
-      - any-glob-to-any-file:
-        - doc/**/*
-        - nixos/doc/**/*
 
 "8.has: module (update)":
   - any:

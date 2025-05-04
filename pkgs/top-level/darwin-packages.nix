@@ -98,7 +98,6 @@ makeScopeWithSplicing' {
           "configdHeaders"
           "darwin-stubs"
           "dtrace"
-          "dyld"
           "eap8021x"
           "hfs"
           "hfsHeaders"
@@ -173,9 +172,6 @@ makeScopeWithSplicing' {
 
       libSystem = callPackage ../os-specific/darwin/libSystem { };
 
-      # TODO(@connorbaker): See https://github.com/NixOS/nixpkgs/issues/229389.
-      cf-private = self.apple_sdk.frameworks.CoreFoundation;
-
       DarwinTools = callPackage ../os-specific/darwin/DarwinTools { };
 
       print-reexports = callPackage ../os-specific/darwin/print-reexports { };
@@ -192,8 +188,6 @@ makeScopeWithSplicing' {
       sigtool = callPackage ../os-specific/darwin/sigtool { };
 
       signingUtils = callPackage ../os-specific/darwin/signing-utils { };
-
-      postLinkSignHook = callPackage ../os-specific/darwin/signing-utils/post-link-sign-hook.nix { };
 
       autoSignDarwinBinariesHook = pkgs.makeSetupHook {
         name = "auto-sign-darwin-binaries-hook";
@@ -261,7 +255,10 @@ makeScopeWithSplicing' {
         xcode_15_4
         xcode_16
         xcode_16_1
+        xcode_16_2
+        xcode_16_3
         xcode
+        requireXcode
         ;
 
       xcodeProjectCheckHook = pkgs.makeSetupHook {

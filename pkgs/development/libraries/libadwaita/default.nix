@@ -25,7 +25,7 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "libadwaita";
-  version = "1.6.2";
+  version = "1.6.4";
 
   outputs = [
     "out"
@@ -39,7 +39,7 @@ stdenv.mkDerivation (finalAttrs: {
     owner = "GNOME";
     repo = "libadwaita";
     rev = finalAttrs.version;
-    hash = "sha256-HNj6gCQFs1ECjJETtQ7oWEVT02IqRssiEtbhg1dQmY8=";
+    hash = "sha256-7AI8Eb6o/Gysli9CprwsgAzz1cGmNU79Qm7OzlsaTFw=";
   };
 
   depsBuildBuild = [
@@ -142,7 +142,8 @@ stdenv.mkDerivation (finalAttrs: {
     mainProgram = "adwaita-1-demo";
     homepage = "https://gitlab.gnome.org/GNOME/libadwaita";
     license = licenses.lgpl21Plus;
-    maintainers = teams.gnome.members ++ (with maintainers; [ dotlambda ]);
+    maintainers = with maintainers; [ dotlambda ];
+    teams = [ teams.gnome ];
     platforms = platforms.unix;
     pkgConfigModules = [ "libadwaita-1" ];
   };

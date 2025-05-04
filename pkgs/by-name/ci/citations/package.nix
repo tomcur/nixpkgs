@@ -19,23 +19,24 @@
   testers,
   wrapGAppsHook4,
   clippy,
+  nix-update-script,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "citations";
-  version = "0.7.0";
+  version = "0.8.0";
 
   src = fetchFromGitLab {
     domain = "gitlab.gnome.org";
     owner = "World";
     repo = "citations";
     rev = finalAttrs.version;
-    hash = "sha256-WYy6cyPmyWL/11yHf+dRbcZGBfvVfELeTwKvpJMu5ns=";
+    hash = "sha256-aJp9UrfRXAsnHFGgMTHGRgCvlPEa62r9/0hEp5YKRzE=";
   };
 
-  cargoDeps = rustPlatform.fetchCargoTarball {
+  cargoDeps = rustPlatform.fetchCargoVendor {
     src = finalAttrs.src;
-    hash = "sha256-SmKt3oPzeJRAFjgZvJubNCTsjhqCrGZfE1LfDQ8AxZA=";
+    hash = "sha256-ZoflXdou6S7CYFF5x1pB71Ur08X1W6wPaJIm1sYsI2w=";
   };
 
   nativeBuildInputs = [
@@ -80,16 +81,21 @@ stdenv.mkDerivation (finalAttrs: {
     sed -i -e '/PATH=/d' ../src/meson.build
   '';
 
-  passthru.tests.version = testers.testVersion {
-    package = finalAttrs.finalPackage;
-    command = "citations --help";
+  passthru = {
+    tests.version = testers.testVersion {
+      package = finalAttrs.finalPackage;
+      command = "citations --help";
+    };
+
+    updateScript = nix-update-script { };
   };
 
   meta = with lib; {
     description = "Manage your bibliographies using the BibTeX format";
     homepage = "https://apps.gnome.org/app/org.gnome.World.Citations";
     license = licenses.gpl3Plus;
-    maintainers = with maintainers; [ benediktbroich ] ++ lib.teams.gnome-circle.members;
+    maintainers = with maintainers; [ benediktbroich ];
+    teams = [ teams.gnome-circle ];
     platforms = platforms.unix;
     mainProgram = "citations";
   };

@@ -2,16 +2,15 @@
   lib,
   stdenv,
   fetchurl,
-  fetchpatch,
   CoreServices,
   nix-update-script,
 }:
 stdenv.mkDerivation rec {
   pname = "xmake";
-  version = "2.9.7";
+  version = "2.9.9";
   src = fetchurl {
     url = "https://github.com/xmake-io/xmake/releases/download/v${version}/xmake-v${version}.tar.gz";
-    hash = "sha256-JI5JalpzTInhZ/kx4mIMDqQQnnypE9wQInNRKaX/6dM=";
+    hash = "sha256-6SUFuDvJd2KG6ucZ1YvOp/8ld6/hLLXMsnnIHn28cC0=";
   };
 
   buildInputs = lib.optional stdenv.hostPlatform.isDarwin CoreServices;

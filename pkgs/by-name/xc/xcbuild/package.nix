@@ -84,6 +84,8 @@ stdenv.mkDerivation (finalAttrs: {
     ./patches/Use-system-toolchain-for-usr-bin.patch
     # Suppress warnings due to newer SDKs with unknown keys
     ./patches/Suppress-unknown-key-warnings.patch
+    # Don't pipe stdout / stderr of processes launched by xcrun
+    ./patches/fix-interactive-apps.patch
   ];
 
   prePatch = ''
@@ -157,7 +159,7 @@ stdenv.mkDerivation (finalAttrs: {
       bsd2
       bsd3
     ];
-    maintainers = lib.teams.darwin.members;
+    teams = [ lib.teams.darwin ];
     platforms = lib.platforms.unix;
   };
 })

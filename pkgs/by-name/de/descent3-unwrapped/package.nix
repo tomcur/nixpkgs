@@ -1,10 +1,13 @@
 {
-  SDL2,
   cmake,
   fetchFromGitHub,
   glm,
+  httplib,
   lib,
+  openssl,
+  plog,
   runCommand,
+  sdl3,
   stdenv,
   unstableGitUpdater,
   writeShellScript,
@@ -17,12 +20,11 @@ stdenv.mkDerivation rec {
   # the wrapped version of Descent 3. Once there’s a stable version of Descent
   # 3 that supports the -additionaldir command-line option, we can stop using
   # an unstable version of Descent 3.
-  version = "1.5.0-beta-unstable-2024-12-14";
+  version = "1.5.0-beta-unstable-2025-03-25";
   src = fetchFromGitHub {
     owner = "DescentDevelopers";
     repo = "Descent3";
-    rev = "6583bfe575e57effd877415c9d03b83c8e9e271e";
-    fetchSubmodules = true;
+    rev = "67244d953588c8c63baa17c150076153c526258b";
     leaveDotGit = true;
     # Descent 3 is supposed to display its Git commit hash in the bottom right
     # corner of the main menu. That feature only works if either the .git
@@ -48,14 +50,17 @@ stdenv.mkDerivation rec {
       git rev-parse --verify HEAD | tr --delete '\n' > git-hash.txt
       rm -r .git
     '';
-    hash = "sha256-GQaYgmwAmAxdMq+7RQcElkX74xBAKbjYkx5W3MNWUvs=";
+    hash = "sha256-lRTzy5GQJ5J9ban7Q6pBmHHXgHNpgemlYYlzmUnvFW0=";
   };
 
   hardeningDisable = [ "format" ];
   nativeBuildInputs = [ cmake ];
   buildInputs = [
-    SDL2
     glm
+    httplib
+    openssl
+    plog
+    sdl3
     zlib
   ];
   cmakeFlags = [ "-DFORCE_PORTABLE_INSTALL=OFF" ];

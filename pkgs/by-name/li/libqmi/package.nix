@@ -88,6 +88,10 @@ stdenv.mkDerivation rec {
   ];
 
   doCheck = true;
+  patches = [
+    # https://gitlab.freedesktop.org/mobile-broadband/libqmi/-/issues/124
+    ./build_doc_deps_by_default.patch
+  ];
 
   postPatch = ''
     patchShebangs \
@@ -97,7 +101,7 @@ stdenv.mkDerivation rec {
   meta = with lib; {
     homepage = "https://www.freedesktop.org/wiki/Software/libqmi/";
     description = "Modem protocol helper library";
-    maintainers = teams.freedesktop.members;
+    teams = [ teams.freedesktop ];
     platforms = platforms.linux;
     license = with licenses; [
       # Library

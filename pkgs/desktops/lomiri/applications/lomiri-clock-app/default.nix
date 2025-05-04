@@ -12,6 +12,7 @@
   lomiri-sounds,
   lomiri-ui-toolkit,
   makeWrapper,
+  mesa,
   pkg-config,
   qtbase,
   qtdeclarative,
@@ -77,6 +78,7 @@ stdenv.mkDerivation (finalAttrs: {
   ];
 
   nativeCheckInputs = [
+    mesa.llvmpipeHook # ShapeMaterial needs an OpenGL context: https://gitlab.com/ubports/development/core/lomiri-ui-toolkit/-/issues/35
     qtdeclarative # qmltestrunner
     xvfb-run
   ];
@@ -87,20 +89,6 @@ stdenv.mkDerivation (finalAttrs: {
     (lib.cmakeBool "CLICK_MODE" false)
     (lib.cmakeBool "INSTALL_TESTS" false)
     (lib.cmakeBool "USE_XVFB" true)
-    (lib.cmakeFeature "CMAKE_CTEST_ARGUMENTS" (
-      lib.concatStringsSep ";" [
-        # Exclude tests
-        "-E"
-        (lib.strings.escapeShellArg "(${
-          lib.concatStringsSep "|" [
-            # Runs into ShapeMaterial codepath in lomiri-ui-toolkit which needs OpenGL, see LUITK for details
-            "^AlarmLabel"
-            "^AlarmRepeat"
-            "^AlarmSound"
-          ]
-        })")
-      ]
-    ))
   ];
 
   doCheck = stdenv.buildPlatform.canExecute stdenv.hostPlatform;
@@ -144,7 +132,7 @@ stdenv.mkDerivation (finalAttrs: {
     homepage = "https://gitlab.com/ubports/development/apps/lomiri-clock-app";
     changelog = "https://gitlab.com/ubports/development/apps/lomiri-clock-app/-/blob/v${finalAttrs.version}/ChangeLog";
     license = lib.licenses.gpl3Only;
-    maintainers = lib.teams.lomiri.members;
+    teams = [ lib.teams.lomiri ];
     mainProgram = "lomiri-clock-app";
     platforms = lib.platforms.linux;
   };

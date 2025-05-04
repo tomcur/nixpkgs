@@ -7,7 +7,7 @@
   ispc,
   tbb,
   glfw,
-  openimageio,
+  openimageio_2,
   libjpeg,
   libpng,
   libpthreadstubs,
@@ -50,7 +50,7 @@ stdenv.mkDerivation rec {
   buildInputs = [
     tbb
     glfw
-    openimageio
+    openimageio_2
     libjpeg
     libpng
     libX11
@@ -62,7 +62,6 @@ stdenv.mkDerivation rec {
     homepage = "https://embree.github.io/";
     maintainers = with maintainers; [
       hodapp
-      gebner
     ];
     license = licenses.asl20;
     platforms = platforms.unix;

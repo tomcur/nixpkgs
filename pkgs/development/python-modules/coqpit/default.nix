@@ -16,7 +16,7 @@ buildPythonPackage rec {
   src = fetchFromGitHub {
     owner = "idiap";
     repo = "coqui-ai-coqpit";
-    rev = "refs/tags/v${version}";
+    tag = "v${version}";
     hash = "sha256-3LZxoj2aFTpezakBymogkNPCaEBBaaUmyIa742cSMgU=";
   };
 
@@ -47,6 +47,6 @@ buildPythonPackage rec {
     '';
     homepage = "https://github.com/idiap/coqui-ai-coqpit";
     license = licenses.mit;
-    maintainers = teams.tts.members;
+    teams = [ teams.tts ];
   };
 }

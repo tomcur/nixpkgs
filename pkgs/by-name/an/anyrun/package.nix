@@ -17,16 +17,17 @@
 
 rustPlatform.buildRustPackage {
   pname = "anyrun";
-  version = "0-unstable-2024-11-08";
+  version = "0-unstable-2025-04-04";
 
   src = fetchFromGitHub {
     owner = "kirottu";
     repo = "anyrun";
-    rev = "d2017f224b2bfd7e33573c7070e7c3e2960c7dcc";
-    hash = "sha256-L1hLXf4IDZ0KoXbFiSNNZJ7IrReEr/J+CLt6Rl4Ea3M=";
+    rev = "786f539d69d5abcefa68978dbaa964ac14536a00";
+    hash = "sha256-f+oXT9b3xuBDmm4v4nDqJvlHabxxZRB6+pay4Ub/NvA=";
   };
 
-  cargoHash = "sha256-DgUNSRr2Hs+GeYeR2ex8WiwotmT12G1cjSvQVK2py3c=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-ouAeoSCmkvWgxAUA/VYITm9/XvxmN+TdyZgEGgBGdKI=";
 
   strictDeps = true;
   enableParallelBuilding = true;

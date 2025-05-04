@@ -1,20 +1,21 @@
-{ lib
-, buildGoModule
-, fetchFromGitHub
+{
+  lib,
+  buildGoModule,
+  fetchFromGitHub,
 }:
 
 buildGoModule rec {
   pname = "ligolo-ng";
-  version = "0.7.3";
+  version = "0.8";
 
   src = fetchFromGitHub {
     owner = "tnpitsecurity";
     repo = "ligolo-ng";
-    rev = "refs/tags/v${version}";
-    hash = "sha256-rngV3/fziDaJoe5WJFR8gOVBhf6emAJL+UFRWKdOfh8=";
+    tag = "v${version}";
+    hash = "sha256-9+n6d9bY9VJiMsgvFNhbdkZ5S1Eo0YxyakuOocMvCdE=";
   };
 
-  vendorHash = "sha256-v6lHY3s1TJh8u4JaTa9kcCj+1pl01zckvTVeLk8TZ+w=";
+  vendorHash = "sha256-1K9T7jbQxrnf9j/oa8UvZFatYOiDnJCrMc0DoFGo73U=";
 
   postConfigure = ''
     export CGO_ENABLED=0

@@ -3,7 +3,7 @@
   lib,
   fetchFromGitHub,
   fetchFromGitLab,
-  fetchFromGitea,
+  git-unroll,
   buildPythonPackage,
   python,
   runCommand,
@@ -36,6 +36,7 @@
   symlinkJoin,
   which,
   pybind11,
+  pkg-config,
   removeReferencesTo,
 
   # Build inputs
@@ -44,15 +45,18 @@
 
   # dependencies
   astunparse,
-  fsspec,
+  expecttest,
   filelock,
+  fsspec,
+  hypothesis,
   jinja2,
   networkx,
-  sympy,
-  numpy,
+  packaging,
+  psutil,
   pyyaml,
-  cffi,
-  click,
+  requests,
+  sympy,
+  types-dataclasses,
   typing-extensions,
   # ROCm build and `torch.compile` requires `triton`
   tritonSupport ? (!stdenv.hostPlatform.isDarwin),
@@ -66,12 +70,14 @@
   #          (dependencies without cuda support).
   #          Instead we should rely on overlays and nixpkgsFun.
   # (@SomeoneSerge)
-  _tritonEffective ? if cudaSupport then triton-cuda else triton,
+  _tritonEffective ?
+    if cudaSupport then
+      triton-cuda
+    else if rocmSupport then
+      rocmPackages.triton
+    else
+      triton,
   triton-cuda,
-
-  # Unit tests
-  hypothesis,
-  psutil,
 
   # Disable MKLDNN on aarch64-darwin, it negatively impacts performance,
   # this is also what official pytorch build does
@@ -87,13 +93,12 @@
   # dependencies for torch.utils.tensorboard
   pillow,
   six,
-  future,
   tensorboard,
   protobuf,
 
   # ROCm dependencies
   rocmSupport ? config.rocmSupport,
-  rocmPackages_5,
+  rocmPackages,
   gpuTargets ? [ ],
 
   vulkanSupport ? false,
@@ -112,8 +117,6 @@ let
   inherit (cudaPackages) cudaFlags cudnn nccl;
 
   triton = throw "python3Packages.torch: use _tritonEffective instead of triton to avoid divergence";
-
-  rocmPackages = rocmPackages_5;
 
   setBool = v: if v then "1" else "0";
 
@@ -151,6 +154,8 @@ let
   supportedCudaCapabilities = lists.intersectLists cudaFlags.cudaCapabilities supportedTorchCudaCapabilities;
   unsupportedCudaCapabilities = lists.subtractLists supportedCudaCapabilities cudaFlags.cudaCapabilities;
 
+  isCudaJetson = cudaSupport && cudaPackages.cudaFlags.isJetsonBuild;
+
   # Use trivial.warnIf to print a warning if any unsupported GPU targets are specified.
   gpuArchWarner =
     supported: unsupported:
@@ -180,7 +185,7 @@ let
       clr
       rccl
       miopen
-      miopengemm
+      aotriton
       rocrand
       rocblas
       rocsparse
@@ -192,10 +197,12 @@ let
       rocfft
       rocsolver
       hipfft
+      hiprand
       hipsolver
+      hipblas-common
       hipblas
+      hipblaslt
       rocminfo
-      rocm-thunk
       rocm-comgr
       rocm-device-libs
       rocm-runtime
@@ -225,16 +232,6 @@ let
     # In particular, this triggered warnings from cuda's `aliases.nix`
     "Magma cudaPackages does not match cudaPackages" =
       cudaSupport && (effectiveMagma.cudaPackages.cudaVersion != cudaPackages.cudaVersion);
-    "Rocm support is currently broken because `rocmPackages.hipblaslt` is unpackaged. (2024-06-09)" =
-      rocmSupport;
-  };
-
-  git-unroll = fetchFromGitea {
-    domain = "codeberg.org";
-    owner = "gm6k";
-    repo = "git-unroll";
-    rev = "96bf24f2af153310ec59979c123a8cefda8636db";
-    hash = "sha256-BTlq2Pm4l/oypBzKKpxExVPyQ0CcAP8llUnl/fd3DUU=";
   };
 
   unroll-src = writeShellScript "unroll-src" ''
@@ -245,7 +242,7 @@ let
       runCommand,
     }:
     assert version == "'"'$1'"'";"
-    ${git-unroll}/unroll https://github.com/pytorch/pytorch v$1
+    ${lib.getExe git-unroll} https://github.com/pytorch/pytorch v$1
     echo
     echo "# Update using: unroll-src [version]"
   '';
@@ -274,15 +271,8 @@ buildPythonPackage rec {
   };
 
   patches =
-    lib.optionals cudaSupport [ ./fix-cmake-cuda-toolkit.patch ]
-    ++ lib.optionals (stdenv.hostPlatform.isDarwin && stdenv.hostPlatform.isx86_64) [
-      # pthreadpool added support for Grand Central Dispatch in April
-      # 2020. However, this relies on functionality (DISPATCH_APPLY_AUTO)
-      # that is available starting with macOS 10.13. However, our current
-      # base is 10.12. Until we upgrade, we can fall back on the older
-      # pthread support.
-      ./pthreadpool-disable-gcd.diff
-    ]
+    [ ./clang19-template-warning.patch ]
+    ++ lib.optionals cudaSupport [ ./fix-cmake-cuda-toolkit.patch ]
     ++ lib.optionals stdenv.hostPlatform.isLinux [
       # Propagate CUPTI to Kineto by overriding the search path with environment variables.
       # https://github.com/pytorch/pytorch/pull/108847
@@ -306,6 +296,14 @@ buildPythonPackage rec {
           "# Upstream: set(CUDAToolkit_ROOT"
       substituteInPlace third_party/gloo/cmake/Cuda.cmake \
         --replace-warn "find_package(CUDAToolkit 7.0" "find_package(CUDAToolkit"
+
+      # annotations (3.7), print_function (3.0), with_statement (2.6) are all supported
+      sed -i -e "/from __future__ import/d" **.py
+      substituteInPlace third_party/NNPACK/CMakeLists.txt \
+        --replace-fail "PYTHONPATH=" 'PYTHONPATH=$ENV{PYTHONPATH}:'
+      # flag from cmakeFlags doesn't work, not clear why
+      # setting it at the top of NNPACK's own CMakeLists does
+      sed -i '2s;^;set(PYTHON_SIX_SOURCE_DIR ${six.src})\n;' third_party/NNPACK/CMakeLists.txt
     ''
     + lib.optionalString rocmSupport ''
       # https://github.com/facebookincubator/gloo/pull/297
@@ -342,17 +340,7 @@ buildPythonPackage rec {
     # until https://github.com/pytorch/pytorch/issues/76082 is addressed
     + lib.optionalString cudaSupport ''
       rm cmake/Modules/FindCUDAToolkit.cmake
-    ''
-    # error: no member named 'aligned_alloc' in the global namespace; did you mean simply 'aligned_alloc'
-    # This lib overrided aligned_alloc hence the error message. Tltr: his function is linkable but not in header.
-    +
-      lib.optionalString
-        (stdenv.hostPlatform.isDarwin && lib.versionOlder stdenv.hostPlatform.darwinSdkVersion "11.0")
-        ''
-          substituteInPlace third_party/pocketfft/pocketfft_hdronly.h --replace-fail '#if (__cplusplus >= 201703L) && (!defined(__MINGW32__)) && (!defined(_MSC_VER))
-          inline void *aligned_alloc(size_t align, size_t size)' '#if 0
-          inline void *aligned_alloc(size_t align, size_t size)'
-        '';
+    '';
 
   # NOTE(@connorbaker): Though we do not disable Gloo or MPI when building with CUDA support, caution should be taken
   # when using the different backends. Gloo's GPU support isn't great, and MPI and CUDA can't be used at the same time
@@ -388,6 +376,10 @@ buildPythonPackage rec {
   # We only do an imports check, so do not build tests either.
   BUILD_TEST = setBool false;
 
+  # ninja hook doesn't automatically turn on ninja
+  # because pytorch setup.py is responsible for this
+  CMAKE_GENERATOR = "Ninja";
+
   # Unlike MKL, oneDNN (née MKLDNN) is FOSS, so we enable support for
   # it by default. PyTorch currently uses its own vendored version
   # of oneDNN through Intel iDeep.
@@ -398,14 +390,19 @@ buildPythonPackage rec {
   # Also avoids pytorch exporting the headers of pybind11
   USE_SYSTEM_PYBIND11 = true;
 
-  # NB technical debt: building without NNPACK as workaround for missing `six`
-  USE_NNPACK = 0;
+  # Multicore CPU convnet support
+  USE_NNPACK = 1;
 
   # Explicitly enable MPS for Darwin
   USE_MPS = setBool stdenv.hostPlatform.isDarwin;
 
+  # building torch.distributed on Darwin is disabled by default
+  # https://pytorch.org/docs/stable/distributed.html#torch.distributed.is_available
+  USE_DISTRIBUTED = setBool true;
+
   cmakeFlags =
     [
+      (lib.cmakeFeature "PYTHON_SIX_SOURCE_DIR" "${six.src}")
       # (lib.cmakeBool "CMAKE_FIND_DEBUG_MODE" true)
       (lib.cmakeFeature "CUDAToolkit_VERSION" cudaPackages.cudaVersion)
     ]
@@ -454,63 +451,18 @@ buildPythonPackage rec {
 
   env =
     {
-      # Suppress a weird warning in mkl-dnn, part of ideep in pytorch
-      # (upstream seems to have fixed this in the wrong place?)
-      # https://github.com/intel/mkl-dnn/commit/8134d346cdb7fe1695a2aa55771071d455fae0bc
-      # https://github.com/pytorch/pytorch/issues/22346
-      #
+      # disable warnings as errors as they break the build on every compiler
+      # bump, among other things.
       # Also of interest: pytorch ignores CXXFLAGS uses CFLAGS for both C and C++:
       # https://github.com/pytorch/pytorch/blob/v1.11.0/setup.py#L17
-      NIX_CFLAGS_COMPILE = toString (
-        (
-          lib.optionals (blas.implementation == "mkl") [ "-Wno-error=array-bounds" ]
-          # Suppress gcc regression: avx512 math function raises uninitialized variable warning
-          # https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105593
-          # See also: Fails to compile with GCC 12.1.0 https://github.com/pytorch/pytorch/issues/77939
-          ++ lib.optionals (stdenv.cc.isGNU && lib.versionAtLeast stdenv.cc.version "12.0.0") [
-            "-Wno-error=maybe-uninitialized"
-            "-Wno-error=uninitialized"
-          ]
-          # Since pytorch 2.0:
-          # gcc-12.2.0/include/c++/12.2.0/bits/new_allocator.h:158:33: error: ‘void operator delete(void*, std::size_t)’
-          # ... called on pointer ‘<unknown>’ with nonzero offset [1, 9223372036854775800] [-Werror=free-nonheap-object]
-          ++ lib.optionals (stdenv.cc.isGNU && lib.versions.major stdenv.cc.version == "12") [
-            "-Wno-error=free-nonheap-object"
-          ]
-          # .../source/torch/csrc/autograd/generated/python_functions_0.cpp:85:3:
-          # error: cast from ... to ... converts to incompatible function type [-Werror,-Wcast-function-type-strict]
-          ++ lib.optionals (stdenv.cc.isClang && lib.versionAtLeast stdenv.cc.version "16") [
-            "-Wno-error=cast-function-type-strict"
-            # Suppresses the most spammy warnings.
-            # This is mainly to fix https://github.com/NixOS/nixpkgs/issues/266895.
-          ]
-          ++ lib.optionals rocmSupport [
-            "-Wno-#warnings"
-            "-Wno-cpp"
-            "-Wno-unknown-warning-option"
-            "-Wno-ignored-attributes"
-            "-Wno-deprecated-declarations"
-            "-Wno-defaulted-function-deleted"
-            "-Wno-pass-failed"
-          ]
-          ++ [
-            "-Wno-unused-command-line-argument"
-            "-Wno-uninitialized"
-            "-Wno-array-bounds"
-            "-Wno-free-nonheap-object"
-            "-Wno-unused-result"
-          ]
-          ++ lib.optionals stdenv.cc.isGNU [
-            "-Wno-maybe-uninitialized"
-            "-Wno-stringop-overflow"
-          ]
-        )
-      );
-
+      NIX_CFLAGS_COMPILE = "-Wno-error";
       USE_VULKAN = setBool vulkanSupport;
     }
     // lib.optionalAttrs vulkanSupport {
       VULKAN_SDK = shaderc.bin;
+    }
+    // lib.optionalAttrs rocmSupport {
+      AOTRITON_INSTALLED_PREFIX = "${rocmPackages.aotriton}";
     };
 
   nativeBuildInputs =
@@ -519,6 +471,7 @@ buildPythonPackage rec {
       which
       ninja
       pybind11
+      pkg-config
       removeReferencesTo
     ]
     ++ lib.optionals cudaSupport (
@@ -528,6 +481,7 @@ buildPythonPackage rec {
         cuda_nvcc
       ]
     )
+    ++ lib.optionals isCudaJetson [ cudaPackages.autoAddCudaCompatRunpath ]
     ++ lib.optionals rocmSupport [ rocmtoolkit_joined ];
 
   buildInputs =
@@ -571,7 +525,10 @@ buildPythonPackage rec {
     ]
     ++ lib.optionals tritonSupport [ _tritonEffective ]
     ++ lib.optionals MPISupport [ mpi ]
-    ++ lib.optionals rocmSupport [ rocmtoolkit_joined ];
+    ++ lib.optionals rocmSupport [
+      rocmtoolkit_joined
+      rocmPackages.clr # Added separately so setup hook applies
+    ];
 
   pythonRelaxDeps = [
     "sympy"
@@ -579,23 +536,24 @@ buildPythonPackage rec {
   dependencies =
     [
       astunparse
-      cffi
-      click
-      numpy
-      pyyaml
-
-      # From install_requires:
-      fsspec
+      expecttest
       filelock
-      typing-extensions
-      sympy
-      networkx
+      fsspec
+      hypothesis
       jinja2
+      networkx
+      ninja
+      packaging
+      psutil
+      pyyaml
+      requests
+      sympy
+      types-dataclasses
+      typing-extensions
 
       # the following are required for tensorboard support
       pillow
       six
-      future
       tensorboard
       protobuf
 
@@ -651,8 +609,15 @@ buildPythonPackage rec {
       find "$out/${python.sitePackages}/torch/include" "$out/${python.sitePackages}/torch/lib" -type f -exec remove-references-to -t ${stdenv.cc} '{}' +
 
       mkdir $dev
+
+      # CppExtension requires that include files are packaged with the main
+      # python library output; which is why they are copied here.
       cp -r $out/${python.sitePackages}/torch/include $dev/include
-      cp -r $out/${python.sitePackages}/torch/share $dev/share
+
+      # Cmake files under /share are different and can be safely moved. This
+      # avoids unnecessary closure blow-up due to apple sdk references when
+      # USE_DISTRIBUTED is enabled.
+      mv $out/${python.sitePackages}/torch/share $dev/share
 
       # Fix up library paths for split outputs
       substituteInPlace \

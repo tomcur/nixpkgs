@@ -6,22 +6,22 @@
   stdenv,
   darwin,
   gcc,
-  libcxx,
   cacert,
 }:
 
 rustPlatform.buildRustPackage rec {
   pname = "fh";
-  version = "0.1.21";
+  version = "0.1.22";
 
   src = fetchFromGitHub {
     owner = "DeterminateSystems";
     repo = "fh";
     rev = "v${version}";
-    hash = "sha256-EepDB25iZ8li+fGwhqOqg7XipFBishv4SvcDE2FE+is=";
+    hash = "sha256-yOqXcn/OMfC97t002V8yzZn1PhuV8lIp5szPA7eys1Q=";
   };
 
-  cargoHash = "sha256-lXcz0sX96Sjtrh4vmBSDJh1A1bCoxRyKcOj1ap1q+ng=";
+  useFetchCargoVendor = true;
+  cargoHash = "sha256-+6/gTY0pqpsq8QByVLbC1KnT2G1CJwLtpIFrUnyzlU0=";
 
   nativeBuildInputs = [
     installShellFiles
@@ -37,7 +37,7 @@ rustPlatform.buildRustPackage rec {
   ];
 
   env = lib.optionalAttrs stdenv.hostPlatform.isDarwin {
-    NIX_CFLAGS_COMPILE = "-I${lib.getDev libcxx}/include/c++/v1";
+    NIX_CFLAGS_COMPILE = "-I${lib.getInclude stdenv.cc.libcxx}/include/c++/v1";
   };
 
   postInstall = lib.optionalString (stdenv.buildPlatform.canExecute stdenv.hostPlatform) ''

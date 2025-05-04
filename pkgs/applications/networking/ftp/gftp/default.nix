@@ -5,7 +5,7 @@
   autoconf,
   automake,
   gettext,
-  gtk,
+  gtk2,
   intltool,
   libtool,
   ncurses,
@@ -35,7 +35,7 @@ stdenv.mkDerivation rec {
   ];
 
   buildInputs = [
-    gtk
+    gtk2
     ncurses
     openssl
     readline
@@ -51,7 +51,7 @@ stdenv.mkDerivation rec {
     homepage = "https://github.com/masneyb/gftp";
     description = "GTK-based multithreaded FTP client for *nix-based machines";
     license = licenses.gpl2Plus;
-    maintainers = with maintainers; [ AndersonTorres ];
+    maintainers = with maintainers; [ ];
     platforms = platforms.unix;
   };
 }

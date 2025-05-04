@@ -7,18 +7,18 @@
   pkg-config,
   installShellFiles,
   readline,
-  postgresql,
+  libpq,
 }:
 
 stdenv.mkDerivation rec {
   pname = "pspg";
-  version = "5.8.7";
+  version = "5.8.9";
 
   src = fetchFromGitHub {
     owner = "okbob";
-    repo = pname;
+    repo = "pspg";
     rev = version;
-    sha256 = "sha256-SE+62EODKWcKFpMMbWDw+Dp5b2D/XKbMFiJiD/ObrhU=";
+    sha256 = "sha256-DxeAu8Ik3srQhQ4L+9p+brnnJoJnoYWYjBo2AiJN2ZA=";
   };
 
   nativeBuildInputs = [
@@ -27,9 +27,9 @@ stdenv.mkDerivation rec {
   ];
   buildInputs = [
     gnugrep
+    libpq
     ncurses
     readline
-    postgresql
   ];
 
   makeFlags = [ "PREFIX=${placeholder "out"}" ];

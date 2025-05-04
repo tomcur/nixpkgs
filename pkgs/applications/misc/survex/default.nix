@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchurl,
-  fetchpatch,
   Carbon,
   Cocoa,
   ffmpeg,
@@ -22,11 +21,11 @@
 
 stdenv.mkDerivation rec {
   pname = "survex";
-  version = "1.4.14";
+  version = "1.4.17";
 
   src = fetchurl {
     url = "https://survex.com/software/${version}/${pname}-${version}.tar.gz";
-    hash = "sha256-TKOgbwUGE1z1PUZxfukugZWsJY1ml/VMAJ7xDIqWZWs=";
+    hash = "sha256-r24vcOV1pjNxnLRfy2tSG7bDG/HLChwEvlc83YMeOEc=";
   };
 
   nativeBuildInputs = [
@@ -57,9 +56,15 @@ stdenv.mkDerivation rec {
       libX11
     ];
 
+  strictDeps = true;
+
   postPatch = ''
     patchShebangs .
   '';
+
+  configureFlags = [
+    "WX_CONFIG=${lib.getExe' (lib.getDev wxGTK32) "wx-config"}"
+  ];
 
   enableParallelBuilding = true;
   doCheck = (!stdenv.hostPlatform.isDarwin); # times out

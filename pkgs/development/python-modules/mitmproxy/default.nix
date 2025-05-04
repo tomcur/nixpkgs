@@ -1,72 +1,68 @@
 {
   lib,
-  stdenv,
-  fetchFromGitHub,
-  buildPythonPackage,
-  pythonOlder,
-  # Mitmproxy requirements
   aioquic,
+  argon2-cffi,
   asgiref,
-  blinker,
   brotli,
+  buildPythonPackage,
   certifi,
   cryptography,
+  fetchFromGitHub,
   flask,
   h11,
   h2,
   hyperframe,
+  hypothesis,
   kaitaistruct,
   ldap3,
-  mitmproxy-macos,
+  mitmproxy-linux,
   mitmproxy-rs,
   msgpack,
   passlib,
-  protobuf5,
   publicsuffix2,
   pyopenssl,
   pyparsing,
   pyperclip,
-  ruamel-yaml,
-  setuptools,
-  sortedcontainers,
-  tornado,
-  urwid,
-  wsproto,
-  zstandard,
-  # Additional check requirements
-  hypothesis,
-  parver,
   pytest-asyncio,
   pytest-timeout,
   pytest-xdist,
   pytestCheckHook,
   requests,
+  ruamel-yaml,
+  setuptools,
+  sortedcontainers,
+  stdenv,
+  tornado,
+  urwid,
+  wsproto,
+  zstandard,
 }:
 
 buildPythonPackage rec {
   pname = "mitmproxy";
-  version = "11.0.2";
+  version = "12.0.0";
   pyproject = true;
-
-  disabled = pythonOlder "3.9";
 
   src = fetchFromGitHub {
     owner = "mitmproxy";
     repo = "mitmproxy";
     tag = "v${version}";
-    hash = "sha256-qcsPOISQjHVHh4TrQ/UihZaxB/jWBfq7AVI4U1gQPVs=";
+    hash = "sha256-2dEoPgT8g59sLRV5gMPo7XII0XjTrn2cVdYetxDj/V0=";
   };
 
   pythonRelaxDeps = [
+    "h11" # https://github.com/NixOS/nixpkgs/pull/399393
+    "h2"
     "passlib"
-    "protobuf"
-    "urwid"
+    "typing-extensions" # https://github.com/NixOS/nixpkgs/pull/397082
   ];
 
-  propagatedBuildInputs = [
+  build-system = [ setuptools ];
+
+  dependencies = [
     aioquic
+    argon2-cffi
     asgiref
-    blinker
     brotli
     certifi
     cryptography
@@ -79,23 +75,20 @@ buildPythonPackage rec {
     mitmproxy-rs
     msgpack
     passlib
-    protobuf5
     publicsuffix2
     pyopenssl
     pyparsing
     pyperclip
     ruamel-yaml
-    setuptools
     sortedcontainers
     tornado
     urwid
     wsproto
     zstandard
-  ] ++ lib.optionals stdenv.hostPlatform.isDarwin [ mitmproxy-macos ];
+  ];
 
   nativeCheckInputs = [
     hypothesis
-    parver
     pytest-asyncio
     pytest-timeout
     pytest-xdist

@@ -25,13 +25,13 @@ let
 in
 buildNpmPackage rec {
   pname = "jitsi-meet-electron";
-  version = "2024.6.0";
+  version = "2025.2.0";
 
   src = fetchFromGitHub {
     owner = "jitsi";
     repo = "jitsi-meet-electron";
     rev = "v${version}";
-    hash = "sha256-jnt+aHkCnIj4GGFbAk6AlVhg0rvzFhGCELAaYMCZx88=";
+    hash = "sha256-Pk62BpfXblRph3ktxy8eF9umRmPRZbZGjRWduy+3z+s=";
   };
 
   nativeBuildInputs =
@@ -58,7 +58,7 @@ buildNpmPackage rec {
       OpenGL
     ];
 
-  npmDepsHash = "sha256-zmnxNJdalspZib1PGZN0YBIauJ+gaxs6Iir94cPRNtU=";
+  npmDepsHash = "sha256-TckV91RJo06OKb8nIvxBCxu28qyHtA/ACDshOlaCQxA=";
 
   makeCacheWritable = true;
 
@@ -90,6 +90,8 @@ buildNpmPackage rec {
         -c.electronDist=electron-dist \
         -c.electronVersion=${electron.version}
   '';
+
+  NIX_CFLAGS_COMPILE = "-Wno-implicit-function-declaration";
 
   installPhase = ''
     runHook preInstall
@@ -141,7 +143,8 @@ buildNpmPackage rec {
     homepage = "https://github.com/jitsi/jitsi-meet-electron";
     license = licenses.asl20;
     mainProgram = "jitsi-meet-electron";
-    maintainers = teams.jitsi.members ++ [ maintainers.tomasajt ];
+    maintainers = [ maintainers.tomasajt ];
+    teams = [ teams.jitsi ];
     inherit (electron.meta) platforms;
   };
 }

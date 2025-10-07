@@ -12,14 +12,14 @@
 }:
 
 buildGoModule rec {
-  version = "3.5.1";
+  version = "3.5.5";
   pname = "grafana-loki";
 
   src = fetchFromGitHub {
     owner = "grafana";
     repo = "loki";
     rev = "v${version}";
-    hash = "sha256-aDUQe4OJtrmZ9RXvNkS4lDne5fKzrzNm003ElA+IF5U=";
+    hash = "sha256-nNmY3LrRhrTGQBtnjQ2V252cAvJp2F6D2XHCkcvFfn8=";
   };
 
   vendorHash = null;
@@ -82,6 +82,7 @@ buildGoModule rec {
       globin
       mmahut
       emilylange
+      ryan4yin
     ];
   };
 }

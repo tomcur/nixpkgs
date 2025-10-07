@@ -7,16 +7,16 @@
 
 buildGoModule rec {
   pname = "gcsfuse";
-  version = "2.12.2";
+  version = "3.3.0";
 
   src = fetchFromGitHub {
     owner = "googlecloudplatform";
     repo = "gcsfuse";
     rev = "v${version}";
-    hash = "sha256-WuCrwL7iM9U4qXtLNntLeOxELe+tR7dsbsJyvdLHVaI=";
+    hash = "sha256-uHLfK6z2Ck38kxGtz91yyWV9YUW/Bft7S/MOUEHMf3o=";
   };
 
-  vendorHash = "sha256-aj3NvgKuaBiAfPNLYK9g7kzBcdeMkC4I6jjtvFHxsU8=";
+  vendorHash = "sha256-M4hI9ciDe49siQhFVRFTXNfQBMt9aBulu9+HvCQeVHA=";
 
   subPackages = [
     "."
@@ -49,7 +49,7 @@ buildGoModule rec {
     homepage = "https://cloud.google.com/storage/docs/gcs-fuse";
     changelog = "https://github.com/GoogleCloudPlatform/gcsfuse/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = [ ];
     # internal/cache/file/downloader/job.go:386:77: undefined: syscall.O_DIRECT
     broken = stdenv.hostPlatform.isDarwin;
   };

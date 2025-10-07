@@ -4,22 +4,25 @@
   fetchFromGitHub,
   pkg-config,
   wrapGAppsHook4,
+  gtk4,
   gtk4-layer-shell,
+  hyprland,
+  gcc,
+  pixman,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "hyprshell";
-  version = "4.2.5";
+  version = "4.6.4";
 
   src = fetchFromGitHub {
     owner = "H3rmt";
     repo = "hyprshell";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-J6e2VyakM+8V/s5tSK9bEUfFHSGkyVaCCBZ/zQuMEOE=";
+    hash = "sha256-+Uo7xbLlPrMG94eISub2l3Esj8l6IxwwKEfu8nZLWRg=";
   };
 
-  useFetchCargoVendor = true;
-  cargoHash = "sha256-ywTS6c+oxkaTmbVal08T0lrNIkqKJNE0Ovs98Yo6pOM=";
+  cargoHash = "sha256-jZiOLFI3VVrPvvb2YR92mvS8QELzIoQU6ER70rZ7o1E=";
 
   nativeBuildInputs = [
     wrapGAppsHook4
@@ -27,15 +30,31 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   buildInputs = [
+    gtk4
     gtk4-layer-shell
   ];
 
+  preFixup = ''
+    gappsWrapperArgs+=(
+      --prefix PATH : '${lib.makeBinPath [ gcc ]}'
+      --prefix CPATH : '${
+        lib.makeIncludePath (
+          hyprland.buildInputs
+          ++ [
+            hyprland
+            pixman
+          ]
+        )
+      }'
+    )
+  '';
+
   meta = {
-    description = "CLI/GUI that allows switching between windows in Hyprland";
+    description = "Modern GTK4-based window switcher and application launcher for Hyprland";
     mainProgram = "hyprshell";
     homepage = "https://github.com/H3rmt/hyprshell";
     license = lib.licenses.mit;
-    platforms = lib.platforms.linux;
+    platforms = hyprland.meta.platforms;
     maintainers = with lib.maintainers; [ arminius-smh ];
   };
 })

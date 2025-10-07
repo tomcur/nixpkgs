@@ -1,20 +1,19 @@
 {
   lib,
-  buildGoModule,
+  buildGo125Module,
   fetchFromGitHub,
   versionCheckHook,
   mockgen,
 }:
-
-buildGoModule (finalAttrs: {
+buildGo125Module (finalAttrs: {
   pname = "terragrunt";
-  version = "0.81.8";
+  version = "0.88.1";
 
   src = fetchFromGitHub {
     owner = "gruntwork-io";
     repo = "terragrunt";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-+f6rHS1ljj59wmR3NJwviJEBqeS6VzoMPfal4MuoyUE=";
+    hash = "sha256-+AGxB13XgyClWu8xsVTCnRknPleiijoRRRdgedL88IQ=";
   };
 
   nativeBuildInputs = [
@@ -26,7 +25,7 @@ buildGoModule (finalAttrs: {
     make generate-mocks
   '';
 
-  vendorHash = "sha256-A8P0wJ/EUTnAeCIFfAECTBQmSaOcED6SDbeRnnTlcJ8=";
+  vendorHash = "sha256-+4mDmC1B4YmExOJqS/vlTxBiI5/rKcn3Vyw53BfvAxA=";
 
   doCheck = false;
 

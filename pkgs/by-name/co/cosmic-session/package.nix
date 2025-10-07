@@ -12,18 +12,17 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "cosmic-session";
-  version = "1.0.0-alpha.7";
+  version = "1.0.0-beta.1.1";
 
   # nixpkgs-update: no auto update
   src = fetchFromGitHub {
     owner = "pop-os";
     repo = "cosmic-session";
     tag = "epoch-${finalAttrs.version}";
-    hash = "sha256-vozm4vcXV3RB9Pk6om1UNCfGh80vIVJvSwbzwGDQw3Y=";
+    hash = "sha256-P3xXYd80P+DR1vVE0zZC+v4ARsGhRrG9N9LdP2BEfDA=";
   };
 
-  useFetchCargoVendor = true;
-  cargoHash = "sha256-68budhhbt8wPY7sfDqwIs4MWB/NBXsswK6HbC2AnHqE=";
+  cargoHash = "sha256-bo46A7hS1U0cOsa/T4oMTKUTjxVCaGuFdN2qCjVHxhg=";
 
   postPatch = ''
     substituteInPlace data/start-cosmic \
@@ -51,7 +50,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
   ];
 
   env = {
-    XDP_COSMIC = lib.getExe xdg-desktop-portal-cosmic;
+    XDP_COSMIC = "${xdg-desktop-portal-cosmic}/libexec/xdg-desktop-portal-cosmic";
     ORCA = "orca"; # get orca from $PATH
   };
 

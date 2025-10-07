@@ -45,7 +45,6 @@ let
       fetchMixDeps = callPackage ./fetch-mix-deps.nix { };
       mixRelease = callPackage ./mix-release.nix { };
 
-      erlang-ls = callPackage ./erlang-ls { };
       erlfmt = callPackage ./erlfmt { };
       elvis-erlang = callPackage ./elvis-erlang { };
 
@@ -89,10 +88,12 @@ let
         inherit fetchMixDeps mixRelease;
       };
 
-      elixir-ls = callPackage ./elixir-ls { inherit elixir fetchMixDeps mixRelease; };
+      elixir-ls = callPackage ./elixir-ls { inherit elixir; };
 
       lfe = lfe_2_1;
       lfe_2_1 = lib'.callLFE ../interpreters/lfe/2.1.nix { inherit erlang buildRebar3 buildHex; };
+
+      livebook = callPackage ./livebook { };
 
       # Non hex packages. Examples how to build Rebar/Mix packages with and
       # without helper functions buildRebar3 and buildMix.

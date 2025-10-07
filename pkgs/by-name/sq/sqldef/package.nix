@@ -6,18 +6,18 @@
 
 buildGoModule rec {
   pname = "sqldef";
-  version = "2.0.2";
+  version = "3.1.8";
 
   src = fetchFromGitHub {
     owner = "sqldef";
     repo = "sqldef";
     rev = "v${version}";
-    hash = "sha256-oko+JJkXqFVnUO15NGJV+Vc/MnuVNwhr+Ck0jMpQ0QY=";
+    hash = "sha256-WPn5vlRpX3EKWXUTY+IBWEURLpz+Ics30kqrqBJ6Bq8=";
   };
 
   proxyVendor = true;
 
-  vendorHash = "sha256-SkYRt/w8/YC6LGoADVRdyYdQw/Lves1rd4tl8lYNSSs=";
+  vendorHash = "sha256-u471eJFxVcXiwuAFRD65yJnDoR3D40PLHXeoMcENdLY=";
 
   ldflags = [
     "-s"

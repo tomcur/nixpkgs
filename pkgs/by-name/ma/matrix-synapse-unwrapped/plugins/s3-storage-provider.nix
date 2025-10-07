@@ -34,16 +34,15 @@ buildPythonPackage rec {
     matrix-synapse-unwrapped
   ];
 
-  propagatedBuildInputs =
-    [
-      boto3
-      humanize
-      tqdm
-      twisted
-      psycopg2
-    ]
-    # For the s3_media_upload script
-    ++ matrix-synapse-unwrapped.propagatedBuildInputs;
+  propagatedBuildInputs = [
+    boto3
+    humanize
+    tqdm
+    twisted
+    psycopg2
+  ]
+  # For the s3_media_upload script
+  ++ matrix-synapse-unwrapped.propagatedBuildInputs;
 
   # Tests need network access
   doCheck = false;
@@ -58,6 +57,6 @@ buildPythonPackage rec {
     homepage = "https://github.com/matrix-org/synapse-s3-storage-provider";
     changelog = "https://github.com/matrix-org/synapse-s3-storage-provider/releases/tag/v${version}";
     license = lib.licenses.asl20;
-    maintainers = with lib.maintainers; [ ];
+    maintainers = [ ];
   };
 }

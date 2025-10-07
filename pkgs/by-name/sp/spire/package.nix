@@ -6,7 +6,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "spire";
-  version = "1.12.3";
+  version = "1.13.0";
 
   outputs = [
     "out"
@@ -18,10 +18,10 @@ buildGoModule (finalAttrs: {
     owner = "spiffe";
     repo = "spire";
     tag = "v${finalAttrs.version}";
-    sha256 = "sha256-ZtSJ5/Qg4r2dkFGM/WiDWwQc2OtkX45kGXTdXU35Cng=";
+    sha256 = "sha256-hUvzC3gaNpp5yvIOoWG72WcC8yy5yLgf5RRzP+hPXrA=";
   };
 
-  vendorHash = "sha256-1ngjcqGwUNMyR/wBCo0MYguD1gGH8rbI2j9BB+tGL9k=";
+  vendorHash = "sha256-qhYuE/rlaGJyOxt4e0a1QzAySF0wWOFoNdLAe2nKQbw=";
 
   ldflags = [
     "-s"

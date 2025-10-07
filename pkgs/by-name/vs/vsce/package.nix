@@ -6,22 +6,21 @@
   libsecret,
   python3,
   testers,
-  vsce,
   nix-update-script,
 }:
 
 buildNpmPackage (finalAttrs: {
   pname = "vsce";
-  version = "3.5.0";
+  version = "3.6.2";
 
   src = fetchFromGitHub {
     owner = "microsoft";
     repo = "vscode-vsce";
-    rev = "v${finalAttrs.version}";
-    hash = "sha256-55yiW2BJe0AlfHit8gpZJyZSHqVq6kywuEtZ5HGcfT0=";
+    tag = "v${finalAttrs.version}";
+    hash = "sha256-TcBzXDNpjJvI+0ir80d+HFp6mF/Ecle4vhOMcACvF7M=";
   };
 
-  npmDepsHash = "sha256-tUboOVkZY4iag+36aJLbHGJqqlFE7fx8BXK50G7DJ64=";
+  npmDepsHash = "sha256-G09pn6JX389GMbIzYmmLutH7qwiaDb8V9zCGAOFaDdk=";
 
   postPatch = ''
     substituteInPlace package.json --replace-fail '"version": "0.0.0"' '"version": "${finalAttrs.version}"'
@@ -39,7 +38,7 @@ buildNpmPackage (finalAttrs: {
 
   passthru = {
     tests.version = testers.testVersion {
-      package = vsce;
+      package = finalAttrs.finalPackage;
     };
     updateScript = nix-update-script {
       extraArgs = [

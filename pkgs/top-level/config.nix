@@ -20,7 +20,7 @@ let
   mkMassRebuild =
     args:
     mkOption (
-      builtins.removeAttrs args [ "feature" ]
+      removeAttrs args [ "feature" ]
       // {
         type = args.type or (types.uniq types.bool);
         default = args.default or false;
@@ -103,6 +103,40 @@ let
 
         Changing the default will cause a mass rebuild.
       '';
+    };
+
+    gitConfig = mkOption {
+      type = types.attrsOf (types.attrsOf types.anything);
+      description = ''
+        The default [git configuration](https://git-scm.com/docs/git-config#_variables) for all [`pkgs.fetchgit`](#fetchgit) calls.
+
+        Among many other potential uses, this can be used to override URLs to point to local mirrors.
+
+        Changing this will not cause any rebuilds because `pkgs.fetchgit` produces a [fixed-output derivation](https://nix.dev/manual/nix/stable/glossary.html?highlight=fixed-output%20derivation#gloss-fixed-output-derivation).
+
+        To set the configuration file directly, use the [`gitConfigFile`](#opt-gitConfigFile) option instead.
+
+        To set the configuration file for individual calls, use `fetchgit { gitConfigFile = "..."; }`.
+      '';
+      default = { };
+      example = {
+        url."https://my-github-mirror.local".insteadOf = [ "https://github.com" ];
+      };
+    };
+
+    # A rendered version of gitConfig that can be reused by all pkgs.fetchgit calls
+    gitConfigFile = mkOption {
+      type = types.nullOr types.path;
+      description = ''
+        A path to a [git configuration](https://git-scm.com/docs/git-config#_variables) file, to be used for all [`pkgs.fetchgit`](#fetchgit) calls.
+
+        This overrides the [`gitConfig`](#opt-gitConfig) option, see its documentation for more details.
+      '';
+      default =
+        if config.gitConfig != { } then
+          builtins.toFile "gitconfig" (lib.generators.toGitINI config.gitConfig)
+        else
+          null;
     };
 
     doCheckByDefault = mkMassRebuild {
@@ -272,6 +306,18 @@ let
           # Use Nix like it's 2024! ;-)
           rewriteURL = url: "https://web.archive.org/web/2024/''${url}";
         }
+      '';
+    };
+
+    microsoftVisualStudioLicenseAccepted = mkOption {
+      type = types.bool;
+      default = false;
+      # getEnv part is in check-meta.nix
+      defaultText = literalExpression ''false || builtins.getEnv "NIXPKGS_ALLOW_UNFREE" == "1"'';
+      description = ''
+        If the Microsoft Visual Studio license has been accepted.
+
+        Please read https://www.visualstudio.com/license-terms/mt644918/ and enable this config if you accept.
       '';
     };
   };

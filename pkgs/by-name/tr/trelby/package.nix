@@ -40,9 +40,18 @@ python3Packages.buildPythonApplication rec {
     wxpython
   ];
 
+  postInstall = ''
+    install -Dm644 trelby/resources/trelby.desktop $out/share/applications/trelby.desktop
+
+    install -Dm644 trelby/resources/icon256.png $out/share/icons/hicolor/256x256/apps/trelby.png
+
+    substituteInPlace $out/share/applications/trelby.desktop \
+      --replace-fail "Icon=trelby256" "Icon=trelby"
+  '';
+
   meta = {
     description = "Free, multiplatform, feature-rich screenwriting program";
-    homepage = "www.trelby.org";
+    homepage = "https://www.trelby.org";
     downloadPage = "https://github.com/trelby/trelby";
     mainProgram = "trelby";
     license = lib.licenses.gpl2Only;

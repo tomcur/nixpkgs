@@ -8,17 +8,16 @@
 
 rustPlatform.buildRustPackage rec {
   pname = "kubectl-view-allocations";
-  version = "0.22.0";
+  version = "1.0.0";
 
   src = fetchFromGitHub {
     owner = "davidB";
     repo = "kubectl-view-allocations";
     tag = version;
-    hash = "sha256-MwTncyfR6knXss83sd3u879YRFUxWdDyNLpQO40sZ9c=";
+    hash = "sha256-R4pxbIUY9QEsblbVv2/QbWZv7A/ZDQmUnOCYB34RkdE=";
   };
 
-  useFetchCargoVendor = true;
-  cargoHash = "sha256-bbNjOMShJMCWEcxU8F+R1BC6fqlLe2AK0y3N00HXjts=";
+  cargoHash = "sha256-liExE40Ldel1G4RT3P1y5Da65RJSrc7HD+52SwW0oeg=";
 
   doInstallCheck = true;
   nativeInstallCheckInputs = [ versionCheckHook ];

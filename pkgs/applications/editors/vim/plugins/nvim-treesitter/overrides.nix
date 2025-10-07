@@ -98,7 +98,7 @@ in
           ''
             touch $out
             ln -s ${withAllGrammars}/CONTRIBUTING.md .
-            export ALLOWED_INSTALLATION_FAILURES=ipkg,norg
+            export ALLOWED_INSTALLATION_FAILURES=ipkg,norg,verilog
 
             nvim --headless "+luafile ${withAllGrammars}/scripts/check-queries.lua" | tee log
 
@@ -111,7 +111,7 @@ in
       tree-sitter-queries-are-present-for-custom-grammars =
         let
           pluginsToCheck =
-            builtins.map (grammar: grammarToPlugin grammar)
+            map (grammar: grammarToPlugin grammar)
               # true is here because there is `recurseForDerivations = true`
               (lib.remove true (lib.attrValues tree-sitter-grammars));
         in

@@ -35,20 +35,20 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "siyuan";
-  version = "3.3.3";
+  version = "3.3.6";
 
   src = fetchFromGitHub {
     owner = "siyuan-note";
     repo = "siyuan";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-J3IWPWa4L16kaapMifViFOVRP8OrWIN1F+v4CfPm3y8=";
+    hash = "sha256-LG6JVeP5OmC/8OcUq+a3Xj/BTNB5C4XXhp0VVE8BZ6k=";
   };
 
   kernel = buildGoModule {
     name = "${finalAttrs.pname}-${finalAttrs.version}-kernel";
     inherit (finalAttrs) src;
     sourceRoot = "${finalAttrs.src.name}/kernel";
-    vendorHash = "sha256-/mB0aQtTOTmaTEEkOIgwIcDDi4quxe5/ttvJJr3cnlQ=";
+    vendorHash = "sha256-ZUSfehCqHUZyWHHisulg4x9v+YtnoktqaLDR7SjeGQo=";
 
     patches = [
       (replaceVars ./set-pandoc-path.patch {
@@ -97,7 +97,7 @@ stdenv.mkDerivation (finalAttrs: {
       postPatch
       ;
     fetcherVersion = 1;
-    hash = "sha256-QhgND6yxXEJYJM1jkbViAfxNr9FRklYk1YjrnDjZSPc=";
+    hash = "sha256-uAv/KTkLy/cvVctceBFA5xwlgGeSmbutgUP39zvZIhU=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/app";

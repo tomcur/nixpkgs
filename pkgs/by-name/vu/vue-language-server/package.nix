@@ -2,6 +2,8 @@
   lib,
   stdenv,
   fetchFromGitHub,
+  fetchPnpmDeps,
+  pnpmConfigHook,
   pnpm,
   nodejs,
   nix-update-script,
@@ -9,24 +11,25 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "vue-language-server";
-  version = "3.1.3";
+  version = "3.1.5";
 
   src = fetchFromGitHub {
     owner = "vuejs";
     repo = "language-tools";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-bzVqlO6Q3pgw9Kor6agpAlqyp3nj96+7f8j2nOzyEZ0=";
+    hash = "sha256-cizb5nm1udYssh4EcWEWU22sZJP5so+oiYe8yaPqO98=";
   };
 
-  pnpmDeps = pnpm.fetchDeps {
+  pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
     fetcherVersion = 1;
-    hash = "sha256-VcQbzvPa5FL8OH4Sk0j64M9D4Si/N4rm9nvIAN/xODs=";
+    hash = "sha256-urnzAHrhuqw/7UwryNnR/BCMyxbzGXKUx0PQ+oAd27o=";
   };
 
   nativeBuildInputs = [
     nodejs
-    pnpm.configHook
+    pnpmConfigHook
+    pnpm
     makeBinaryWrapper
   ];
 

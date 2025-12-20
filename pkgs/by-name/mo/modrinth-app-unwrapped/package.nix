@@ -14,6 +14,8 @@
   openssl,
   pkg-config,
   pnpm_9,
+  fetchPnpmDeps,
+  pnpmConfigHook,
   replaceVars,
   runCommand,
   rustPlatform,
@@ -24,18 +26,17 @@
 let
   gradle = gradle_8.override { java = jdk; };
   jdk = jdk11;
-  pnpm = pnpm_9;
 in
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "modrinth-app-unwrapped";
-  version = "0.10.3";
+  version = "0.10.5";
 
   src = fetchFromGitHub {
     owner = "modrinth";
     repo = "code";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-XfJbjbVcP9N3exAhXQoMGpoHORpKAlb0dPhQq195roY=";
+    hash = "sha256-KqC+5RLLvg3cyjY7Ecw9qxQ5XUKsK7Tfxl4WC1OwZeI=";
   };
 
   patches = [
@@ -65,17 +66,18 @@ rustPlatform.buildRustPackage (finalAttrs: {
       --replace-fail '1.0.0-local' '${finalAttrs.version}'
   '';
 
-  cargoHash = "sha256-jWMHii65hTnTmiBFHxZ4xO5V+Qt/MPCy75eJvnlyE4c=";
+  cargoHash = "sha256-chUPd1fLZ7dm0MXkbD7Bv4tE520ooEyliVZ9Pp+LIdk=";
 
   mitmCache = gradle.fetchDeps {
     inherit (finalAttrs) pname;
     data = ./deps.json;
   };
 
-  pnpmDeps = pnpm.fetchDeps {
+  pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs) pname version src;
+    pnpm = pnpm_9;
     fetcherVersion = 1;
-    hash = "sha256-7iqXuIQPbP2p26vrWDjMoyZBPpbVQpigYAylhIg8+ZY=";
+    hash = "sha256-1tDegt8OgG0ZhvNGpkYQR+PuX/xI287OFk4MGAXUKZQ=";
   };
 
   nativeBuildInputs = [
@@ -85,7 +87,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     gradle
     nodejs
     pkg-config
-    pnpm.configHook
+    pnpmConfigHook
+    pnpm_9
   ]
   ++ lib.optional stdenv.hostPlatform.isDarwin makeBinaryWrapper;
 
@@ -121,6 +124,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     local nixGradleFlags=()
     concatTo nixGradleFlags gradleFlags gradleFlagsArray
     export NIX_GRADLEFLAGS_COMPILE="''${nixGradleFlags[@]}"
+
+    cp packages/app-lib/.env.prod packages/app-lib/.env
   '';
 
   postInstall =

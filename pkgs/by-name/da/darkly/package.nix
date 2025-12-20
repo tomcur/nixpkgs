@@ -13,13 +13,13 @@ let
 in
 stdenv.mkDerivation (finalAttrs: {
   pname = "darkly-qt${qtMajorVersion}";
-  version = "0.5.25";
+  version = "0.5.28";
 
   src = fetchFromGitHub {
     owner = "Bali10050";
     repo = "Darkly";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-YffRZl5s3eFT9qJMoX0wX+5T0DmCXMhUQe6yzyd85uk=";
+    hash = "sha256-ZkVoYkwfk8WLtb7YIlnKU+qFD/CU98oDvcVqz8Doa3k=";
   };
 
   nativeBuildInputs = [

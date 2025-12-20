@@ -3,6 +3,8 @@
   stdenv,
   fetchFromGitHub,
   pnpm_10,
+  fetchPnpmDeps,
+  pnpmConfigHook,
   nodejs,
   electron,
   makeWrapper,
@@ -10,28 +12,32 @@
   makeDesktopItem,
   nix-update-script,
 }:
-stdenv.mkDerivation (final: {
+stdenv.mkDerivation (finalAttrs: {
   pname = "splayer";
-  version = "3.0.0-beta.4";
+  version = "3.0.0-beta.6";
 
   src = fetchFromGitHub {
     owner = "imsyy";
     repo = "SPlayer";
-    tag = "v${final.version}";
+    tag = "v${finalAttrs.version}";
     fetchSubmodules = false;
-    hash = "sha256-q8Iy8jkLvxOs5ejjORL20cJ51QCYBS4cfX+6DZbIdEM=";
+    hash = "sha256-7guh5KJ9RbYCiifH0ERXbIXxoJDxanUAHAf/zux7yU4=";
   };
 
-  pnpm = pnpm_10;
-
-  pnpmDeps = final.pnpm.fetchDeps {
-    inherit (final) pname version src;
+  pnpmDeps = fetchPnpmDeps {
+    inherit (finalAttrs)
+      pname
+      version
+      src
+      ;
+    pnpm = pnpm_10;
     fetcherVersion = 2;
-    hash = "sha256-ZyQcuZYwfc0a5PgfYgvp2GdfV3cBf5sb8oxJtI4+kp4=";
+    hash = "sha256-3t9Qx+1OQwqVvzgYssP8azGG/PNSJkrG614wQh0W4WQ=";
   };
 
   nativeBuildInputs = [
-    final.pnpm.configHook
+    pnpmConfigHook
+    pnpm_10
     nodejs
     makeWrapper
     copyDesktopItems

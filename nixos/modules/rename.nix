@@ -63,6 +63,13 @@ in
       "networking"
       "wicd"
     ] "The corresponding package was removed from nixpkgs.")
+    (mkRemovedOptionModule
+      [
+        "programs"
+        "adb"
+      ]
+      "This option is no longer needed as systemd 258 handles uaccess rules automatically. Please add `pkgs.android-tools` to your system packages to get the adb command."
+    )
     (mkRemovedOptionModule [
       "programs"
       "cardboard"
@@ -151,6 +158,9 @@ in
       "services"
       "couchpotato"
     ] "The corresponding package was removed from nixpkgs.")
+    (mkRemovedOptionModule [ "services" "crabfit" ]
+      "The corresponding packages were removed from nixpkgs because they are unmaintained upstream and insecure."
+    )
     (mkRemovedOptionModule [ "services" "crowd" ]
       "Atlassian software has been removed, as support for the Atlassian Server products ended in February 2024 and there was insufficient interest in maintaining the Atlassian Data Center replacements"
     )

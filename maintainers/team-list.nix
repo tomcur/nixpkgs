@@ -908,12 +908,6 @@ with lib.maintainers;
     shortName = "Serokell employees";
   };
 
-  sphinx = {
-    members = [ ];
-    scope = "Maintain Sphinx related packages.";
-    shortName = "Sphinx";
-  };
-
   stdenv = {
     enableFeatureFreezePing = true;
     github = "stdenv";
@@ -965,17 +959,6 @@ with lib.maintainers;
     members = [ mic92 ];
     scope = "coqui-ai TTS (formerly Mozilla TTS) and leaf packages";
     shortName = "coqui-ai TTS";
-  };
-
-  uzinfocom = {
-    members = [
-      orzklv
-      bahrom04
-      bemeritus
-      shakhzodkudratov
-    ];
-    scope = "Maintain Uzbek Linux state & community packages and modules.";
-    shortName = "Uzinfocom Open Source";
   };
 
   wdz = {

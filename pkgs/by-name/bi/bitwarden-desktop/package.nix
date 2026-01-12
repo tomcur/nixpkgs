@@ -3,7 +3,7 @@
   buildNpmPackage,
   cargo,
   copyDesktopItems,
-  dart,
+  dart-sass,
   darwin,
   electron_37,
   fetchFromGitHub,
@@ -108,6 +108,7 @@ buildNpmPackage' rec {
 
   nativeBuildInputs = [
     cargo
+    dart-sass
     jq
     makeWrapper
     napi-rs-cli
@@ -130,8 +131,8 @@ buildNpmPackage' rec {
       exit 1
     fi
 
-    substituteInPlace node_modules/sass-embedded/dist/lib/src/compiler-path.js \
-      --replace-fail "\''${compiler_module_1.compilerModule}/dart-sass/src/dart" "${lib.getExe' dart "dartaotruntime"}"
+    # force our dart-sass executable
+    echo "export const compilerCommand = ['dart-sass'];" > node_modules/sass-embedded/dist/lib/src/compiler-path.js
 
     pushd apps/desktop/desktop_native/napi
     npm run build

@@ -160,7 +160,6 @@
   ./misc/wordlist.nix
   ./programs/_1password-gui.nix
   ./programs/_1password.nix
-  ./programs/adb.nix
   ./programs/alvr.nix
   ./programs/amnezia-vpn.nix
   ./programs/appgate-sdp.nix
@@ -204,6 +203,7 @@
   ./programs/dsearch.nix
   ./programs/dublin-traceroute.nix
   ./programs/ecryptfs.nix
+  ./programs/ente-auth.nix
   ./programs/environment.nix
   ./programs/envision.nix
   ./programs/evince.nix
@@ -256,6 +256,7 @@
   ./programs/less.nix
   ./programs/liboping.nix
   ./programs/light.nix
+  ./programs/lix.nix
   ./programs/localsend.nix
   ./programs/mdevctl.nix
   ./programs/mepo.nix
@@ -402,6 +403,7 @@
   ./security/please.nix
   ./security/polkit.nix
   ./security/rtkit.nix
+  ./security/run0.nix
   ./security/soteria.nix
   ./security/sudo-rs.nix
   ./security/sudo.nix
@@ -502,7 +504,7 @@
   ./services/continuous-integration/buildkite-agents.nix
   ./services/continuous-integration/gitea-actions-runner.nix
   ./services/continuous-integration/github-runners.nix
-  ./services/continuous-integration/gitlab-runner.nix
+  ./services/continuous-integration/gitlab-runner/runner.nix
   ./services/continuous-integration/gocd-agent/default.nix
   ./services/continuous-integration/gocd-server/default.nix
   ./services/continuous-integration/hercules-ci-agent/default.nix
@@ -708,6 +710,7 @@
   ./services/hardware/usbmuxd.nix
   ./services/hardware/usbrelayd.nix
   ./services/hardware/vdr.nix
+  ./services/home-automation/deye-dummycloud.nix
   ./services/home-automation/ebusd.nix
   ./services/home-automation/esphome.nix
   ./services/home-automation/evcc.nix
@@ -942,6 +945,7 @@
   ./services/misc/servarr/sonarr.nix
   ./services/misc/servarr/whisparr.nix
   ./services/misc/serviio.nix
+  ./services/misc/shoko.nix
   ./services/misc/sickbeard.nix
   ./services/misc/snapper.nix
   ./services/misc/soft-serve.nix
@@ -1287,6 +1291,7 @@
   ./services/networking/networkd-dispatcher.nix
   ./services/networking/networkmanager.nix
   ./services/networking/newt.nix
+  ./services/networking/nextcloud-spreed-signaling.nix
   ./services/networking/nextdns.nix
   ./services/networking/nftables.nix
   ./services/networking/nghttpx/default.nix
@@ -1346,7 +1351,7 @@
   ./services/networking/routinator.nix
   ./services/networking/rpcbind.nix
   ./services/networking/rxe.nix
-  ./services/networking/sabnzbd.nix
+  ./services/networking/sabnzbd
   ./services/networking/scion/scion-control.nix
   ./services/networking/scion/scion-daemon.nix
   ./services/networking/scion/scion-dispatcher.nix
@@ -1528,6 +1533,7 @@
   ./services/system/localtimed.nix
   ./services/system/nix-daemon-firewall.nix
   ./services/system/nix-daemon.nix
+  ./services/system/nohang.nix
   ./services/system/nscd.nix
   ./services/system/nvme-rs.nix
   ./services/system/saslauthd.nix
@@ -1589,7 +1595,6 @@
   ./services/web-apps/commafeed.nix
   ./services/web-apps/convos.nix
   ./services/web-apps/cook-cli.nix
-  ./services/web-apps/crabfit.nix
   ./services/web-apps/cryptpad.nix
   ./services/web-apps/dashy.nix
   ./services/web-apps/davis.nix

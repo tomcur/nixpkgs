@@ -14,14 +14,14 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ty";
-  version = "0.0.2";
+  version = "0.0.11";
 
   src = fetchFromGitHub {
     owner = "astral-sh";
     repo = "ty";
     tag = finalAttrs.version;
     fetchSubmodules = true;
-    hash = "sha256-4Kv3UUn2QbOOOaQ/uzJB2KOUx++Gb+cKpZg4kGx99Q0=";
+    hash = "sha256-lelhsc6zl6Qe7W7YsXviqB3NEOuJAzewnOgFPtsCYGA=";
   };
 
   # For Darwin platforms, remove the integration test for file notifications,
@@ -35,7 +35,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   cargoBuildFlags = [ "--package=ty" ];
 
-  cargoHash = "sha256-nsrSAYRr80O0gNSzlV+IwD7tFbKogiimOfH3/O1Sqrk=";
+  cargoHash = "sha256-BceNALWxHXxylbssvAbY0CMcQBHnOX22ckgGta1wTsc=";
 
   nativeBuildInputs = [ installShellFiles ];
 
@@ -60,12 +60,12 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # Flaky:
     # called `Result::unwrap()` on an `Err` value: Os { code: 26, kind: ExecutableFileBusy, message: "Text file busy" }
     "--skip=python_environment::ty_environment_and_active_environment"
+    "--skip=python_environment::ty_environment_and_discovered_venv"
     "--skip=python_environment::ty_environment_is_only_environment"
     "--skip=python_environment::ty_environment_is_system_not_virtual"
   ];
 
   nativeInstallCheckInputs = [ versionCheckHook ];
-  versionCheckProgramArg = "--version";
   doInstallCheck = true;
 
   postInstall = lib.optionalString (stdenv.hostPlatform.emulatorAvailable buildPackages) (

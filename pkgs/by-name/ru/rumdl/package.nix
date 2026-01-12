@@ -3,22 +3,23 @@
   fetchFromGitHub,
   rustPlatform,
   stdenvNoCC,
+  gitMinimal,
   versionCheckHook,
   nix-update-script,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "rumdl";
-  version = "0.0.194";
+  version = "0.0.213";
 
   src = fetchFromGitHub {
     owner = "rvben";
     repo = "rumdl";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-4+JeAFS9ELfAq43fH/HYhjCZoNmlZ+fPf1RVJnWRRnQ=";
+    hash = "sha256-YUo6WU3r9phIrM8g3qfGAVaj1oSAOqgTfCoghsFU/Ng=";
   };
 
-  cargoHash = "sha256-fUpwSFT/Sg+akzBLq07YFxqCaGwEH0b2LD3c/Eojwpw=";
+  cargoHash = "sha256-JSHS1/H5jiB4NvQV5qMrui118JGxVLqOfjRLUB/cPTQ=";
 
   cargoBuildFlags = [
     "--bin=rumdl"
@@ -27,6 +28,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
   # Non-specific tests often fail on Darwin (especially aarch64-darwin),
   # on both Hydra and GitHub-hosted runners, even with __darwinAllowLocalNetworking enabled.
   doCheck = !stdenvNoCC.hostPlatform.isDarwin;
+
+  nativeCheckInputs = [
+    gitMinimal
+  ];
 
   useNextest = true;
 
@@ -44,7 +49,6 @@ rustPlatform.buildRustPackage (finalAttrs: {
   nativeInstallCheckInputs = [
     versionCheckHook
   ];
-  versionCheckProgramArg = "--version";
 
   passthru = {
     updateScript = nix-update-script { };

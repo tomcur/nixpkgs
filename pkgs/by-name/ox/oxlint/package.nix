@@ -3,25 +3,30 @@
   rustPlatform,
   fetchFromGitHub,
   cmake,
+  makeBinaryWrapper,
   nix-update-script,
   rust-jemalloc-sys,
+  tsgolint,
   versionCheckHook,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "oxlint";
-  version = "1.38.0";
+  version = "1.39.0";
 
   src = fetchFromGitHub {
     owner = "oxc-project";
     repo = "oxc";
     tag = "oxlint_v${finalAttrs.version}";
-    hash = "sha256-kMCGKbc7qaY0KUOR+67mLvKW4J5CuvYUmC6Aj9xlzSk=";
+    hash = "sha256-Sg9NtXRuQ0ZruK8a8k5EkeDOJ9v6uzpNzEQ/FY56ioY=";
   };
 
-  cargoHash = "sha256-cesj9jwWHIFxpFV62QDgYl22EUE8qVjIbb2nRObAyLo=";
+  cargoHash = "sha256-sgIarCuUmSTAVPVr82rp4dQwzDMWESIbGgkCYEExz6o=";
 
-  nativeBuildInputs = [ cmake ];
+  nativeBuildInputs = [
+    cmake
+    makeBinaryWrapper
+  ];
   buildInputs = [
     rust-jemalloc-sys
   ];
@@ -32,6 +37,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
     "--bin=oxlint"
   ];
   cargoTestFlags = finalAttrs.cargoBuildFlags;
+
+  postFixup = ''
+    wrapProgram $out/bin/oxlint \
+      --prefix PATH : "${lib.makeBinPath [ tsgolint ]}"
+  '';
 
   nativeInstallCheckInputs = [ versionCheckHook ];
   doInstallCheck = true;

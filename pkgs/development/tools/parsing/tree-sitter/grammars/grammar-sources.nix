@@ -11,9 +11,9 @@
   };
 
   beancount = {
-    version = "2.4.2";
+    version = "2.5.0";
     url = "github:polarmutex/tree-sitter-beancount";
-    hash = "sha256-YMIFnx4N9EtdzCxrzQv3xQbLHfDMnbXN+OP5KkMT7+s=";
+    hash = "sha256-eJ1XAPrVCoGQtrRJdcB/V4ULUmYXemUAE3FQijpH8q8=";
     meta = {
       license = lib.licenses.mit;
     };
@@ -710,9 +710,9 @@
   };
 
   pgn = {
-    version = "1.4.2";
+    version = "1.4.3";
     url = "github:rolandwalker/tree-sitter-pgn";
-    hash = "sha256-pGUSsmm+YUvfvt5c4tPs6tmEcFh3DZoDtVf+EpFhOo0=";
+    hash = "sha256-7N0irNJt/tiKywUSZAIVt/E1urNXDMG+hYvu+EPpfXA=";
     meta = {
       license = lib.licenses.bsd2;
     };

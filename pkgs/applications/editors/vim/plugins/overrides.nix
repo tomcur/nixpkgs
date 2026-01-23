@@ -1211,6 +1211,14 @@ assertNoAdditions {
     '';
   };
 
+  evergarden-nvim = super.evergarden-nvim.overrideAttrs {
+    # optional modules
+    nvimSkipModules = [
+      "evergarden.extras"
+      "minidoc"
+    ];
+  };
+
   executor-nvim = super.executor-nvim.overrideAttrs {
     dependencies = [ self.nui-nvim ];
   };
@@ -2786,10 +2794,6 @@ assertNoAdditions {
   nvim-treesitter-context = super.nvim-treesitter-context.overrideAttrs {
     # Meant for CI installing parsers
     nvimSkipModules = [ "install_parsers" ];
-  };
-
-  nvim-treesitter-endwise = super.nvim-treesitter-endwise.overrideAttrs {
-    dependencies = [ self.nvim-treesitter-legacy ];
   };
 
   nvim-treesitter-pairs = super.nvim-treesitter-pairs.overrideAttrs {

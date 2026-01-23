@@ -27,8 +27,6 @@ buildPythonPackage rec {
   version = "4.0.2";
   pyproject = true;
 
-  disabled = pythonOlder "3.8";
-
   src = fetchFromGitHub {
     owner = "pylint-dev";
     repo = "pylint";
@@ -46,8 +44,7 @@ buildPythonPackage rec {
     platformdirs
     tomlkit
   ]
-  ++ lib.optionals (pythonOlder "3.11") [ tomli ]
-  ++ lib.optionals (pythonOlder "3.10") [ typing-extensions ];
+  ++ lib.optionals (pythonOlder "3.11") [ tomli ];
 
   nativeCheckInputs = [
     gitpython

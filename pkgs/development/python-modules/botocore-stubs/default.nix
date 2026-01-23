@@ -7,20 +7,20 @@
   typing-extensions,
 }:
 
-buildPythonPackage rec {
+buildPythonPackage (finalAttrs: {
   pname = "botocore-stubs";
-  version = "1.42.24";
+  version = "1.42.30";
   pyproject = true;
 
   src = fetchPypi {
     pname = "botocore_stubs";
-    inherit version;
-    hash = "sha256-9fviQCZ7JwNrEhejBN40vyv5kwh+BJowDRfW9S13mIs=";
+    inherit (finalAttrs) version;
+    hash = "sha256-xNEWeOsXImP+sd6AVFLDdtnBHlTxkDp8+hMrp2XVe30=";
   };
 
-  nativeBuildInputs = [ setuptools ];
+  build-system = [ setuptools ];
 
-  propagatedBuildInputs = [
+  dependencies = [
     types-awscrt
     typing-extensions
   ];
@@ -33,4 +33,4 @@ buildPythonPackage rec {
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [ fab ];
   };
-}
+})

@@ -202,7 +202,6 @@
   ./programs/droidcam.nix
   ./programs/dsearch.nix
   ./programs/dublin-traceroute.nix
-  ./programs/ecryptfs.nix
   ./programs/ente-auth.nix
   ./programs/environment.nix
   ./programs/envision.nix
@@ -1128,7 +1127,6 @@
   ./services/networking/cato-client.nix
   ./services/networking/centrifugo.nix
   ./services/networking/cgit.nix
-  ./services/networking/charybdis.nix
   ./services/networking/chisel-server.nix
   ./services/networking/cjdns.nix
   ./services/networking/clatd.nix
@@ -1553,6 +1551,7 @@
   ./services/torrent/opentracker.nix
   ./services/torrent/peerflix.nix
   ./services/torrent/qbittorrent.nix
+  ./services/torrent/qui.nix
   ./services/torrent/rtorrent.nix
   ./services/torrent/torrentstream.nix
   ./services/torrent/transmission.nix
@@ -1598,6 +1597,7 @@
   ./services/web-apps/cryptpad.nix
   ./services/web-apps/dashy.nix
   ./services/web-apps/davis.nix
+  ./services/web-apps/dawarich.nix
   ./services/web-apps/dependency-track.nix
   ./services/web-apps/dex.nix
   ./services/web-apps/discourse.nix
@@ -1919,7 +1919,6 @@
   ./tasks/filesystems/bindfs.nix
   ./tasks/filesystems/btrfs.nix
   ./tasks/filesystems/cifs.nix
-  ./tasks/filesystems/ecryptfs.nix
   ./tasks/filesystems/envfs.nix
   ./tasks/filesystems/erofs.nix
   ./tasks/filesystems/exfat.nix

@@ -7,16 +7,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "railway";
-  version = "4.25.3";
+  version = "4.27.5";
 
   src = fetchFromGitHub {
     owner = "railwayapp";
     repo = "cli";
     rev = "v${version}";
-    hash = "sha256-dml5lyZoA4f9W9MdiSRj2P9+mXs9s87w8cS2J0RvC2k=";
+    hash = "sha256-S6Fp6dXCLdHTmaiRrtsTh+N44GzM4vt27MGCb9lkk5k=";
   };
 
-  cargoHash = "sha256-9zk+SHwZL80fB/HuQbfpYvOTKx3UCNLvvlbnDAB/VYM=";
+  cargoHash = "sha256-8eLrtWxOS/AXcsCYu1H6vcwDaLl4siEVwX2YSvamZ1o=";
 
   nativeBuildInputs = [ pkg-config ];
 

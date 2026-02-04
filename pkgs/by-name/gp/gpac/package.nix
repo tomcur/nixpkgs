@@ -20,7 +20,6 @@
   nghttp2,
   openjpeg,
   libcaca,
-  mesa,
   mesa_glu,
   xvidcore,
   openssl,
@@ -29,7 +28,9 @@
   pulseaudio,
   SDL2,
   curl,
-  xorg,
+  libxv,
+  libx11,
+  xorgproto,
 
   withFullDeps ? false,
   withFfmpeg ? withFullDeps,
@@ -108,10 +109,9 @@ stdenv.mkDerivation (finalAttrs: {
     nghttp2
     openjpeg
     libcaca
-    xorg.libX11
-    xorg.libXv
-    xorg.xorgproto
-    mesa
+    libx11
+    libxv
+    xorgproto
     mesa_glu
     xvidcore
     openssl

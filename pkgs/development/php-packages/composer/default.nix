@@ -13,13 +13,13 @@
 }:
 php.buildComposerProject2 (finalAttrs: {
   pname = "composer";
-  version = "2.9.3";
+  version = "2.9.5";
 
   src = fetchFromGitHub {
     owner = "composer";
     repo = "composer";
     tag = finalAttrs.version;
-    hash = "sha256-H5/YY0CKFlLdvEMzj3fr5QsEro0Y2/8gZInLQDbGR30=";
+    hash = "sha256-e9z0H6Bw3yIaLjgEbspgi6skIpUJs1s0KNkcgFqoy34=";
   };
 
   nativeBuildInputs = [
@@ -33,7 +33,7 @@ php.buildComposerProject2 (finalAttrs: {
     inherit (finalAttrs.passthru) pharHash;
   };
 
-  vendorHash = "sha256-4RFIegm7NFTpEbW11BtKB2BV+5VrSAhNrk125PcrBTw=";
+  vendorHash = "sha256-Tqtpz/IV4PGOaye0doWZgY9u7SuvS94eH22wM2+myqU=";
 
   postInstall = ''
     wrapProgram $out/bin/composer \

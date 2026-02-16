@@ -72,6 +72,7 @@
   gitMinimal,
   # opencode-nvim,
   opencode,
+  lsof,
   # Preview-nvim dependencies
   md-tui,
   # sidekick-nvim dependencies
@@ -299,6 +300,10 @@ assertNoAdditions {
       "nvchad.configs.nvimtree"
       "nvchad.configs.telescope"
     ];
+  };
+
+  blink-cmp-conventional-commits = super.blink-cmp-conventional-commits.overrideAttrs {
+    dependencies = [ self.blink-cmp ];
   };
 
   blink-cmp-copilot = super.blink-cmp-copilot.overrideAttrs {
@@ -2017,6 +2022,19 @@ assertNoAdditions {
     checkInputs = [ self.lualine-nvim ];
   };
 
+  mcphub-nvim = super.mcphub-nvim.overrideAttrs {
+    dependencies = [ self.plenary-nvim ];
+    checkInputs = [
+      # Required by mcphub.extensions.luali
+      self.lualine-nvim
+    ];
+
+    nvimSkipModules = [
+      # ENOENT: no such file or directory (cmd): 'npm'
+      "bundled_build"
+    ];
+  };
+
   mind-nvim = super.mind-nvim.overrideAttrs {
     dependencies = [ self.plenary-nvim ];
   };
@@ -2714,6 +2732,7 @@ assertNoAdditions {
     dependencies = with self; [
       none-ls-nvim
       nvim-treesitter-parsers.nu
+      plenary-nvim
     ];
   };
 
@@ -2750,15 +2769,15 @@ assertNoAdditions {
     checkInputs = [ self.toggleterm-nvim ];
     dependencies = with self; [
       nvim-treesitter-legacy
-      nvim-treesitter-legacy-parsers.c_sharp
-      nvim-treesitter-legacy-parsers.go
-      nvim-treesitter-legacy-parsers.haskell
-      nvim-treesitter-legacy-parsers.javascript
-      nvim-treesitter-legacy-parsers.python
-      nvim-treesitter-legacy-parsers.ruby
-      nvim-treesitter-legacy-parsers.rust
-      nvim-treesitter-legacy-parsers.typescript
-      nvim-treesitter-legacy-parsers.zig
+      nvim-treesitter-parsers.c_sharp
+      nvim-treesitter-parsers.go
+      nvim-treesitter-parsers.haskell
+      nvim-treesitter-parsers.javascript
+      nvim-treesitter-parsers.python
+      nvim-treesitter-parsers.ruby
+      nvim-treesitter-parsers.rust
+      nvim-treesitter-parsers.typescript
+      nvim-treesitter-parsers.zig
     ];
     nvimSkipModules = [
       # Broken runners
@@ -2838,6 +2857,10 @@ assertNoAdditions {
 
   nvim-treesitter-textobjects = super.nvim-treesitter-textobjects.overrideAttrs {
     dependencies = [ self.nvim-treesitter ];
+  };
+
+  nvim-treesitter-textobjects-legacy = super.nvim-treesitter-textobjects-legacy.overrideAttrs {
+    dependencies = [ self.nvim-treesitter-legacy ];
   };
 
   nvim-treesitter-textsubjects = super.nvim-treesitter-textsubjects.overrideAttrs {
@@ -2973,6 +2996,7 @@ assertNoAdditions {
     runtimeDeps = [
       curl
       opencode
+      lsof
     ];
   };
 
@@ -3751,6 +3775,7 @@ assertNoAdditions {
     ];
     dependencies = with self; [
       nvim-lspconfig
+      plenary-nvim
     ];
   };
 

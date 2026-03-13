@@ -58,7 +58,15 @@ mapAliases {
   "@nestjs/cli" = pkgs.nest-cli; # Added 2023-05-06
   "@prisma/language-server" = throw "@prisma/language-server has been removed because it was broken"; # added 2025-03-23
   "@shopify/cli" = throw "@shopify/cli has been removed because it was broken"; # added 2025-03-12
+  "@tailwindcss/aspect-ratio" =
+    throw "@tailwindcss/aspect-ratio has been removed because it is a library and your JS project should lock it instead."; # Added 2026-02-19
+  "@tailwindcss/forms" =
+    throw "@tailwindcss/forms has been removed because it is a library and your JS project should lock it instead."; # Added 2026-02-19
   "@tailwindcss/language-server" = pkgs.tailwindcss-language-server; # added 2024-01-22
+  "@tailwindcss/line-clamp" =
+    throw "@tailwindcss/line-clamp has been removed because it is a library and your JS project should lock it instead."; # Added 2026-02-19
+  "@tailwindcss/typography" =
+    throw "@tailwindcss/typography has been removed because it is a library and your JS project should lock it instead."; # Added 2026-02-19
   "@uppy/companion" = pkgs.uppy-companion; # Added 2025-11-01
   "@volar/vue-language-server" = pkgs.vue-language-server; # added 2024-06-15
   "@vue/language-server" = pkgs.vue-language-server; # added 2024-06-15
@@ -85,6 +93,7 @@ mapAliases {
   bitwarden-cli = pkgs.bitwarden-cli; # added 2023-07-25
   bower = throw "bower was removed because it was deprecated"; # added 2025-09-17
   inherit (pkgs) bower2nix; # added 2024-08-23
+  browserify = throw "browserify has been removed because it was unmaintained in nixpkgs"; # Added 2026-03-01
   browser-sync = throw "'browser-sync' has been removed because it was unmaintained in nixpkgs"; # Added 2026-01-26
   inherit (pkgs) btc-rpc-explorer; # added 2023-08-17
   inherit (pkgs) carbon-now-cli; # added 2023-08-17
@@ -324,6 +333,7 @@ mapAliases {
   rollup = throw "rollup has been removed because it was broken"; # added 2025-04-28
   inherit (pkgs) rtlcss; # added 2023-08-29
   s3http = throw "s3http was removed because it was abandoned upstream"; # added 2023-08-18
+  sass = throw "sass has been removed because it was unmaintained in nixpkgs"; # Added 2026-03-01
   inherit (pkgs) serve; # added 2025-08-27
   inherit (pkgs) serverless; # Added 2023-11-29
   shout = throw "shout was removed because it was deprecated upstream in favor of thelounge."; # Added 2024-10-19

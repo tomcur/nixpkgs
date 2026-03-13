@@ -6,13 +6,13 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "xbyak";
-  version = "7.31";
+  version = "7.34.1";
 
   src = fetchFromGitHub {
     owner = "herumi";
     repo = "xbyak";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-+VRyge7vDxggHKtVa6qQZCUKuhjXNixoKEu3H3wp71g=";
+    hash = "sha256-cajYwHw9/RzPAQw3c0zpNRm/nBBym0OtowqqtYnpVWc=";
   };
 
   nativeBuildInputs = [ cmake ];

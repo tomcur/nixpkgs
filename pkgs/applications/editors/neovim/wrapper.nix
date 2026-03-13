@@ -15,6 +15,7 @@
   perl,
   lndir,
   vimUtils,
+  runCommand,
 }:
 
 neovim-unwrapped:
@@ -37,14 +38,14 @@ let
       # should contain all args but the binary. Can be either a string or list
       wrapperArgs ? [ ],
       withPython2 ? false,
-      withPython3 ? true,
+      withPython3 ? false,
       # the function you would have passed to python3.withPackages
       extraPython3Packages ? (_: [ ]),
 
       waylandSupport ? lib.meta.availableOn stdenv.hostPlatform wayland,
       withNodeJs ? false,
       withPerl ? false,
-      withRuby ? true,
+      withRuby ? false,
 
       # wether to create symlinks in $out/bin/vi(m) -> $out/bin/nvim
       vimAlias ? false,
@@ -104,16 +105,13 @@ let
         packpathDirs.myNeovimPackages = vimPackageInfo.vimPackage;
         finalPackdir = neovimUtils.packDir packpathDirs;
 
-        rcContent = lib.concatStringsSep "\n" (
-          [
-            providerLuaRc
-          ]
-          ++ lib.optional (luaRcContent != "") luaRcContent
-          ++ lib.optional (neovimRcContent' != "") ''
-            vim.cmd.source "${writeText "init.vim" neovimRcContent'}"
-          ''
-          ++ lib.optionals autoconfigure vimPackageInfo.pluginAdvisedLua
-        );
+        rcContent = ''
+          ${luaRcContent}
+        ''
+        + lib.optionalString (neovimRcContent' != "") ''
+          vim.cmd.source "${writeText "init.vim" neovimRcContent'}"
+        ''
+        + lib.optionalString autoconfigure (lib.concatStringsSep "\n" vimPackageInfo.pluginAdvisedLua);
 
         python3Env =
           lib.warnIf (attrs ? python3Env)
@@ -128,7 +126,12 @@ let
 
         wrapperArgsStr = if lib.isString wrapperArgs then wrapperArgs else lib.escapeShellArgs wrapperArgs;
 
-        generatedWrapperArgs =
+        generatedWrapperArgs = [
+          # vim accepts a limited number of commands so we join all the provider ones
+          "--add-flags"
+          ''--cmd "lua ${providerLuaRc}"''
+        ]
+        ++
           lib.optionals
             (
               finalAttrs.packpathDirs.myNeovimPackages.start != [ ]
@@ -140,26 +143,45 @@ let
               "--add-flags"
               ''--cmd "set rtp^=${finalPackdir}"''
             ]
-          ++ lib.optionals finalAttrs.withRuby [
-            "--set"
-            "GEM_HOME"
-            "${rubyEnv}/${rubyEnv.ruby.gemPath}"
-          ]
-          ++ lib.optionals (finalAttrs.runtimeDeps != [ ]) [
-            "--suffix"
-            "PATH"
-            ":"
-            (lib.makeBinPath finalAttrs.runtimeDeps)
-          ];
+        ++ lib.optionals finalAttrs.withRuby [
+          "--set"
+          "GEM_HOME"
+          "${rubyEnv}/${rubyEnv.ruby.gemPath}"
+        ]
+        ++ lib.optionals (finalAttrs.runtimeDeps != [ ]) [
+          "--suffix"
+          "PATH"
+          ":"
+          (lib.makeBinPath finalAttrs.runtimeDeps)
+        ];
 
-        providerLuaRc = neovimUtils.generateProviderRc {
-          inherit (finalAttrs)
-            withPython3
-            withNodeJs
-            withPerl
-            withRuby
-            ;
-        };
+        providerLuaRc =
+          let
+            hostPython3 =
+              runCommand "nvim-host-${python3Env.name}"
+                {
+                  nativeBuildInputs = [
+                    makeWrapper
+                  ];
+                }
+                ''
+                  makeWrapper ${python3Env.interpreter} $out/bin/nvim-python3 --unset PYTHONPATH --unset PYTHONSAFEPATH
+                '';
+
+            genProviderCommand =
+              prog: withProg: exec:
+              if withProg then
+                "vim.g.${prog}_host_prog='${exec}'"
+              else
+                # speeds up neovim by bypassing provider discovery
+                "vim.g.loaded_${prog}_provider=0";
+          in
+          lib.concatStringsSep ";" [
+            (genProviderCommand "node" finalAttrs.withNodeJs "${neovim-node-client}/bin/neovim-node-host")
+            (genProviderCommand "perl" finalAttrs.withPerl "${perlEnv}/bin/perl")
+            (genProviderCommand "ruby" finalAttrs.withRuby "${finalAttrs.rubyEnv}/bin/neovim-ruby-host")
+            (genProviderCommand "python3" finalAttrs.withPython3 "${hostPython3}/bin/nvim-python3")
+          ];
 
         # If `configure` != {}, we can't generate the rplugin.vim file with e.g
         # NVIM_SYSTEM_RPLUGIN_MANIFEST *and* NVIM_RPLUGIN_MANIFEST env vars set in
@@ -179,7 +201,7 @@ let
         ++ lib.optionals finalAttrs.wrapRc [
           "--set-default"
           "VIMINIT"
-          "lua dofile('${writeText "init.lua" finalAttrs.luaRcContent}')"
+          "lua dofile('${writeText "init.lua" rcContent}')"
         ]
         ++ finalAttrs.generatedWrapperArgs;
 
@@ -233,18 +255,6 @@ let
             rm $out/share/applications/nvim.desktop
             substitute ${neovim-unwrapped}/share/applications/nvim.desktop $out/share/applications/nvim.desktop \
               --replace-warn 'Name=Neovim' 'Name=Neovim wrapper'
-          ''
-          + lib.optionalString finalAttrs.withPython3 ''
-            makeWrapper ${python3Env.interpreter} $out/bin/nvim-python3 --unset PYTHONPATH --unset PYTHONSAFEPATH
-          ''
-          + lib.optionalString (finalAttrs.withRuby) ''
-            ln -s ${finalAttrs.rubyEnv}/bin/neovim-ruby-host $out/bin/nvim-ruby
-          ''
-          + lib.optionalString finalAttrs.withNodeJs ''
-            ln -s ${neovim-node-client}/bin/neovim-node-host $out/bin/nvim-node
-          ''
-          + lib.optionalString finalAttrs.withPerl ''
-            ln -s ${perlEnv}/bin/perl $out/bin/nvim-perl
           ''
           + lib.optionalString finalAttrs.vimAlias ''
             ln -s $out/bin/nvim $out/bin/vim

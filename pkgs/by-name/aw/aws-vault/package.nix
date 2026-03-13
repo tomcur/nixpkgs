@@ -10,17 +10,17 @@
 }:
 buildGoModule (finalAttrs: {
   pname = "aws-vault";
-  version = "7.9.4";
+  version = "7.9.9";
 
   src = fetchFromGitHub {
     owner = "ByteNess";
     repo = "aws-vault";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-Tdi2kGoJ0ZwEnBvjkjZuoTTIdmsJjdMi75gwBmy+5N4=";
+    hash = "sha256-Ennf8V1WorldzFfXUrRKmJomG4yrP19qBg0okEX+NWQ=";
   };
 
   proxyVendor = true;
-  vendorHash = "sha256-rY7UbAgv+dLnZBLFptPp7D+gYBsCj7QYM4VvH/HBdq4=";
+  vendorHash = "sha256-mqw0Hp14wz2FOg7deXC3iiHu55W+yKwf4+JUK+x9nKA=";
 
   nativeBuildInputs = [
     installShellFiles

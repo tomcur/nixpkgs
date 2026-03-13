@@ -22,16 +22,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "mise";
-  version = "2026.2.9";
+  version = "2026.3.3";
 
   src = fetchFromGitHub {
     owner = "jdx";
     repo = "mise";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-JIItmBm0T50688seBgNyDHmPDlhLG90C+UGo1519Hk8=";
+    hash = "sha256-ZDlzFSjOqizj6eBBk1UOL6BgAqsbnchVHc0BwsO67L8=";
   };
 
-  cargoHash = "sha256-mW3bsGA7Bx/aoh0GIIUBJaMhGgYzN9zT/nT44ADEqoc=";
+  cargoHash = "sha256-Vl66x8fJkt04JmQm9Z3wvv6Bvb1r/IrI3g49HC3mmFw=";
 
   nativeBuildInputs = [
     installShellFiles
@@ -104,7 +104,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
     updateScript = nix-update-script {
       extraArgs = [
         # Ignore subcrate releases (fox, aqua-registry)
-        "--version-regex=^v([0-9]+\\.[0-9]+\\.[0-9])$"
+        "--version-regex=^v([0-9]+\\.[0-9]+\\.[0-9]+)$"
       ];
     };
     tests = {

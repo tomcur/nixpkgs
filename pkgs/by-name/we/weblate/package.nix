@@ -35,11 +35,20 @@ let
       django = prev.django_5;
     };
   };
-in
-python.pkgs.buildPythonApplication rec {
-  pname = "weblate";
-  version = "5.15.2";
+  python3Packages = python3.pkgs;
 
+  GI_TYPELIB_PATH = lib.makeSearchPathOutput "out" "lib/girepository-1.0" [
+    pango
+    harfbuzz
+    librsvg
+    gdk-pixbuf
+    glib
+    gobject-introspection
+  ];
+in
+python3Packages.buildPythonApplication (finalAttrs: {
+  pname = "weblate";
+  version = "5.16.2";
   pyproject = true;
 
   outputs = [
@@ -50,15 +59,15 @@ python.pkgs.buildPythonApplication rec {
   src = fetchFromGitHub {
     owner = "WeblateOrg";
     repo = "weblate";
-    tag = "weblate-${version}";
-    hash = "sha256-qNv3aaPyQ/bOrPbK7u9vtq8R1MFqXLJzvLUZfVgjMK0=";
+    tag = "weblate-${finalAttrs.version}";
+    hash = "sha256-er3KtCAFtHh3UtM58Kni/PTBfXpWW/GOarRGJeAanL8=";
   };
 
   postPatch = ''
     sed -i 's|/bin/true|true|g' weblate/addons/example_pre.py
   '';
 
-  build-system = with python.pkgs; [ setuptools ];
+  build-system = with python3Packages; [ setuptools ];
 
   nativeBuildInputs = [ gettext ];
 
@@ -84,11 +93,11 @@ python.pkgs.buildPythonApplication rec {
 
   pythonRelaxDeps = [
     "certifi"
-    "urllib3"
+    "crispy-bootstrap5"
   ];
 
   dependencies =
-    with python.pkgs;
+    with python3Packages;
     [
       aeidon
       ahocorasick-rs
@@ -113,9 +122,9 @@ python.pkgs.buildPythonApplication rec {
       django-cors-headers
       django-crispy-forms
       django-filter
-      django-redis
-      django-otp
       django-otp-webauthn
+      django-otp
+      django-redis
       django
       djangorestframework-csv
       djangorestframework
@@ -147,6 +156,7 @@ python.pkgs.buildPythonApplication rec {
       qrcode
       rapidfuzz
       redis
+      regex
       requests
       ruamel-yaml
       sentry-sdk
@@ -159,6 +169,7 @@ python.pkgs.buildPythonApplication rec {
       unidecode
       urllib3
       user-agents
+      weblate-fonts
       weblate-language-data
       weblate-schemas
     ]
@@ -171,13 +182,12 @@ python.pkgs.buildPythonApplication rec {
     ++ urllib3.optional-dependencies.zstd;
 
   # Commented entries are not packaged yet
-  optional-dependencies = with python.pkgs; {
+  optional-dependencies = with python3Packages; {
     alibaba = [
       aliyun-python-sdk-alimt
       aliyun-python-sdk-core
     ];
     amazon = [ boto3 ];
-    # antispam = [ python-akismet ];
     # gelf = [ logging-gelf ];
     # gerrit = [ git-review ];
     google = [
@@ -197,18 +207,14 @@ python.pkgs.buildPythonApplication rec {
   };
 
   # We don't just use wrapGAppsNoGuiHook because we need to expose GI_TYPELIB_PATH
-  GI_TYPELIB_PATH = lib.makeSearchPathOutput "out" "lib/girepository-1.0" [
-    pango
-    harfbuzz
-    librsvg
-    gdk-pixbuf
-    glib
-    gobject-introspection
-  ];
+  env = {
+    inherit GI_TYPELIB_PATH;
+  };
+
   makeWrapperArgs = [ "--set GI_TYPELIB_PATH \"$GI_TYPELIB_PATH\"" ];
 
   nativeCheckInputs =
-    with python.pkgs;
+    with python3Packages;
     [
       pytestCheckHook
       postgresqlTestHook
@@ -236,7 +242,7 @@ python.pkgs.buildPythonApplication rec {
       openssh
     ]
     ++ social-auth-core.optional-dependencies.saml
-    ++ (lib.concatLists (builtins.attrValues optional-dependencies));
+    ++ (lib.concatLists (builtins.attrValues finalAttrs.passthru.optional-dependencies));
 
   env = {
     CI_DATABASE = "postgresql";
@@ -282,7 +288,7 @@ python.pkgs.buildPythonApplication rec {
   meta = {
     description = "Web based translation tool with tight version control integration";
     homepage = "https://weblate.org/";
-    changelog = "https://github.com/WeblateOrg/weblate/releases/tag/${src.tag}";
+    changelog = "https://github.com/WeblateOrg/weblate/releases/tag/${finalAttrs.src.tag}";
     license = with lib.licenses; [
       gpl3Plus
       mit
@@ -291,4 +297,4 @@ python.pkgs.buildPythonApplication rec {
     maintainers = with lib.maintainers; [ erictapen ];
     mainProgram = "weblate";
   };
-}
+})

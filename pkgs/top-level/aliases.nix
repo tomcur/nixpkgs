@@ -612,6 +612,7 @@ mapAliases {
   dtv-scan-tables_linuxtv = throw "'dtv-scan-tables_linuxtv' has been renamed to/replaced by 'dtv-scan-tables'"; # Converted to throw 2025-10-27
   dtv-scan-tables_tvheadend = throw "'dtv-scan-tables_tvheadend' has been renamed to/replaced by 'dtv-scan-tables'"; # Converted to throw 2025-10-27
   du-dust = throw "'du-dust' has been renamed to/replaced by 'dust'"; # Converted to throw 2025-10-27
+  duckstation = throw "'duckstation' has been removed following upstream request. Please use the appimage instead"; # Added 2026-03-14
   duckstation-bin = duckstation; # Added 2025-09-20
   dumb = throw "'dumb' has been archived by upstream. Upstream recommends libopenmpt as a replacement."; # Added 2025-09-14
   dump1090 = throw "'dump1090' has been renamed to/replaced by 'dump1090-fa'"; # Converted to throw 2025-10-27
@@ -1152,6 +1153,7 @@ mapAliases {
   linux_ham = throw "linux_ham has been removed in favour of the standard kernel packages"; # Added 2025-06-24
   linux_hardened = linuxPackages_hardened.kernel; # Added 2025-08-10
   linux_latest-libre = throw "linux_latest_libre has been removed due to lack of maintenance"; # Added 2025-10-01
+  linux_lqx = throw "linux_lqx has been removed due to lack of maintenance"; # Added 2026-03-13
   linux_rpi0 = linuxKernel.kernels.linux_rpi1;
   linux_rpi1 = linuxKernel.kernels.linux_rpi1;
   linux_rpi2 = linuxKernel.kernels.linux_rpi2;
@@ -1184,6 +1186,7 @@ mapAliases {
   linuxPackages_hardened = linuxKernel.packages.linux_hardened; # Added 2025-08-10
   linuxPackages_latest-libre = throw "linux_latest_libre has been removed due to lack of maintenance"; # Added 2025-10-01
   linuxPackages_latest_xen_dom0 = throw "'linuxPackages_latest_xen_dom0' has been renamed to/replaced by 'linuxPackages_latest'"; # Converted to throw 2025-10-27
+  linuxPackages_lqx = throw "linuxPackages_lqx has been removed due to lack of maintenance"; # Added 2026-03-13
   linuxPackages_rpi0 = linuxKernel.packages.linux_rpi1;
   linuxPackages_rpi1 = linuxKernel.packages.linux_rpi1;
   linuxPackages_rpi2 = linuxKernel.packages.linux_rpi2;

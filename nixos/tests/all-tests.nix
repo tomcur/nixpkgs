@@ -518,7 +518,14 @@ in
   enlightenment = runTest ./enlightenment.nix;
   ente = runTest ./ente;
   env = runTest ./env.nix;
-  envfs = runTest ./envfs.nix;
+  envfs = runTest {
+    imports = [ ./envfs.nix ];
+    _module.args.systemdStage1 = false;
+  };
+  envfs-systemd-stage-1 = runTest {
+    imports = [ ./envfs.nix ];
+    _module.args.systemdStage1 = true;
+  };
   envoy = runTest {
     imports = [ ./envoy.nix ];
     _module.args.envoyPackage = pkgs.envoy;
@@ -577,6 +584,7 @@ in
     _module.args.firefoxPackage = pkgs.firefox-esr-140;
   };
   firefox-syncserver = runTest ./firefox-syncserver.nix;
+  firefox_decrypt = runTest ./firefox_decrypt.nix;
   firefoxpwa = runTest ./firefoxpwa.nix;
   firejail = runTest ./firejail.nix;
   firewall = runTest {
@@ -764,7 +772,6 @@ in
   immich = runTest ./web-apps/immich.nix;
   immich-kiosk = runTest ./web-apps/immich-kiosk.nix;
   immich-public-proxy = runTest ./web-apps/immich-public-proxy.nix;
-  immich-vectorchord-migration = runTest ./web-apps/immich-vectorchord-migration.nix;
   immich-vectorchord-reindex = runTest ./web-apps/immich-vectorchord-reindex.nix;
   immichframe = runTest ./web-apps/immichframe.nix;
   incron = runTest ./incron.nix;
@@ -790,7 +797,6 @@ in
   installer = handleTest ./installer.nix { };
   installer-systemd-stage-1 = handleTest ./installer-systemd-stage-1.nix { };
   intune = runTest ./intune.nix;
-  inventree = runTest ./inventree.nix;
   invidious = runTest ./invidious.nix;
   invoiceplane = runTest ./invoiceplane.nix;
   iodine = runTest ./iodine.nix;

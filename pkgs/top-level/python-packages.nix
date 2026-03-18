@@ -1206,8 +1206,6 @@ self: super: with self; {
 
   audible = callPackage ../development/python-modules/audible { };
 
-  audio-metadata = callPackage ../development/python-modules/audio-metadata { };
-
   audioop-lts =
     if pythonAtLeast "3.13" then callPackage ../development/python-modules/audioop-lts { } else null;
 
@@ -2667,8 +2665,6 @@ self: super: with self; {
 
   charset-normalizer = callPackage ../development/python-modules/charset-normalizer { };
 
-  chart-studio = callPackage ../development/python-modules/chart-studio { };
-
   chat-downloader = callPackage ../development/python-modules/chat-downloader { };
 
   chatlas = callPackage ../development/python-modules/chatlas { };
@@ -3878,7 +3874,9 @@ self: super: with self; {
 
   devpi-ldap = callPackage ../development/python-modules/devpi-ldap { };
 
-  devpi-server = callPackage ../development/python-modules/devpi-server { };
+  devpi-server = callPackage ../by-name/de/devpi-server/unwrapped.nix { };
+
+  devpi-web = callPackage ../development/python-modules/devpi-web { };
 
   devtools = callPackage ../development/python-modules/devtools { };
 
@@ -4158,8 +4156,6 @@ self: super: with self; {
 
   django-currentuser = callPackage ../development/python-modules/django-currentuser { };
 
-  django-dbbackup = callPackage ../development/python-modules/django-dbbackup { };
-
   django-debug-toolbar = callPackage ../development/python-modules/django-debug-toolbar { };
 
   django-dynamic-preferences =
@@ -4174,8 +4170,6 @@ self: super: with self; {
 
   django-environ = callPackage ../development/python-modules/django-environ { };
 
-  django-error-report-2 = callPackage ../development/python-modules/django-error-report-2 { };
-
   django-extensions = callPackage ../development/python-modules/django-extensions { };
 
   django-filer = callPackage ../development/python-modules/django-filer { };
@@ -4183,8 +4177,6 @@ self: super: with self; {
   django-filingcabinet = callPackage ../development/python-modules/django-filingcabinet { };
 
   django-filter = callPackage ../development/python-modules/django-filter { };
-
-  django-flags = callPackage ../development/python-modules/django-flags { };
 
   django-formset-js-improved =
     callPackage ../development/python-modules/django-formset-js-improved
@@ -4220,8 +4212,6 @@ self: super: with self; {
 
   django-i18nfield = callPackage ../development/python-modules/django-i18nfield { };
 
-  django-ical = callPackage ../development/python-modules/django-ical { };
-
   django-import-export = callPackage ../development/python-modules/django-import-export { };
 
   django-ipware = callPackage ../development/python-modules/django-ipware { };
@@ -4250,13 +4240,9 @@ self: super: with self; {
     callPackage ../development/python-modules/django-login-required-middleware
       { };
 
-  django-mailbox = callPackage ../development/python-modules/django-mailbox { };
-
   django-mailman3 = callPackage ../development/python-modules/django-mailman3 { };
 
   django-maintenance-mode = callPackage ../development/python-modules/django-maintenance-mode { };
-
-  django-markdownify = callPackage ../development/python-modules/django-markdownify { };
 
   django-markdownx = callPackage ../development/python-modules/django-markdownx { };
 
@@ -4275,8 +4261,6 @@ self: super: with self; {
   django-modelcluster = callPackage ../development/python-modules/django-modelcluster { };
 
   django-modeltranslation = callPackage ../development/python-modules/django-modeltranslation { };
-
-  django-money = callPackage ../development/python-modules/django-money { };
 
   django-mptt = callPackage ../development/python-modules/django-mptt { };
 
@@ -4346,8 +4330,6 @@ self: super: with self; {
 
   django-ratelimit = callPackage ../development/python-modules/django-ratelimit { };
 
-  django-recurrence = callPackage ../development/python-modules/django-recurrence { };
-
   django-redis = callPackage ../development/python-modules/django-redis { };
 
   django-registration = callPackage ../development/python-modules/django-registration { };
@@ -4390,18 +4372,9 @@ self: super: with self; {
 
   django-sql-utils = callPackage ../development/python-modules/django-sql-utils { };
 
-  django-sslserver = callPackage ../development/python-modules/django-sslserver { };
-
   django-statici18n = callPackage ../development/python-modules/django-statici18n { };
 
-  django-stdimage = callPackage ../development/python-modules/django-stdimage {
-    django = django_4;
-    pytest-django = pytest-django.override { django = django_4; };
-  };
-
   django-storages = callPackage ../development/python-modules/django-storages { };
-
-  django-structlog = callPackage ../development/python-modules/django-structlog { };
 
   django-stubs = callPackage ../development/python-modules/django-stubs { };
 
@@ -4435,8 +4408,6 @@ self: super: with self; {
 
   django-types = callPackage ../development/python-modules/django-types { };
 
-  django-user-sessions = callPackage ../development/python-modules/django-user-sessions { };
-
   django-valkey = callPackage ../development/python-modules/django-valkey { };
 
   django-versatileimagefield =
@@ -4452,10 +4423,6 @@ self: super: with self; {
   django-webpush = callPackage ../development/python-modules/django-webpush { };
 
   django-widget-tweaks = callPackage ../development/python-modules/django-widget-tweaks { };
-
-  django-xforwardedfor-middleware =
-    callPackage ../development/python-modules/django-xforwardedfor-middleware
-      { };
 
   # LTS in extended support phase
   django_4 = callPackage ../development/python-modules/django/4.nix { };
@@ -5446,8 +5413,6 @@ self: super: with self; {
   fastrlock = callPackage ../development/python-modules/fastrlock { };
 
   fasttext = callPackage ../development/python-modules/fasttext { };
-
-  fasttext-predict = callPackage ../development/python-modules/fasttext-predict { };
 
   fastuuid = callPackage ../development/python-modules/fastuuid { };
 
@@ -6591,8 +6556,6 @@ self: super: with self; {
   gotenberg-client = callPackage ../development/python-modules/gotenberg-client { };
 
   gotify = callPackage ../development/python-modules/gotify { };
-
-  gotrue = callPackage ../development/python-modules/gotrue { };
 
   govee-ble = callPackage ../development/python-modules/govee-ble { };
 
@@ -11334,6 +11297,8 @@ self: super: with self; {
 
   obstore = callPackage ../development/python-modules/obstore { };
 
+  obsws-python = callPackage ../development/python-modules/obsws-python { };
+
   oca-port = callPackage ../development/python-modules/oca-port { };
 
   ochre = callPackage ../development/python-modules/ochre { };
@@ -12758,8 +12723,6 @@ self: super: with self; {
 
   ppdeep = callPackage ../development/python-modules/ppdeep { };
 
-  ppf-datamatrix = callPackage ../development/python-modules/ppf-datamatrix { };
-
   ppft = callPackage ../development/python-modules/ppft { };
 
   ppk2-api = callPackage ../development/python-modules/ppk2-api { };
@@ -13122,8 +13085,6 @@ self: super: with self; {
   py-markdown-table = callPackage ../development/python-modules/py-markdown-table { };
 
   py-melissa-climate = callPackage ../development/python-modules/py-melissa-climate { };
-
-  py-moneyed = callPackage ../development/python-modules/py-moneyed { };
 
   py-multiaddr = callPackage ../development/python-modules/py-multiaddr { };
 
@@ -14361,6 +14322,8 @@ self: super: with self; {
   pynotifier = callPackage ../development/python-modules/pynotifier { };
 
   pynput = callPackage ../development/python-modules/pynput { };
+
+  pynputfix = callPackage ../development/python-modules/pynputfix { };
 
   pynrrd = callPackage ../development/python-modules/pynrrd { };
 
@@ -18709,8 +18672,6 @@ self: super: with self; {
 
   supabase-functions = callPackage ../development/python-modules/supabase-functions { };
 
-  supafunc = callPackage ../development/python-modules/supafunc { };
-
   super-collections = callPackage ../development/python-modules/super-collections { };
 
   superqt = callPackage ../development/python-modules/superqt { };
@@ -18922,9 +18883,9 @@ self: super: with self; {
       ;
   };
 
-  tbm-utils = callPackage ../development/python-modules/tbm-utils { };
-
   tccbox = callPackage ../development/python-modules/tccbox { };
+
+  tcia-utils = callPackage ../development/python-modules/tcia-utils { };
 
   tcolorpy = callPackage ../development/python-modules/tcolorpy { };
 
@@ -21027,7 +20988,7 @@ self: super: with self; {
   whispers = callPackage ../development/python-modules/whispers { };
 
   whisperx = callPackage ../development/python-modules/whisperx {
-    inherit (pkgs) ffmpeg;
+    ffmpeg = pkgs.ffmpeg-headless;
     ctranslate2-cpp = pkgs.ctranslate2;
   };
 

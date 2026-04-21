@@ -16,6 +16,7 @@
   sqlite,
   lld,
   writableTmpDirAsHomeHook,
+  fetchpatch,
 
   # Test deps
   curl,
@@ -30,17 +31,17 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "deno";
-  version = "2.7.4";
+  version = "2.7.12";
 
   src = fetchFromGitHub {
     owner = "denoland";
     repo = "deno";
     tag = "v${finalAttrs.version}";
     fetchSubmodules = true; # required for tests
-    hash = "sha256-L1dLMcA7YDNMF8uRImHZlQ0mXox3kpGln6MXeB9cMLU=";
+    hash = "sha256-e1G1y9aGWhFDhsvzmLFD6VIfxU8BseWOa8bBcCC255Y=";
   };
 
-  cargoHash = "sha256-ebozsCns5J95u+C4smysslJB9xVltHeVOdfD2IBuLtI=";
+  cargoHash = "sha256-YahHLz4ykAcFNrh/GFVJ0fZtCNHKG9RzdCUprQDfOUo=";
 
   patches = [
     ./patches/0002-tests-replace-hardcoded-paths.patch

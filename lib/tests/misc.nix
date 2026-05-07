@@ -51,7 +51,6 @@ let
     filter
     filterAttrs
     fix
-    fold
     foldAttrs
     foldl
     foldl'
@@ -558,6 +557,10 @@ runTests {
       "c"
     ];
     expected = "a\nb\nc\n";
+  };
+  testConcatLinesEmpty = {
+    expr = concatLines [ ];
+    expected = "";
   };
 
   testMakeIncludePathWithPkgs = {
@@ -4790,7 +4793,7 @@ runTests {
   # for sub-directories
   testPackagesFromDirectoryNestedScopes =
     let
-      inherit (lib) makeScope recurseIntoAttrs;
+      inherit (lib) makeScope;
       emptyScope = makeScope lib.callPackageWith (_: { });
     in
     {
@@ -5012,4 +5015,103 @@ runTests {
   testReplaceElemAtOutOfRange = testingThrow (lib.replaceElemAt [ 1 2 3 ] 5 "a");
 
   testReplaceElemAtNegative = testingThrow (lib.replaceElemAt [ 1 2 3 ] (-1) "a");
+
+  testIsFree = {
+    expr = lib.licenses.isFree (
+      lib.licenses.AND [
+        (lib.licenses.mit)
+        (lib.licenses.OR [
+          lib.licenses.free
+          lib.licenses.unfree
+        ])
+        (lib.licenses.WITH lib.licenses.asl20 lib.licenses.llvm-exception)
+        (lib.licenses.PLUS lib.licenses.eupl11)
+      ]
+    );
+    expected = true;
+  };
+
+  testIsUnfree = {
+    expr = lib.licenses.isFree (
+      lib.licenses.AND [
+        (lib.licenses.mit)
+        (lib.licenses.OR [ lib.licenses.unfree ])
+        (lib.licenses.WITH lib.licenses.asl20 lib.licenses.llvm-exception)
+        (lib.licenses.PLUS lib.licenses.eupl11)
+      ]
+    );
+    expected = false;
+  };
+
+  testIsRedistributable = {
+    expr = lib.licenses.isRedistributable (
+      lib.licenses.AND [
+        (lib.licenses.mit)
+        (lib.licenses.OR [
+          lib.licenses.free
+          lib.licenses.unfree
+        ])
+        (lib.licenses.WITH lib.licenses.asl20 lib.licenses.llvm-exception)
+        (lib.licenses.PLUS lib.licenses.eupl11)
+      ]
+    );
+    expected = true;
+  };
+
+  testIsUnredistributable = {
+    expr = lib.licenses.isRedistributable (
+      lib.licenses.AND [
+        (lib.licenses.mit)
+        (lib.licenses.OR [ lib.licenses.unfree ])
+        (lib.licenses.WITH lib.licenses.asl20 lib.licenses.llvm-exception)
+        (lib.licenses.PLUS lib.licenses.eupl11)
+      ]
+    );
+    expected = false;
+  };
+
+  testContainsLicenses = {
+    expr = lib.licenses.containsLicenses [ lib.licenses.mit ] (
+      lib.licenses.AND [
+        (lib.licenses.mit)
+        (lib.licenses.OR [
+          lib.licenses.free
+          lib.licenses.unfree
+        ])
+        (lib.licenses.WITH lib.licenses.asl20 lib.licenses.llvm-exception)
+        (lib.licenses.PLUS lib.licenses.eupl11)
+      ]
+    );
+    expected = true;
+  };
+
+  testToSPDX = {
+    expr = lib.licenses.toSPDX (
+      lib.licenses.AND [
+        (lib.licenses.mit)
+        (lib.licenses.OR [
+          lib.licenses.free
+          lib.licenses.unfree
+        ])
+        (lib.licenses.WITH lib.licenses.asl20 lib.licenses.llvm-exception)
+        (lib.licenses.PLUS lib.licenses.eupl11)
+      ]
+    );
+    expected = "MIT AND (LicenseRef-nixos-free OR LicenseRef-nixos-unfree) AND (Apache-2.0 WITH LLVM-exception) AND EUPL-1.1+";
+  };
+
+  testEvaluateProperty = {
+    expr = lib.licenses.evaluateProperty (x: x.deprecated) true (
+      lib.licenses.AND [
+        (lib.licenses.mit)
+        (lib.licenses.OR [
+          lib.licenses.free
+          lib.licenses.unfree
+        ])
+        (lib.licenses.WITH lib.licenses.asl20 lib.licenses.llvm-exception)
+        (lib.licenses.PLUS lib.licenses.eupl11)
+      ]
+    );
+    expected = false;
+  };
 }

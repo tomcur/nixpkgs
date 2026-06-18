@@ -15,6 +15,7 @@
     inherit (callPackage ./fetchers.nix { }) fetchLibrustyV8;
   },
   livekit-libwebrtc,
+  lld,
   makeBinaryWrapper,
   nix-update-script,
   pkg-config,
@@ -25,18 +26,20 @@
 }:
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "codex";
-  version = "0.128.0";
+  version = "0.139.0";
 
   src = fetchFromGitHub {
     owner = "openai";
     repo = "codex";
     tag = "rust-v${finalAttrs.version}";
-    hash = "sha256-v2W0eslPOPHxHX76+bnkE/f4y+MnQuopeOoAC5X16TA=";
+    hash = "sha256-XjzlkBUkBey+P3tFLDYB3ae5oseUfW5tmzhLzqlqj2E=";
   };
 
   sourceRoot = "${finalAttrs.src.name}/codex-rs";
 
-  cargoHash = "sha256-3NQ4UCfBpANhyoJJatd8m31cEugsd42Ye2BXuzlKC0c=";
+  cargoHash = "sha256-8mN4OTRJvt2mBYHQXZS55PSOChLqEIiXwPu2y+2MZ9o=";
+
+  __structuredAttrs = true;
 
   # Match upstream's release build for the codex binary only.
   cargoBuildFlags = [
@@ -55,14 +58,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
     # to use the shared library instead
     substituteInPlace $cargoDepsCopy/*/webrtc-sys-*/build.rs \
       --replace-fail "cargo:rustc-link-lib=static=webrtc" "cargo:rustc-link-lib=dylib=webrtc"
-
-  ''
-  # Keep upstream's release profile on Darwin. Without LTO/codegen-units=1,
-  # the aarch64-darwin binary grows enough for ld64 to hit ARM64 branch range
-  # limits while linking codex-cli.
-  + lib.optionalString (!stdenv.hostPlatform.isDarwin) ''
     substituteInPlace Cargo.toml \
-      --replace-fail 'lto = "fat"' "" \
+      --replace-fail 'lto = "thin"' "" \
       --replace-fail 'codegen-units = 1' ""
   '';
 
@@ -99,6 +96,11 @@ rustPlatform.buildRustPackage (finalAttrs: {
       ]
     );
     RUSTY_V8_ARCHIVE = librusty_v8;
+  }
+  // lib.optionalAttrs stdenv.hostPlatform.isDarwin {
+    # Link with lld on Darwin. nixpkgs' classic open-source ld64 fails to insert
+    # ARM64 branch thunks for this binary, producing `b(l) ARM64 branch out of range`.
+    NIX_CFLAGS_LINK = "-fuse-ld=${lib.getExe' lld "ld64.lld"}";
   };
 
   # NOTE: part of the test suite requires access to networking, local shells,

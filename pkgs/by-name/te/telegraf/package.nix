@@ -10,7 +10,7 @@
 
 buildGoModule (finalAttrs: {
   pname = "telegraf";
-  version = "1.38.3";
+  version = "1.39.0";
 
   subPackages = [ "cmd/telegraf" ];
 
@@ -18,10 +18,10 @@ buildGoModule (finalAttrs: {
     owner = "influxdata";
     repo = "telegraf";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-euWz4v9Xd4mjs0K6q+iU2pmyxybQdjhvsSKiVgC1Qmc=";
+    hash = "sha256-pWf68000E6oSS8EWwWbfqFrPDTU6T6HkFpGljdQfyDw=";
   };
 
-  vendorHash = "sha256-gCeGFjVRHD5LgFylWUETrCPR8rYO03sGyQVyQYhDHYM=";
+  vendorHash = "sha256-0nvkV/MWq6eT1Pi0oD5LEHTRmAZljXC/wT3CwRoNgHQ=";
   proxyVendor = true;
 
   ldflags = [

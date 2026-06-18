@@ -5,6 +5,7 @@
   pkg-config,
   libuuid,
   libsodium,
+  libunwind,
   keyutils,
   kmod,
   liburcu,
@@ -29,18 +30,18 @@
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "bcachefs-tools";
-  version = "1.38.0";
+  version = "1.38.5";
 
   src = fetchFromGitHub {
     owner = "koverstreet";
     repo = "bcachefs-tools";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ARSrlQozhefNV4K75aiaKxgfKIkE9mPrDksDhuvXfA4=";
+    hash = "sha256-EXd+BOTAFUddK/4Vwi7GqRqndi2x4bb5gs7IIkMX6HU=";
   };
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit (finalAttrs) src;
-    hash = "sha256-dtGRtJxsVvltjPdMl0KZMaAqnNppwGCtL/XnYbc1PyQ=";
+    hash = "sha256-6uwvwOVPYtegXTPwz2SEeQPC6OrKoFWZrH4Nx+ZVa5A=";
   };
 
   postPatch = ''
@@ -66,6 +67,7 @@ stdenv.mkDerivation (finalAttrs: {
     keyutils
     lz4
     libsodium
+    libunwind
     liburcu
     libuuid
     zstd

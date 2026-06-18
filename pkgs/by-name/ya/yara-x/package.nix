@@ -11,16 +11,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "yara-x";
-  version = "1.15.0";
+  version = "1.18.0";
 
   src = fetchFromGitHub {
     owner = "VirusTotal";
     repo = "yara-x";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-P0VxfsyjtgLNJcZMh+BHj7ujg/ReB4xycinfCS3NJyU=";
+    hash = "sha256-4cHCBSmBhjuk8otOB+ykiviaHVDmrguIVCLCRMcq7L4=";
   };
 
-  cargoHash = "sha256-FIZihLzpP9EhqQU/L6hKQQsMAhd1SsVzKap3GlghHSk=";
+  cargoHash = "sha256-MMERL3DcOlTEa2S6BMboFi8MfKC8ah2wZtOQRbO6ADg=";
 
   env = {
     CARGO_PROFILE_RELEASE_LTO = "fat";

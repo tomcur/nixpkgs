@@ -12,14 +12,14 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "seconlay";
-  version = "0-unstable-2026-04-13";
+  version = "0-unstable-2026-06-09";
 
   src = fetchFromGitLab {
     group = "alasca.cloud";
     owner = "scl";
     repo = "scl-management";
-    rev = "af2a66ba496a39246ff180ec85b638a24dc74be9";
-    hash = "sha256-T5j7tWcZsHG+LLJHxg+bhT+/8Nh1GznX3u3RLarT9J8=";
+    rev = "1b410ebd9775faa116629a7bec01463ce9038a56";
+    hash = "sha256-Qq7bX1C+QTcYXfn8DGJwZZT0N1YfbywUe9jwqdReNLU=";
   };
 
   cargoHash = "sha256-pb9xqdgWrf8Lc10jSkkDb/1n0e15fMQ3AcKNPw6/vi8=";

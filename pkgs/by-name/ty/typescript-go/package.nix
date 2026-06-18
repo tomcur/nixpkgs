@@ -15,17 +15,17 @@ let
 in
 buildGoModule {
   pname = "typescript-go";
-  version = "0-unstable-2026-05-02";
+  version = "0-unstable-2026-06-07";
 
   src = fetchFromGitHub {
     owner = "microsoft";
     repo = "typescript-go";
-    rev = "2f6504c1b0efb1750abf948fe277981b50214093";
-    hash = "sha256-PU4euqJAkBvzFzn0UemiFRfDciIi62KejRgcjbi5paQ=";
+    rev = "254e9a5331fe7e08a8303deecc45521f98e1e5f9";
+    hash = "sha256-a6G86TTxxjWWB3pVM1B5EdRcpwaFQW5RKoi+wWizMdY=";
     fetchSubmodules = false;
   };
 
-  vendorHash = "sha256-n2wBDcMSKQGUJlTgCuJbKPTYOCiwkMpbvavqIrRvzS8=";
+  vendorHash = "sha256-9eu1850py6hn0m93ofJ3k7cjFcSaVxpaUStzAE/EtgA=";
 
   ldflags = [
     "-s"

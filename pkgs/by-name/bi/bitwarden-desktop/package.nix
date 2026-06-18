@@ -9,7 +9,6 @@
   fetchFromGitHub,
   gnome-keyring,
   jq,
-  llvmPackages_18,
   makeDesktopItem,
   makeWrapper,
   nix-update-script,
@@ -25,21 +24,16 @@ let
   description = "Secure and free password manager for all of your devices";
   icon = "bitwarden";
   electron = electron_39;
-
-  # argon2 npm dependency is using `std::basic_string<uint8_t>`, which is no longer allowed in LLVM 19
-  buildNpmPackage' = buildNpmPackage.override {
-    stdenv = if stdenv.hostPlatform.isDarwin then llvmPackages_18.stdenv else stdenv;
-  };
 in
-buildNpmPackage' rec {
+buildNpmPackage rec {
   pname = "bitwarden-desktop";
-  version = "2026.2.1";
+  version = "2026.5.0";
 
   src = fetchFromGitHub {
     owner = "bitwarden";
     repo = "clients";
     rev = "desktop-v${version}";
-    hash = "sha256-BiL9ugimdDKIzIoehGqdBfJkTOjbOMl8XV+0g/aGS/k=";
+    hash = "sha256-R00wt5W4kKmFIODEaGoUqDwfGyHH/2PpiRaC8Gq3d88=";
   };
 
   patches = [
@@ -55,6 +49,10 @@ buildNpmPackage' rec {
   ];
 
   postPatch = ''
+    # https://github.com/bitwarden/clients/pull/20480
+    substituteInPlace package-lock.json apps/desktop/desktop_native/napi/package.json \
+      --replace-fail '"@napi-rs/cli": "3.5.1"' '"@napi-rs/cli": "3.2.0"'
+
     # remove code under unfree license
     rm -r bitwarden_license
 
@@ -79,12 +77,9 @@ buildNpmPackage' rec {
     "--legacy-peer-deps"
   ];
 
-  npmRebuildFlags = [
-    # FIXME one of the esbuild versions fails to download @esbuild/linux-x64
-    "--ignore-scripts"
-  ];
   npmWorkspace = "apps/desktop";
-  npmDepsHash = "sha256-S34Lxr9dH9wjBmpDYA530z2/HiY4D4b/3rswWDqsrFU=";
+  npmDepsFetcherVersion = 2;
+  npmDepsHash = "sha256-xmb3zwE8/nWpRlUOgTz2UhNRaUA8KW9sHQHA97pjjfg=";
 
   cargoDeps = rustPlatform.fetchCargoVendor {
     inherit
@@ -94,14 +89,11 @@ buildNpmPackage' rec {
       cargoRoot
       patches
       ;
-    hash = "sha256-qK7cwrTzGKgHdaxaGcpR6bKJP/Tai2F+KFLu/PI6qqA=";
+    hash = "sha256-phvk4t1JKfSYGzm/vm1rT8A0fACHJF/C0WiZ2Lk3cV0=";
   };
   cargoRoot = "apps/desktop/desktop_native";
 
   env.ELECTRON_SKIP_BINARY_DOWNLOAD = "1";
-
-  # make electron-builder not attempt to codesign the app on darwin
-  env.CSC_IDENTITY_AUTO_DISCOVERY = "false";
 
   nativeBuildInputs = [
     cargo
@@ -152,7 +144,8 @@ buildNpmPackage' rec {
     npm exec electron-builder -- \
       --dir \
       -c.electronDist=electron-dist \
-      -c.electronVersion=${electron.version}
+      -c.electronVersion=${electron.version} \
+      ${lib.optionalString stdenv.hostPlatform.isDarwin "-c.mac.identity=null"}
 
     popd
   '';
@@ -165,7 +158,11 @@ buildNpmPackage' rec {
   ];
 
   checkFlags = [
+    # fails in zbus
     "--skip=password::password::tests::test"
+    # requires some debug feature to be enabled
+    "--skip=storage::serialization::tests::test_keydata_from_corrupted_bytes"
+    "--skip=storage::serialization::tests::test_keydata_from_empty_bytes"
   ]
   ++ lib.optionals stdenv.hostPlatform.isDarwin [
     "--skip=clipboard::tests::test_write_read"

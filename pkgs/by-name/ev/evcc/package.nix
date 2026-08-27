@@ -17,16 +17,16 @@
 }:
 
 let
-  version = "0.309.1";
+  version = "0.314.3";
 
   src = fetchFromGitHub {
     owner = "evcc-io";
     repo = "evcc";
     tag = version;
-    hash = "sha256-fMWLr8UrwejLlPiPdcs5lLd//81iqvuE5Ia9Ne0d3l4=";
+    hash = "sha256-rGka5IaiKmcU2xS846Ej9S/GJuKbtWXWX77vLAuH4sY=";
   };
 
-  vendorHash = "sha256-lCXIgJuUg5NG8E/iYobGxtvxfTk77Y8ZzVi0GsjbbHw=";
+  vendorHash = "sha256-+EXNCUsgYJ3LKgcljX+VQriUYSghVTNLgwbrdZ2Htdc=";
 
   commonMeta = {
     license = lib.licenses.mit;
@@ -40,7 +40,7 @@ buildGo126Module rec {
 
   npmDeps = fetchNpmDeps {
     inherit src;
-    hash = "sha256-ypBg2TQ3qbc8cIBfFqICbNSCsIdokOtaFOqFD9bnMQM=";
+    hash = "sha256-lTcZIFBEqB22N71y8Bl9J/5vUejbz8nEszzRhwyfGBI=";
   };
 
   nativeBuildInputs = [
@@ -65,7 +65,6 @@ buildGo126Module rec {
 
   tags = [
     "release"
-    "test"
   ];
 
   ldflags = [
@@ -75,6 +74,8 @@ buildGo126Module rec {
   ];
 
   preBuild = ''
+    export PATH="$PWD/node_modules/.bin:$PATH"
+    export SSL_CERT_FILE="${cacert}/etc/ssl/certs/ca-bundle.crt"
     make ui
   '';
 
@@ -88,6 +89,10 @@ buildGo126Module rec {
         "TestOctopusConfigParse"
         "TestSessionHandlerTimezoneFilter"
         "TestTemplates"
+        # network access: mdns fails to start Avahi provider
+        "TestControlBoxGridGuardHeartbeat"
+        "TestEEBus"
+        "TestShipPairing"
       ];
     in
     [ "-skip=^${lib.concatStringsSep "$|^" skippedTests}$" ];

@@ -15,9 +15,10 @@
   plover-stroke,
   rtf-tokenize,
   setuptools,
+  standard-pkg-resources,
   wcwidth,
   wheel,
-  xlib,
+  python-xlib,
   wrapQtAppsHook,
 }:
 
@@ -29,7 +30,7 @@ buildPythonPackage (finalAttrs: {
   pyproject = true;
 
   src = fetchFromGitHub {
-    owner = "openstenoproject";
+    owner = "opensteno";
     repo = "plover";
     tag = "v${finalAttrs.version}";
     hash = "sha256-VpQT25bl8yPG4J9IwLkhSkBt31Y8BgPJdwa88WlreA8=";
@@ -42,6 +43,7 @@ buildPythonPackage (finalAttrs: {
   build-system = [
     babel
     setuptools
+    standard-pkg-resources
     pyqt5
     wheel
   ];
@@ -53,8 +55,9 @@ buildPythonPackage (finalAttrs: {
     plover-stroke
     rtf-tokenize
     setuptools
+    standard-pkg-resources
     wcwidth
-    xlib
+    python-xlib
   ];
   optional-dependencies = {
     gui-qt = [

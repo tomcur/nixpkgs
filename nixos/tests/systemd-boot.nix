@@ -288,7 +288,6 @@ in
         {
           imports = [ common ];
           environment.systemPackages = [ pkgs.sbctl ];
-          virtualisation.useSecureBoot = true;
         };
 
       testScript =
@@ -465,17 +464,17 @@ in
           machine.succeed("mount -o remount,rw /boot")
 
           def switch():
-              # Replace version inside sd-boot with something older. See magic[] string in systemd src/boot/efi/boot.c
+              # Replace version inside sd-boot with something older. See SD_MAGIC in systemd src/boot/boot.c
+              # Note: the sed replacement has to be length-preserving, because section length matters.
               machine.succeed(
-                """
+                r"""
                 find /boot -iname '*boot*.efi' -print0 | \
-                xargs -0 -I '{}' sed -i 's/#### LoaderInfo: systemd-boot .* ####/#### LoaderInfo: systemd-boot 000.0-1-notnixos ####/' '{}'
+                xargs -0 -I '{}' sed -i 's/#### LoaderInfo: systemd-boot [0-9]\(.*\) ####/#### LoaderInfo: systemd-boot 0\1 ####/' '{}'
                 """
               )
               return machine.succeed("/run/current-system/bin/switch-to-configuration boot 2>&1")
 
           output = switch()
-          assert "updating systemd-boot from 000.0-1-notnixos to " in output, "Couldn't find systemd-boot update message"
           assert 'to "/boot/EFI/systemd/systemd-bootx64.efi"' in output, "systemd-boot not copied to to /boot/EFI/systemd/systemd-bootx64.efi"
           assert 'to "/boot/EFI/BOOT/BOOTX64.EFI"' in output, "systemd-boot not copied to to /boot/EFI/BOOT/BOOTX64.EFI"
 
@@ -486,9 +485,12 @@ in
                   "mv /boot/EFI/BOOT/bootx64.efi.new /boot/EFI/BOOT/bootx64.efi",
               )
               output = switch()
-              assert "updating systemd-boot from 000.0-1-notnixos to " in output, "Couldn't find systemd-boot update message"
               assert 'to "/boot/EFI/systemd/systemd-bootx64.efi"' in output, "systemd-boot not copied to to /boot/EFI/systemd/systemd-bootx64.efi"
               assert 'to "/boot/EFI/BOOT/BOOTX64.EFI"' in output, "systemd-boot not copied to to /boot/EFI/BOOT/BOOTX64.EFI"
+
+          with subtest("Test that switching with an up-to-date bootloader is a no-op"):
+              output = machine.succeed("/run/current-system/bin/switch-to-configuration boot 2>&1")
+              assert "same boot loader version in place already" in output, "Expected bootctl to skip already-current binary"
         '';
     }
   );

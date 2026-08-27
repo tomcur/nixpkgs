@@ -12,7 +12,7 @@
 
 buildPythonPackage (finalAttrs: {
   pname = "hiredis";
-  version = "3.4.0";
+  version = "3.4.1";
   pyproject = true;
 
   src = fetchFromGitHub {
@@ -20,7 +20,7 @@ buildPythonPackage (finalAttrs: {
     repo = "hiredis-py";
     tag = "v${finalAttrs.version}";
     fetchSubmodules = true;
-    hash = "sha256-TXhl9ny6hdd4n/hHfTAL0ewGcnjZ1vvNwovklSgzkKk=";
+    hash = "sha256-mdiOt+LkdcpjA30dEQffAQY7GmL69hp1E7s4Bu9uoFE=";
   };
 
   build-system = [ setuptools ];
@@ -38,6 +38,6 @@ buildPythonPackage (finalAttrs: {
     homepage = "https://github.com/redis/hiredis-py";
     changelog = "https://github.com/redis/hiredis-py/releases/tag/${finalAttrs.src.tag}";
     license = lib.licenses.bsd3;
-    maintainers = with lib.maintainers; [ hythera ];
+    teams = [ lib.teams.redis ];
   };
 })

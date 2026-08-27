@@ -2,7 +2,9 @@
   autoconf,
   automake,
   bison,
+  cargo,
   fetchFromGitHub,
+  fetchpatch2,
   flex,
   gitMinimal,
   lib,
@@ -16,7 +18,6 @@
   rustPlatform,
   stdenv,
   symlinkJoin,
-  cargo,
 }:
 
 let
@@ -48,13 +49,13 @@ in
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "stellar-core";
-  version = "27.0.0";
+  version = "27.1.0";
 
   src = fetchFromGitHub {
     owner = "stellar";
     repo = "stellar-core";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-ikTkp/r24xTJ+RDMlu5q8PmFvGUeLz/sejeIjOSmd5M=";
+    hash = "sha256-EXtfkjNOl3Loml7GXWYE8hh/IqItqA677YEh0Ve6dOI=";
     fetchSubmodules = true;
   };
 
@@ -69,16 +70,11 @@ stdenv.mkDerivation (finalAttrs: {
         p26 = "sha256-OxkiWTzNtmYxB64OtLUwghAkcT//SnMZVfUXynFg2Bg=";
         p27 = "sha256-KcsyPBJLUOwRAtp95IYFiZZNMi1xWmYW7XXG+bMucmY=";
       };
-    in
-    symlinkJoin {
-      name = "stellar-core-${finalAttrs.version}-cargo-vendor-dir";
-      paths = [
-        (rustPlatform.fetchCargoVendor {
-          inherit (finalAttrs) src;
-          hash = "sha256-e7WGYm5RLmg9vjcMjy98RBW0QqjGTd8cPPeilhYbZ2I=";
-        })
-      ]
-      ++ lib.mapAttrsToList (
+      mainCargoDeps = rustPlatform.fetchCargoVendor {
+        inherit (finalAttrs) src;
+        hash = "sha256-8seehYc2W0lvW9WPewPHC3cLR9Lgj2qCib/EXK0gwVA=";
+      };
+      sorobanCargoDeps = lib.mapAttrs (
         protocol: hash:
         rustPlatform.fetchCargoVendor {
           pname = "stellar-core-${protocol}";
@@ -87,6 +83,13 @@ stdenv.mkDerivation (finalAttrs: {
           inherit hash;
         }
       ) sorobanProtocolHashes;
+    in
+    symlinkJoin {
+      name = "stellar-core-${finalAttrs.version}-cargo-vendor-dir";
+      paths = [ mainCargoDeps ] ++ lib.attrValues sorobanCargoDeps;
+      passthru = {
+        inherit sorobanProtocolHashes mainCargoDeps sorobanCargoDeps;
+      };
       postBuild = ''
         # `soroban-synth-wasm` resolves this path relative to the vendored git
         # source root, but cargo vendors the workspace crates with versioned
@@ -101,6 +104,23 @@ stdenv.mkDerivation (finalAttrs: {
         done
       '';
     };
+
+  # ethnum <= 1.5.2 fails on rustc 1.97+ (TryFromIntError is no longer ZST).
+  # Protocols p21-p26 pin ethnum 1.5.0 in Cargo.lock / dep-tree expects, so keep
+  # that version and apply the upstream 1.5.3 source fix in the vendored crate.
+  # https://github.com/nlordell/ethnum-rs/pull/58
+  postPatch = ''
+    shopt -s nullglob
+    for crate in "$cargoDepsCopy"/source-registry-*/ethnum-1.5.0; do
+      patch -p1 -d "$crate" < ${
+        fetchpatch2 {
+          name = "ethnum-1.5.0-rustc-1.97.patch";
+          url = "https://github.com/nlordell/ethnum-rs/commit/87e3457c095c98fcac554548ee80f56e0cfb80ae.patch?full_index=1";
+          hash = "sha256-xG3RQg2vF+XW9IiYWaNyOF39WipSeoZGrygsOJ3XgIs=";
+        }
+      }
+    done
+  '';
 
   strictDeps = true;
 
@@ -159,6 +179,10 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postCheck
   '';
+
+  passthru = {
+    updateScript = ./update.sh;
+  };
 
   meta = {
     description = "Reference peer-to-peer agent that manages the Stellar network";

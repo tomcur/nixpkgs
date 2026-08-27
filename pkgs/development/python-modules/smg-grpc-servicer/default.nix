@@ -14,7 +14,7 @@
 }:
 buildPythonPackage (finalAttrs: {
   pname = "smg-grpc-servicer";
-  version = "0.5.3";
+  version = "0.5.6";
   pyproject = true;
   __structuredAttrs = true;
 
@@ -23,7 +23,7 @@ buildPythonPackage (finalAttrs: {
     format = "setuptools";
     pname = "smg_grpc_servicer";
     inherit (finalAttrs) version;
-    hash = "sha256-/stjZWK+5XSTmD9iIRWq+dqthd5kRhty6F7Ffvbfr74=";
+    hash = "sha256-uOXwaldTdomIj2fqen1bHwgAOKPIqtoSkJhSkkXRhcA=";
   };
 
   build-system = [

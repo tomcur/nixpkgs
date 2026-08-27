@@ -25,16 +25,16 @@ let
 in
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "motrix-next";
-  version = "3.9.4";
+  version = "3.9.7";
 
   src = fetchFromGitHub {
     owner = "AnInsomniacy";
     repo = "motrix-next";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-iubiVegDnOOczeYqMIU65RX43te91TbSdw2UdN/p6qQ=";
+    hash = "sha256-REB89vOrNKyqH39OVd/jQonDvuIIYpm5rrBYg6w6Vq8=";
   };
 
-  cargoHash = "sha256-cZJ6KE28QC3WT9h8KMOmgvTMjwJLNCZ4ml+q2q7cH2c=";
+  cargoHash = "sha256-mffAas2SsiEL/IXYIsToe/hnMywsaRadEUEwIHOKZBo=";
 
   pnpmDeps = fetchPnpmDeps {
     inherit (finalAttrs)
@@ -43,7 +43,7 @@ rustPlatform.buildRustPackage (finalAttrs: {
       src
       ;
     inherit pnpm;
-    hash = "sha256-lpb98qIA6DZLLfUoiv0gAvMWS6QYvbL6zW0z75tcDCM=";
+    hash = "sha256-hdoXnfM+dn+I5T7EMklUB1L1FvywaI6hGpRGSQYkQvY=";
     fetcherVersion = 3;
   };
 
@@ -75,6 +75,8 @@ rustPlatform.buildRustPackage (finalAttrs: {
 
   # Some tests on macOS attempt to retrieve system settings, such as the default browser and system proxy.
   doCheck = !stdenv.hostPlatform.isDarwin;
+
+  tauriBuildFlags = lib.optionals stdenv.hostPlatform.isDarwin [ "--no-sign" ];
 
   # Deactivate the upstream update mechanism
   postPatch = ''

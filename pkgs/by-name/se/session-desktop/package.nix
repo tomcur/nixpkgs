@@ -6,21 +6,16 @@
   copyDesktopItems,
   stdenv,
   makeWrapper,
-  fetchpatch,
   replaceVars,
   pnpm_10,
   fetchPnpmDeps,
   pnpmConfigHook,
-  rustPlatform,
   nodejs,
   electron,
   jq,
   tsx,
   python3,
-  git,
   cmake,
-  openssl,
-  tcl,
   xcodebuild,
   cctools,
   darwin,
@@ -251,6 +246,7 @@ stdenv.mkDerivation (finalAttrs: {
   };
 
   meta = {
+    broken = true;
     description = "Onion routing based messenger";
     mainProgram = "session-desktop";
     homepage = "https://getsession.org/";

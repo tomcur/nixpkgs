@@ -4,15 +4,13 @@
   fetchFromGitea,
   pkg-config,
   udev,
-  gitMinimal,
-  writableTmpDirAsHomeHook,
   versionCheckHook,
   nix-update-script,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "leviculum";
-  version = "0.6.0";
+  version = "0.8.1";
   __structuredAttrs = true;
 
   src = fetchFromGitea {
@@ -21,10 +19,10 @@ rustPlatform.buildRustPackage (finalAttrs: {
     repo = "leviculum";
     tag = "v${finalAttrs.version}";
     fetchSubmodules = false;
-    hash = "sha256-pNCTWIGVr0tHrqpisJbAEAyQUW1/mKexu6K+LZ9PWZ4=";
+    hash = "sha256-ehAKFOZKgGwQh7V8XC4bphDA1vAQjEZ3Hav1DtW0DfY=";
   };
 
-  cargoHash = "sha256-pGORaIcRRkJKKcyFnt8Fu9wmhWREwH6Cs8KvlEas/NQ=";
+  cargoHash = "sha256-se+2aqR9S+470MZ1Ghny1dmIqY3MGmVHsOTFiYdFEoA=";
 
   nativeBuildInputs = [
     pkg-config

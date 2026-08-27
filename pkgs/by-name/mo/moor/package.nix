@@ -1,6 +1,6 @@
 {
   lib,
-  buildGoModule,
+  buildGo127Module,
   fetchFromGitHub,
   installShellFiles,
   nix-update-script,
@@ -8,18 +8,18 @@
   versionCheckHook,
 }:
 
-buildGoModule (finalAttrs: {
+buildGo127Module (finalAttrs: {
   pname = "moor";
-  version = "2.15.0";
+  version = "2.18.0";
 
   src = fetchFromGitHub {
     owner = "walles";
     repo = "moor";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-TUMv7+8RUHzNTydUE+Tqihn7VD0QXUdegsU3elGAQG4=";
+    hash = "sha256-lIkeMoGWWaBw/23/ATHC6uuZ0o7JCrzPQlmnoQT/lhg=";
   };
 
-  vendorHash = "sha256-vf0hdrNy8HrQBtZZKwmbWOVn2TB6tV4qdews8Enjwao=";
+  vendorHash = "sha256-01FIkLojyCvjMjW4qe6mPP63hz5rYeVATyL0dW+F/Ek=";
 
   nativeBuildInputs = [ installShellFiles ];
 

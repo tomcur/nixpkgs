@@ -7,7 +7,7 @@
 }:
 buildPythonPackage (finalAttrs: {
   pname = "netbox-plugin-dns";
-  version = "1.5.9";
+  version = "1.5.11";
   pyproject = true;
   __structuredAttrs = true;
 
@@ -15,7 +15,7 @@ buildPythonPackage (finalAttrs: {
     owner = "peteeckel";
     repo = "netbox-plugin-dns";
     tag = finalAttrs.version;
-    hash = "sha256-yWOoYQm5XQs8j2DWs1UAaT9LwI61TKHjfOdjRn6UtJA=";
+    hash = "sha256-9YMUrxqjyp9qixETAf/MpSTKO4HnItPH1qQ1MqGPcv4=";
   };
 
   build-system = [ setuptools ];

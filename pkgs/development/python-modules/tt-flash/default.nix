@@ -15,27 +15,29 @@
   # tests
   pytestCheckHook,
 }:
+
 buildPythonPackage (finalAttrs: {
   pname = "tt-flash";
-  version = "3.8.0";
+  version = "3.10.0";
   pyproject = true;
+
   __structuredAttrs = true;
 
   src = fetchFromGitHub {
     owner = "tenstorrent";
     repo = "tt-flash";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-p1NzR53n9f4nVQXHDxTlbtqYVTL/5/ZSqkM3ldozsME=";
+    hash = "sha256-wE8qDgoXiYeUbrcGY46JnPVT4neNGu3U5DTXlMuewjc=";
   };
-
-  build-system = [
-    setuptools
-  ];
 
   pythonRelaxDeps = [
     "pyyaml"
     "tabulate"
+    "pyluwen"
   ];
+
+  build-system = [ setuptools ];
+
   dependencies = [
     tabulate
     pyyaml
@@ -45,9 +47,7 @@ buildPythonPackage (finalAttrs: {
 
   pythonImportsCheck = [ "tt_flash" ];
 
-  nativeCheckInputs = [
-    pytestCheckHook
-  ];
+  nativeCheckInputs = [ pytestCheckHook ];
 
   meta = {
     description = "Tenstorrent Firmware Update Utility";
@@ -55,6 +55,6 @@ buildPythonPackage (finalAttrs: {
     downloadPage = "https://github.com/tenstorrent/tt-flash";
     changelog = "https://github.com/tenstorrent/tt-flash/blob/${finalAttrs.src.tag}/CHANGELOG.md";
     maintainers = with lib.maintainers; [ RossComputerGuy ];
-    license = with lib.licenses; [ asl20 ];
+    license = lib.licenses.asl20;
   };
 })

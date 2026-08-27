@@ -4,11 +4,12 @@
   fetchFromGitHub,
   nix-update-script,
   gitMinimal,
+  versionCheckHook,
 }:
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "ghr-cli";
-  version = "0.8.1";
+  version = "0.9.0";
 
   __structuredAttrs = true;
 
@@ -16,15 +17,21 @@ rustPlatform.buildRustPackage (finalAttrs: {
     owner = "chenyukang";
     repo = "ghr";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-lo8a5EhLslqjnUG/xM8XFU1x1Eam47lFD8KRMzuCSD4=";
+    hash = "sha256-LmQaBPPX+VRWFHDMvzyhtWcoiEZJocNeyu6EKBX4IjI=";
   };
 
-  cargoHash = "sha256-PtnQVdW9yC2309047PFt/HXV1QyqNttZ0zJ8hocLRAo=";
+  cargoHash = "sha256-UCu/z6TzNYV0scWnl5XnN+nj9V9cg9hpUNqFZXlMXaM=";
 
   passthru.updateScript = nix-update-script { };
 
   nativeCheckInputs = [
     gitMinimal
+  ];
+
+  doInstallCheck = true;
+
+  nativeInstallCheckInputs = [
+    versionCheckHook
   ];
 
   meta = {

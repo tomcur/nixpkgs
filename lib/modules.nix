@@ -46,7 +46,6 @@ let
     setAttrByPath
     substring
     take
-    throwIfNot
     trace
     typeOf
     types
@@ -567,7 +566,7 @@ let
         let
           keyFilter = filter (attrs: !isDisabled modulesPath disabled attrs);
         in
-        map (attrs: attrs.module) (genericClosure {
+        catAttrs "module" (genericClosure {
           startSet = keyFilter modules;
           operator = attrs: keyFilter attrs.modules;
         });
@@ -680,8 +679,11 @@ let
           config = addFreeformType (addMeta (m.config or { }));
         }
     else
-      # shorthand syntax
-      throwIfNot (isAttrs m) "module ${file} (${key}) does not look like a module." {
+    # shorthand syntax
+    if !isAttrs m then
+      throw "module ${file} (${key}) does not look like a module."
+    else
+      {
         _file = toString m._file or file;
         _class = m._class or null;
         key = toString m.key or key;
@@ -1146,8 +1148,8 @@ let
     // {
       value = addErrorContext "while evaluating the option `${showOption loc}':" value;
       inherit (res.defsFinal') highestPrio;
-      definitions = map (def: def.value) res.defsFinal;
-      files = map (def: def.file) res.defsFinal;
+      definitions = catAttrs "value" res.defsFinal;
+      files = catAttrs "file" res.defsFinal;
       definitionsWithLocations = res.defsFinal;
       inherit (res) isDefined;
       inherit (res.checkedAndMerged) valueMeta;

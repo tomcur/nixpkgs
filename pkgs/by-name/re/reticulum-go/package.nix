@@ -3,11 +3,12 @@
   buildGoModule,
   fetchFromGitHub,
   nix-update-script,
+  versionCheckHook,
 }:
 
 buildGoModule (finalAttrs: {
   pname = "reticulum-go";
-  version = "0.9.5";
+  version = "1.0.2";
   strictDeps = true;
   __structuredAttrs = true;
 
@@ -15,7 +16,7 @@ buildGoModule (finalAttrs: {
     owner = "Quad4-Software";
     repo = "Reticulum-Go";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-LszknSPyZRE/uGy5jSmKAmi+oBargjN+AgbT8QJ3hug=";
+    hash = "sha256-O5imnARJhpHOr3MtfvpwO2lcUqzE0egBJXmZpNOg260=";
   };
 
   vendorHash = null;
@@ -25,10 +26,14 @@ buildGoModule (finalAttrs: {
   ldflags = [
     "-s"
     "-w"
+    "-X main.defaultVersion=${finalAttrs.version}"
   ];
 
   # Required for some tests on darwin.
   __darwinAllowLocalNetworking = true;
+
+  nativeInstallCheckInputs = [ versionCheckHook ];
+  doInstallCheck = true;
 
   passthru.updateScript = nix-update-script { };
 
@@ -38,5 +43,6 @@ buildGoModule (finalAttrs: {
     homepage = "https://github.com/Quad4-Software/Reticulum-Go";
     license = lib.licenses.asl20;
     mainProgram = "reticulum-go";
+    maintainers = with lib.maintainers; [ drupol ];
   };
 })

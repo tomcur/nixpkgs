@@ -9,16 +9,16 @@
 
 rustPlatform.buildRustPackage (finalAttrs: {
   pname = "versatiles";
-  version = "4.2.0";
+  version = "4.9.1";
 
   src = fetchFromGitHub {
     owner = "versatiles-org";
     repo = "versatiles-rs";
     tag = "v${finalAttrs.version}";
-    hash = "sha256-BKRLOZpGe/Oewz8Nmsra1PVOUq63uKtF7ywCJDJR9RU=";
+    hash = "sha256-WPn96f9wN1p0uDtWzOQVx5fqBwKM1l93dVwNSReBkwc=";
   };
 
-  cargoHash = "sha256-WUpn9RIMCyoOEI7tuCX7CiH4VVdc4QxnFxAKbjf7f/I=";
+  cargoHash = "sha256-WFUIIjb+bXq/Sz7tTI2Z5Fyqrnjac0F3fVNTxCQeUT0=";
 
   nativeBuildInputs = [
     pkg-config

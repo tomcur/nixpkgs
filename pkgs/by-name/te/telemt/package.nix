@@ -5,16 +5,16 @@
 }:
 rustPlatform.buildRustPackage rec {
   pname = "telemt";
-  version = "3.4.15";
+  version = "3.5.0";
 
   src = fetchFromGitHub {
     owner = "telemt";
     repo = "telemt";
     tag = version;
-    hash = "sha256-YnV6lE+NyI8Wqj4Lf37G0McJyWYatebTnGn7yObXs5k=";
+    hash = "sha256-HbFWXhMe4LkHr+Wb5J9FTd4LvNmDnzrwufepW2bPyYI=";
   };
 
-  cargoHash = "sha256-ekVPICi/UyVrtAB9kHaFhBe0PXoxjgF85cQMtVEPGjY=";
+  cargoHash = "sha256-0ifAAUTro1brXrO/ajmL1rr6Qp644ZCgcmfDxROZMnU=";
 
   checkFlags = [
     # flaky: races between MiddleClientWriterCancelled and TrafficBudgetWaitCancelled observation paths

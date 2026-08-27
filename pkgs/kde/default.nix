@@ -5,7 +5,6 @@
   fetchurl,
   qt6Packages,
   cmark,
-  gpgme,
   taglib,
   wayland-protocols,
   wayland,
@@ -69,13 +68,17 @@ let
         selenium-webdriver-at-spi = null; # Used for integration tests that we don't run, stub
 
         alpaka = self.callPackage ./misc/alpaka { };
+        cxx-rust-cssparser = self.callPackage ./misc/cxx-rust-cssparser { };
         glaxnimate = self.callPackage ./misc/glaxnimate { };
         kdiagram = self.callPackage ./misc/kdiagram { };
         kdevelop-pg-qt = self.callPackage ./misc/kdevelop-pg-qt { };
         kdsoap-ws-discovery-client = self.callPackage ./misc/kdsoap-ws-discovery-client { };
         kirigami-addons = self.callPackage ./misc/kirigami-addons { };
+        kirigami-app-components = self.callPackage ./misc/kirigami-app-components { };
         kio-extras-kf5 = self.callPackage ./misc/kio-extras-kf5 { };
         kio-fuse = self.callPackage ./misc/kio-fuse { };
+        kio-s3 = self.callPackage ./misc/kio-s3 { };
+        kio-snapshot = self.callPackage ./misc/kio-snapshot { };
         klevernotes = self.callPackage ./misc/klevernotes { };
         ktextaddons = self.callPackage ./misc/ktextaddons { };
         kup = self.callPackage ./misc/kup { };

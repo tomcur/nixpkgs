@@ -8,19 +8,19 @@
   libpcap,
   ncurses,
   openssl,
-  pcre,
+  pcre2,
   pkg-config,
 }:
 
 stdenv.mkDerivation (finalAttrs: {
   pname = "sngrep";
-  version = "1.8.3";
+  version = "1.8.4";
 
   src = fetchFromGitHub {
     owner = "irontec";
     repo = "sngrep";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-4DLbQ3OOMvJw37n3jVuztG49HlPbWrfxByi6g6AvELQ=";
+    hash = "sha256-tKIyU8W6Jvp0hoegCpOOIsJkMfEEtmfv9Se7VIQ7hVo=";
   };
 
   nativeBuildInputs = [
@@ -34,11 +34,11 @@ stdenv.mkDerivation (finalAttrs: {
     libpcap
     ncurses
     openssl
-    pcre
+    pcre2
   ];
 
   configureFlags = [
-    "--with-pcre"
+    "--with-pcre2"
     "--enable-unicode"
     "--enable-ipv6"
     "--enable-eep"
